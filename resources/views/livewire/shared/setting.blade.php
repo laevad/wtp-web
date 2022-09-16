@@ -26,7 +26,7 @@
 
                 <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
 
-                <p class="text-muted text-center">{{ strtoupper(auth()->user()->role->role) }}</p>
+                <p class="text-muted text-center">{{ strtoupper(auth()->user()->role->name) }}</p>
             </div>
             <!-- /.card-body -->
         </div>
@@ -135,7 +135,7 @@
                                 <label for="googleApiKey" class="col-sm-3 col-form-label">Google API Key</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control @error('googleApiKey') is-invalid @enderror" id="googleApiKey"
-                                           placeholder="Google API Key" wire:model.defer="state.api_key">
+                                           placeholder="Google API Key" wire:model.defer="api.name">
                                     @error('googleApiKey')
                                     <div class="invalid-feedback">
                                         {{ $message }}

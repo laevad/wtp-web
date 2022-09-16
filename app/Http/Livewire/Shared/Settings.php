@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Livewire\Shared;
+use App\Models\ApiKey;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -18,12 +19,12 @@ class Settings extends  Component{
 
     public $image;
     public $state;
+    public $api;
 
 
     public function mount(){
         $this->state = auth()->user()->only(['name', 'email']);
-//        $this->state['api_key'] = Setting::where('id', 1)->pluck('api_key')->first();
-
+        $this->api['name'] = ApiKey::where('id', ApiKey::API_ID)->pluck('name')->first();
     }
 
     /*UPDATE IMAGE*/
@@ -72,6 +73,17 @@ class Settings extends  Component{
         $this->state['password']='';
         $this->state['password_confirmation']='';
         $this->dispatchBrowserEvent('updated', ['message'=>'Password updated successfully']);
+    }
+
+
+    /*update API*/
+    public function apiKey(){
+        $validatedData = Validator::make($this->api,[
+            'name'=>'nullable',
+        ])->validate();
+        ApiKey::where('id', '=', ApiKey::API_ID)->update($validatedData);
+        $this->dispatchBrowserEvent('updated', ['message'=>'Google API updated successfully']);
+
     }
 
 
