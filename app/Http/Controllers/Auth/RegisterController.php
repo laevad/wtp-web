@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -30,6 +31,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    public $image;
 
     /**
      * Create a new controller instance.
@@ -64,10 +66,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $path = 'storage/avatars/';
+        $fontPath = public_path('fonts/Oliciy.ttf');
+        $char = strtoupper( $data['name'][0]);
+        $newAvatarName = rand(12,34353).time().'_avatar.png';
+        $dest = $path.$newAvatarName;
+
+        $createAvatar = makeAvatar($fontPath,$dest,$char);
+        $picture = $createAvatar ? $newAvatarName : '';
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'role_id'=>User::ROLE_CLIENT,
+            'avatar' => $picture,
             'password' => Hash::make($data['password']),
         ]);
     }
