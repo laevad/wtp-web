@@ -14,8 +14,9 @@
                 <span class="ml-1" x-ref="username">{{ auth()->user()->name }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="" x-ref="profileLink">Profile</a>
-                <a class="dropdown-item" href="" x-ref="changePasswordLink">Change Password</a>
+                <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="profileLink">Profile</a>
+                <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="changePasswordLink">Change Password</a>
+                <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="apiKeyLink">API Key</a>
                 <div class="dropdown-divider"></div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
