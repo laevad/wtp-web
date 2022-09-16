@@ -31,6 +31,11 @@ class Item extends Component
         return false;
     }
 
+    public function getNavUrl(): string
+    {
+        return request()->segment(1).'.'.$this->currentPage;
+    }
+
     public function render()
     {
 

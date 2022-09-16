@@ -1,0 +1,50 @@
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link, .customBg{
+    background-color: #f76440!important;
+}
+body > div > div.content-wrapper > div > div.content-header > div > div > div:nth-child(2) > ul > li:nth-child(1) > a{
+    color: #f76440!important;
+}
+.icheck-primary{
+    color: #f76440!important;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+input[type="file"]:focus,
+.uneditable-input:focus{
+    border-color: #f76440;
+    box-shadow: #f76440;
+    outline: 0 none;
+}
+#status:focus{
+    border-color: #f76440 !important;
+}
+
+.customColor{
+    color: #f76440!important;
+}
+
+.select2-container--bootstrap4.select2-container--focus .select2-selection,  .select2-container--bootstrap4.select2-container .select2-selection{
+
+    /*background-color: #f76440 !important;*/
+    -webkit-box-shadow: #f76440 !important;
+    -moz-box-shadow: #f76440 !important;
+
+    box-shadow: #f76440 !important;
+    /*border-color: #f76440 !important;*/
+    color: #f76440 !important;
+    /*border: 1px solid #f76440 !important;*/
+}
