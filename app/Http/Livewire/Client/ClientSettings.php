@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Client;
 
-use Livewire\Component;
+use App\Http\Livewire\Shared\Settings;
+;
 
-class ClientSettings extends Component
+class ClientSettings extends Settings
 {
     public function render()
     {
