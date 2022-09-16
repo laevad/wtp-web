@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
-use Livewire\Component;
+use App\Http\Livewire\Shared\Settings;
 
-class AdminSettings extends Component
+
+class AdminSettings extends Settings
 {
     public function render()
     {
