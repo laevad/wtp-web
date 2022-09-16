@@ -173,3 +173,38 @@
         });
     </script>
 @endpush
+
+@push('css')
+    <style>
+        .profile-user-img:hover {
+            background-color: blue;
+            cursor: pointer;
+        }
+    </style>
+
+@endpush
+
+@push('js')
+
+
+    <script>
+        $(document).ready(function () {
+            toastr.options = {
+                "positionClass": "toast-bottom-right",
+                "progressBar": true,
+            }
+            window.addEventListener('updated', event=>{
+                toastr.success(event.detail.message, 'Success!');
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            Livewire.on('nameChanged',(name)=>{
+                $('[x-ref="username"]').text(name);
+            });
+        });
+    </script>
+@endpush

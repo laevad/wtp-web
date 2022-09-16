@@ -1,8 +1,30 @@
 <?php
 
 namespace App\Http\Livewire\Shared;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Settings extends  Component{
 
+    use WithFileUploads;
+    public $image;
+
+    public $state;
+
+
+    public function mount(){
+        $this->state = auth()->user()->only(['name', 'email']);
+//        $this->state['api_key'] = Setting::where('id', 1)->pluck('api_key')->first();
+
+    }
+
+    public function updatedImage(){
+        $previousPath = auth()->user()->avatar;
+        $path =$this->image->store('/','avatars');
+        auth()->user()->update(['avatar'=>$path]);
+        Storage::disk('avatars')->delete($previousPath);
+        $this->dispatchBrowserEvent('updated', ['message'=>'Profile changed successfully']);
+
+    }
 }
