@@ -34,7 +34,7 @@
     </div>
     <!-- /.col -->
     <div class="col-md-9">
-        <div class="card" x-data="{ currentTab: $persist('profile') }">
+        <div class="card" x-data="{ currentTab: $persist('profile') }" wire:ignore.self>
             <div class="card-header p-2">
                 <ul class="nav nav-pills" wire:ignore>
                     <li @click.prevent="currentTab = 'profile'" class="nav-item"><a class="nav-link" :class="currentTab == 'profile' ? 'active' : ''" href="#profile"

@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Livewire\Shared;
+use App\Actions\Fortify\UpdateUserPassword;
+use App\Actions\Fortify\UpdateUserProfileInformation;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -36,5 +39,22 @@ class Settings extends  Component{
                 $storage->delete($filePathname);
             }
         }
+    }
+    public function updateProfile(UpdateUserProfileInformation $updateUserProfileInformation){
+        $updateUserProfileInformation->update(auth()->user(),[
+            'name'=> $this->state['name'],
+            'email'=> $this->state['email'],
+        ]);
+
+        $this->emit('nameChanged', auth()->user()->name);
+        $this->dispatchBrowserEvent('updated', ['message'=>'Profile updated successfully']);
+    }
+
+    public function changePassword(UpdateUserPassword $updateUserPassword){
+        $updateUserPassword->update(auth()->user(),Arr::only($this->state, ['current_password', 'password','password_confirmation']));
+        $this->state['current_password']='';
+        $this->state['password']='';
+        $this->state['password_confirmation']='';
+        $this->dispatchBrowserEvent('updated', ['message'=>'Password updated successfully']);
     }
 }
