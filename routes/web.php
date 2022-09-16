@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\AdminSettings;
 use App\Http\Livewire\Client\ClientDashboard;
 use App\Http\Livewire\Client\ClientSettings;
 use App\Http\Livewire\User\UserDashboard;
+use App\Http\Livewire\User\UserSettings;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,9 +33,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth']], function (){
 
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function (){
     Route::get('dashboard', UserDashboard::class)->name('user.dashboard');
-    Route::get('settings', ClientSettings::class)->name('user.settings');
+    Route::get('settings', UserSettings::class)->name('user.settings');
 });
 
 Route::group(['prefix'=>'client', 'middleware'=>['isClient','auth']], function (){
     Route::get('dashboard', ClientDashboard::class)->name('client.dashboard');
+    Route::get('settings', ClientSettings::class)->name('client.settings');
 });

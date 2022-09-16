@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class isUserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth('web')->check() && auth('web')->user()->role_id == 2){
+        if (auth('web')->check() && auth('web')->user()->role_id == User::ROLE_USER){
             return $next($request);
         }
         abort(401);

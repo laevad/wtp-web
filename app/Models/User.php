@@ -17,6 +17,10 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable,Uuid;
 
+    const ROLE_ADMIN  = "1";
+    const ROLE_USER = "2";
+    const ROLE_CLIENT = "3";
+//    const ROLE_DRIVER = "4";
     /**
      * The "type" of the auto-incrementing ID.
      *
@@ -118,5 +122,20 @@ class User extends Authenticatable implements JWTSubject
     }
     public function getDateOfJoiningAttribute($value){
         return Carbon::parse($value)->toFormattedDate();
+    }
+
+    public function isAdmin(){
+        if ($this->role->role != self::ROLE_ADMIN){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public function isClient(){
+        if ($this->role->role != self::ROLE_CLIENT){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

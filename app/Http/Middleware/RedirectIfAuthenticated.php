@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
@@ -24,11 +25,11 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
 //                return redirect(RouteServiceProvider::HOME);
-                if (\auth('web')->check() && \auth()->user()->role_id == 1){
+                if (\auth('web')->check() && \auth()->user()->role_id == User::ROLE_ADMIN){
                     return redirect()->route('admin.dashboard');
-                }if (\auth('web')->check() && \auth()->user()->role_id == 2){
+                }if (\auth('web')->check() && \auth()->user()->role_id == User::ROLE_USER){
                     return redirect()->route('user.dashboard');
-                }if (\auth('web')->check() && \auth()->user()->role_id == 3){
+                }if (\auth('web')->check() && \auth()->user()->role_id == User::ROLE_CLIENT){
                     return redirect()->route('client.dashboard');
                 }
                 else{
