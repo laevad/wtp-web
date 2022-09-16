@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\GuestBladeComponentServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -185,6 +186,7 @@ return [
         /*
          * Package Service Providers...
          */
+        GuestBladeComponentServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -30,10 +29,12 @@ class LoginController extends Controller
 //    protected string $redirectTo = RouteServiceProvider::HOME;
 
     protected function redirectTo(){
-        if(auth('web')->user()->role==1){
+        if(auth('web')->user()->role_id==1){
             return route('admin.dashboard');
-        }elseif(auth('web')->user()->role==2){
+        }elseif(auth('web')->user()->role_id==2){
             return route('user.dashboard');
+        }else{
+            return redirect()->route('login');
         }
     }
 
@@ -56,13 +57,11 @@ class LoginController extends Controller
         ]);
 
         if (auth('web')->attempt(array('email'=>$input['email'], 'password'=>$input['password'] ))){
-            if (auth('web')->user()->role == 1){
+            if (auth('web')->user()->role_id == 1){
                 return redirect()->route('admin.dashboard');
-            }elseif (auth('web')->user()->role == 2){
+            }elseif (auth('web')->user()->role_id == 2){
                 return redirect()->route('user.dashboard');
             }
-        }else{
-            return redirect()->route('login')->with('error', 'Invalid Credentials ');
         }
     }
 }

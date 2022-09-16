@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserController;
-use App\Http\Livewire\Dashboard;
+use App\Http\Controllers\HomeController;
+use App\Http\Livewire\Admin\AdminDashboard;
+use App\Http\Livewire\Client\ClientDashboard;
+use App\Http\Livewire\User\UserDashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,22 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class,'index']);
 
 Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth']], function (){
-    Route::get('dashboard', Dashboard::class)->name('admin.dashboard');
-    Route::get('profile', [AdminController::class,'index'])->name('admin.profile');
-    Route::get('settings', [AdminController::class,'index'])->name('admin.settings');
+    Route::get('dashboard', AdminDashboard::class)->name('admin.dashboard');
 });
 
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function (){
-    Route::get('dashboard', [UserController::class,'index'])->name('user.dashboard');
-    Route::get('profile', [UserController::class,'index'])->name('user.profile');
-    Route::get('settings', [UserController::class,'index'])->name('user.settings');
+    Route::get('dashboard', UserDashboard::class)->name('user.dashboard');
+});
+
+Route::group(['prefix'=>'client', 'middleware'=>['isClient','auth']], function (){
+    Route::get('dashboard', ClientDashboard::class)->name('client.dashboard');
 });

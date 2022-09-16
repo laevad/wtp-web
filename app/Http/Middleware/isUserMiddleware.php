@@ -16,10 +16,9 @@ class isUserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth('web')->check() && auth('web')->user()->role == 2){
+        if (auth('web')->check() && auth('web')->user()->role_id == 2){
             return $next($request);
-        }else{
-            return redirect()->route('login');
         }
+        abort(401);
     }
 }
