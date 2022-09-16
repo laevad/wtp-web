@@ -26,7 +26,7 @@
                 <li class="nav-item">
                     {{--Custom nav--}}
                     <x-nav.item icon="fa-tachometer-alt" currentPage="dashboard"></x-nav.item>
-                    <x-nav.item icon="fa-user" currentPage="settings"></x-nav.item>
+                    <x-nav.item icon="fa-wrench" currentPage="settings"></x-nav.item>
                 </li>
             </ul>
         </nav>

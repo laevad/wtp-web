@@ -2,28 +2,23 @@
 
 namespace App\View\Components\Nav;
 
+use Closure;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Item extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
     public string $icon;
     public string $currentPage;
-
-
-
-
 
     public function __construct($icon, $currentPage)
     {
         $this->icon = $icon;
         $this->currentPage = $currentPage;
     }
-
 
     public function isCurrent(): bool
     {
@@ -36,10 +31,8 @@ class Item extends Component
         return request()->segment(1).'.'.$this->currentPage;
     }
 
-    public function render()
+    public function render(): View|Factory|Htmlable|string|Closure|Application
     {
-
-
         return view('components.nav.item');
     }
 }
