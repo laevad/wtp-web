@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -76,6 +78,8 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'license_expiry_date' => 'datetime',
+        'date_of_joining' => 'datetime',
     ];
 
     public function getJWTIdentifier()
@@ -91,5 +95,28 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+    /*avatar*/
+    protected $appends = [
+        'avatar_url',
+    ];
+
+    public function getAvatarUrlAttribute(){
+        if ($this->avatar && Storage::disk('avatars')->exists($this->avatar)){
+            return Storage::disk('avatars')->url($this->avatar);
+        }
+        return asset('images/noimage.png');
+    }
+
+    public function getLicenseExpiryDateAttribute($value){
+        return Carbon::parse($value)->toFormattedDate();
+    }
+    public function getDateOfJoiningAttribute($value){
+        return Carbon::parse($value)->toFormattedDate();
     }
 }

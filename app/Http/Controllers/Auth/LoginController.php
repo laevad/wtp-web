@@ -33,9 +33,8 @@ class LoginController extends Controller
             return route('admin.dashboard');
         }elseif(auth('web')->user()->role_id==2){
             return route('user.dashboard');
-        }else{
-            return redirect()->route('login');
         }
+        return redirect()->route('login');
     }
 
     /**
@@ -59,9 +58,10 @@ class LoginController extends Controller
         if (auth('web')->attempt(array('email'=>$input['email'], 'password'=>$input['password'] ))){
             if (auth('web')->user()->role_id == 1){
                 return redirect()->route('admin.dashboard');
-            }elseif (auth('web')->user()->role_id == 2){
+            }if (auth('web')->user()->role_id == 2){
                 return redirect()->route('user.dashboard');
             }
         }
+        return redirect()->back()->withInput($request->input())->withErrors(['email'=>'These credentials do not match our records.']);
     }
 }
