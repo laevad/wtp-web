@@ -25,6 +25,16 @@ class Settings extends  Component{
         auth()->user()->update(['avatar'=>$path]);
         Storage::disk('avatars')->delete($previousPath);
         $this->dispatchBrowserEvent('updated', ['message'=>'Profile changed successfully']);
+    }
 
+    protected function cleanupOldUploads()
+    {
+        $storage = Storage::disk('local');
+        foreach ($storage->allFiles('livewire-tmp') as $filePathname) {
+            $yesterdaysStamp = now()->subSecond(5)->timestamp;
+            if ($yesterdaysStamp > $storage->lastModified($filePathname)) {
+                $storage->delete($filePathname);
+            }
+        }
     }
 }
