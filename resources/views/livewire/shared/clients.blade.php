@@ -74,7 +74,7 @@
                                 <a href="" wire:click.prevent="edit({{ $user }})">
                                     <i class="fa fa-edit ml-2"></i>
                                 </a>
-                                <a href="" wire:click.prevent="confirmUserRemoval({{ $user->id }})">
+                                <a href="" wire:click.prevent="confirmUserRemoval('{{ \str($user->id) }}')">
                                     <i class="fa fa-trash text-danger ml-2"></i>
                                 </a>
                             </td>

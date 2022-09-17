@@ -162,8 +162,9 @@
     $("#disposeBtn").click(function() {
         $("#myModal").modal('dispose');
     });
+</script>
 
-
+<script>
     window.addEventListener('show-delete-confirmation', event=>{
         Swal.fire({
             title: 'Are you sure?',
@@ -194,6 +195,131 @@
             }
         })
     });
+
+
+    window.addEventListener('show-select-delete-confirmation-booking', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('deleteSelectedBooking');
+            }
+        })
+    });
+
+    /*expense*/
+    window.addEventListener('show-select-delete-confirmation-expense', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('deleteSelectedExpense');
+            }
+        })
+    });
+
+    /*incentive*/
+    window.addEventListener('show-select-delete-confirmation-incentive', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('deleteSelectedIncentive');
+            }
+        })
+    });
+
+    window.addEventListener('deleted', event=>{
+        Swal.fire(
+            'Deleted!',
+            event.detail.message,
+            'success'
+        );
+    });
+
+    window.addEventListener('error-booking', event=>{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text:  event.detail.message,
+            footer: 'booking with expense or incentive can\'t be delete'
+        })
+
+    });
+    /*booking area*/
+    window.addEventListener('show-delete-confirmation-booking', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('deleteConfirmedBooking');
+            }
+        })
+    });
+
+    /*expense*/
+    window.addEventListener('show-warn-add', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to delete this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, add it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('addExpense');
+            }
+        })
+    });
+    /*incentive*/
+    window.addEventListener('show-warn-add-incentive', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to delete this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, add it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('addIncentive');
+            }
+        })
+    });
+</script>
+
+<script>
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+        "progressBar": true,
+    }
 </script>
 @stack('js')
 </html>
