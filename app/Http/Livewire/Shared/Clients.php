@@ -45,5 +45,10 @@ class Clients extends  GlobalVar {
         return redirect()->back();
     }
 
+    public function getUsersProperty(){
+        return User::query()->where('role_id', '=',User::ROLE_CLIENT)
+            ->latest()->paginate(5);
+    }
+
 
 }
