@@ -16,6 +16,7 @@ class Clients extends  GlobalVar {
         $validatedData = Validator::make($this->state,[
             'name'=>'required',
             'email'=>'required|email|unique:users,email,'.$this->user->id,
+            'mobile'=>'required|numeric|unique:users,mobile,'.$this->user->id,
         ])->validate();
 
         if ($this->photo){
@@ -31,7 +32,7 @@ class Clients extends  GlobalVar {
         $validatedData = Validator::make($this->state,[
             'name'=>'required|unique:users',
             'email'=>'required|email|unique:users',
-            'number'=>'required|numeric|unique:users',
+            'mobile'=>'required|numeric|unique:users',
         ])->validate();
         $validatedData['password'] = bcrypt('1234');
         if ($this->photo){
