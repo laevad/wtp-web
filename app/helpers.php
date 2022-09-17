@@ -14,6 +14,7 @@ if(!function_exists('makeAvatar')){
         $textcolor = imagecolorallocate($image,255,255,255);
         imagettftext($image,100,0,50,150,$textcolor,$fontPath,$char);
         imagepng($image,$path);
+
         imagedestroy($image);
         return $path;
     }

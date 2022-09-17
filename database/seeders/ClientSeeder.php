@@ -18,11 +18,12 @@ class ClientSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i<10; $i++){
+        for ($i=0; $i<10; $i++){
+            $fName = fake()->name();
             DB::table('users')->insert([
                 [
                     'id'=>Uuid::uuid3(Uuid::NAMESPACE_DNS, $i)->toString(),
-                    'name' => fake()->name(),
+                    'name' => $fName,
                     'email' => fake()->safeEmail(),
                     'email_verified_at' => null,
                     'password' => bcrypt('1234'), // password
@@ -30,8 +31,21 @@ class ClientSeeder extends Seeder
                     'created_at'=>now(),
                     'role_id'=> User::ROLE_CLIENT,
                     'mobile' =>fake()->numerify('###########'),
+                    'avatar' => $this->setInitialPhoto($fName[0]),
                 ]
             ]);
         }
+    }
+
+    public function setInitialPhoto($name): string
+    {
+        $path = public_path('storage/avatars/');
+        $fontPath = public_path('fonts/Oliciy.ttf');
+        $char = strtoupper($name[0]);
+        $newAvatarName = rand(12,34353).time().'_avatar.png';
+        $dest = $path.$newAvatarName;
+
+        $createAvatar = makeAvatar($fontPath,$dest,$char);
+        return $createAvatar ? $newAvatarName : '';
     }
 }

@@ -20,7 +20,8 @@ class APISeeder extends Seeder
             [
                 [
                     'id'=>Uuid::uuid3(Uuid::NAMESPACE_DNS, 'apikey')->toString(),
-                    'name'=>env('API_KEY')],
+                    'name'=>env('API_KEY')
+                ],
 
             ],
         );
