@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
             <div class="">
@@ -103,8 +102,6 @@
                                         </a>
                                     </div>
                                 </div>
-
-
                             </td>
                         </tr>
                     @empty

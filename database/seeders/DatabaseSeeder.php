@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             APISeeder::class,
             ClientSeeder::class,
+            DriverSeeder::class,
         ]);
     }
 }
