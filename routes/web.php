@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Livewire\Admin\AdminClients;
 use App\Http\Livewire\Admin\AdminDashboard;
 use App\Http\Livewire\Admin\AdminSettings;
 use App\Http\Livewire\Client\ClientDashboard;
@@ -29,6 +30,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth']], function (){
     Route::get('dashboard', AdminDashboard::class)->name('admin.dashboard');
     Route::get('settings', AdminSettings::class)->name('admin.settings');
+    /*client*/
+    Route::get('clients', AdminClients::class)->name('admin.clients');
 });
 
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function (){
