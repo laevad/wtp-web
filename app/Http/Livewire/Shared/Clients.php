@@ -35,6 +35,7 @@ class Clients extends  GlobalVar {
             'mobile'=>'required|numeric|unique:users',
         ])->validate();
         $validatedData['password'] = bcrypt('1234');
+        $validatedData['role_id'] = User::ROLE_CLIENT;
         if ($this->photo){
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
         }
