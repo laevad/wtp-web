@@ -9,16 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class Clients extends  GlobalVar {
 
 
-    private function getUserQuery(): LengthAwarePaginator
-    {
-        return  User::query()->where('role_id', '=',User::ROLE_CLIENT)
-            ->where('name', 'like',"%".$this->searchTerm."%")
-            ->orWhere('email', 'like',"%".$this->searchTerm."%")
-            ->where('role_id', 'like',"%".User::ROLE_CLIENT."%")
 
-            ->orderBy($this->sortColumnName, $this->sortDirection)
-            ->latest()->paginate(5);
-    }
 
     public function updateUser(): RedirectResponse
     {
