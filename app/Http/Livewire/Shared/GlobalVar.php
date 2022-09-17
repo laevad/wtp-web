@@ -2,6 +2,7 @@
 namespace App\Http\Livewire\Shared;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -52,20 +53,6 @@ class GlobalVar extends  Component{
         $this->dispatchBrowserEvent('show-form');
     }
 
-    /*DELETE*/
-    public function deleteUser(){
-        $client = User::findOrFail($this->userBeignRemoved);
-        $client->delete();
-        $this->dispatchBrowserEvent('deleted', ['message'=>'User deleted successfully']);
-    }
-
-    public function confirmUserRemoval($userId){
-        $this->userBeignRemoved = $userId;
-        $this->dispatchBrowserEvent('show-delete-confirmation');
-    }
-    public function confirmSelectedUserRemoval(){
-        $this->dispatchBrowserEvent('show-select-delete-confirmation');
-    }
 
     /*SORT*/
     public function sortedBy($columnName){
@@ -102,7 +89,35 @@ class GlobalVar extends  Component{
             ->latest()->paginate(5);
     }
 
+
+    /*DELETE*/
+    public function deleteUser(){
+        $user = User::query()->where('id', '=' , $this->userBeignRemoved)->first();
+        $previousPath = $user->avatar;
+        Storage::disk('avatars')->delete($previousPath);
+        $client = User::findOrFail($this->userBeignRemoved);
+        $client->delete();
+        $this->dispatchBrowserEvent('deleted', ['message'=>'User deleted successfully']);
+    }
+
+    public function confirmUserRemoval($userId){
+        $this->userBeignRemoved = $userId;
+        $this->dispatchBrowserEvent('show-delete-confirmation');
+    }
+    public function confirmSelectedUserRemoval(){
+        $this->dispatchBrowserEvent('show-select-delete-confirmation');
+    }
+
     public function deletedSelectedRows(){
+        $selectedR =$this->selectedRows->toArray();
+        foreach ($selectedR as  $selected){
+            $user = User::query()->where('id', '=' ,$selected)->first();
+            if ( $user->avatar !=null){
+                $previousPath = $user->avatar;
+                Storage::disk('avatars')->delete($previousPath);
+            }
+        }
+
         User::whereIn('id',$this->selectedRows)->delete();
         $this->dispatchBrowserEvent('deleted',['message'=>'All selected user/s got deleted.']);
         $this->reset(['selectedRows', 'selectedPageRows']);
