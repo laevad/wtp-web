@@ -22,15 +22,12 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-                <li class="nav-item">
-                    {{--Custom nav--}}
-                    <x-nav.item icon="fa-tachometer-alt" currentPage="dashboard"></x-nav.item>
-                    @if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN)
-                        <x-nav.item icon="fa-users" currentPage="clients"></x-nav.item>
-                    @endif
-                    <x-nav.item icon="fa-wrench" currentPage="settings"></x-nav.item>
-                </li>
+                {{--Custom nav--}}
+                <x-nav.item icon="fa-tachometer-alt" currentPage="dashboard"></x-nav.item>
+                @if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN)
+                    <x-nav.item icon="fa-users" currentPage="clients"></x-nav.item>
+                @endif
+                <x-nav.item icon="fa-wrench" currentPage="settings"></x-nav.item>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
