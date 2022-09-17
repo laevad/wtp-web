@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Shared;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -83,8 +84,14 @@ class Drivers extends GlobalVar{
             'address'=>''
         ])->validate();
 
+        $previousPath = $this->user->avatar;
         if ($this->photo){
+            Storage::disk('avatars')->delete($previousPath);
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
+        }else{
+            $newPath = $this->setInitialPhoto($validatedData['name']);
+            Storage::disk('avatars')->delete($previousPath);
+            $validatedData['avatar'] = $newPath;
         }
         $this->user->update($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Driver updated successfully']);

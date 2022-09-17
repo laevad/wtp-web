@@ -41,7 +41,7 @@ class Settings extends  Component{
     {
         $storage = Storage::disk('local');
         foreach ($storage->allFiles('livewire-tmp') as $filePathname) {
-            $yesterdaysStamp = now()->subHour()->timestamp;
+            $yesterdaysStamp = now()->hour(2)->timestamp;
             if ($yesterdaysStamp > $storage->lastModified($filePathname)) {
                 $storage->delete($filePathname);
             }

@@ -11,9 +11,11 @@
             <form autocomplete="off" wire:submit.prevent="{{ $isEdit ? 'updateUser' : 'createUser' }}" >
                 <div class="modal-body">
                     {{--custom input--}}
-                    <x-custom.input model="name"></x-custom.input>
-                    <x-custom.input model="email"></x-custom.input>
-                    <x-custom.input model="mobile"></x-custom.input>
+                    <div class="row">
+                        <x-custom.input model="name" isClient="true"></x-custom.input>
+                        <x-custom.input model="email" isClient="true"></x-custom.input>
+                        <x-custom.input model="mobile" isClient="true"></x-custom.input>
+                    </div>
                     {{--custom display picture--}}
                     <x-custom.profile-photo :photo="$photo"></x-custom.profile-photo>
 

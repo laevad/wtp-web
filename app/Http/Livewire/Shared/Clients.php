@@ -19,12 +19,11 @@ class Clients extends  GlobalVar {
             'mobile'=>'required|numeric|unique:users,mobile,'.$this->user->id,
         ])->validate();
 
+        $previousPath = $this->user->avatar;
         if ($this->photo){
-            $previousPath = $this->user->avatar;
             Storage::disk('avatars')->delete($previousPath);
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
         }else{
-            $previousPath = $this->user->avatar;
             $newPath = $this->setInitialPhoto($validatedData['name']);
             Storage::disk('avatars')->delete($previousPath);
             $validatedData['avatar'] = $newPath;

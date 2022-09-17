@@ -32,7 +32,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <table class="table table-hover  table-responsive-md table-bordered">
+                <table class="table table-hover table-responsive-sm table-responsive-md ">
                     <thead>
                     <tr>
                         <th>
@@ -115,5 +115,6 @@
             </div>
         </div>
     </div>
-    <!-- /.col-md-6 -->
+    {{--modal driver--}}
+    <x-modals.driver :isEdit="$showEditModal" :isView="$viewMode" :photo="$photo" :state="$state"></x-modals.driver>
 </div>

@@ -109,7 +109,11 @@ class GlobalVar extends  Component{
     }
 
     public function deletedSelectedRows(){
-        $selectedR =$this->selectedRows->toArray();
+        if ($this->selectedPageRows){
+            $selectedR =$this->selectedRows->toArray();
+        }else{
+            $selectedR =$this->selectedRows;
+        }
         foreach ($selectedR as  $selected){
             $user = User::query()->where('id', '=' ,$selected)->first();
             if ( $user->avatar !=null){
@@ -135,6 +139,19 @@ class GlobalVar extends  Component{
 
         $createAvatar = makeAvatar($fontPath,$dest,$char);
         return $createAvatar ? $newAvatarName : '';
+    }
+
+
+    //    CLEAN
+    protected function cleanupOldUploads()
+    {
+        $storage = Storage::disk('local');
+        foreach ($storage->allFiles('livewire-tmp') as $filePathname) {
+            $yesterdaysStamp = now()->hour(2)->timestamp;
+            if ($yesterdaysStamp > $storage->lastModified($filePathname)) {
+                $storage->delete($filePathname);
+            }
+        }
     }
 
 }
