@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Shared;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class Clients extends  GlobalVar {
@@ -21,6 +22,11 @@ class Clients extends  GlobalVar {
 
         if ($this->photo){
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
+        }else{
+            $previousPath = $this->user->avatar;
+            $newPath = $this->setInitialPhoto($validatedData['name']);
+            Storage::disk('avatars')->delete($previousPath);
+            $validatedData['avatar'] = $newPath;
         }
         $this->user->update($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Client updated successfully']);
@@ -38,7 +44,10 @@ class Clients extends  GlobalVar {
         $validatedData['role_id'] = User::ROLE_CLIENT;
         if ($this->photo){
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
+        }else{
+            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
         }
+
         User::create($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Client added successfully']);
         $this->resetPage();

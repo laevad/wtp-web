@@ -98,7 +98,7 @@ class GlobalVar extends  Component{
     }
 
     public function getUsersProperty(){
-        return User::query()->where('role_id', '=',"1")
+        return User::query()->where('role_id', '=',User::ROLE_ADMIN)
             ->latest()->paginate(5);
     }
 
@@ -107,6 +107,19 @@ class GlobalVar extends  Component{
         $this->dispatchBrowserEvent('deleted',['message'=>'All selected user/s got deleted.']);
         $this->reset(['selectedRows', 'selectedPageRows']);
         $this->resetPage();
+    }
+
+
+    public function setInitialPhoto($name): string
+    {
+        $path = 'storage/avatars/';
+        $fontPath = public_path('fonts/Oliciy.ttf');
+        $char = strtoupper($name[0]);
+        $newAvatarName = rand(12,34353).time().'_avatar.png';
+        $dest = $path.$newAvatarName;
+
+        $createAvatar = makeAvatar($fontPath,$dest,$char);
+        return $createAvatar ? $newAvatarName : '';
     }
 
 }
