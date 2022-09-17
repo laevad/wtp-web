@@ -33,7 +33,7 @@ input[type="file"]:focus,
     border-color: #f76440 !important;
 }
 
-.customColor{
+.customColor, ol > li:nth-child(1) > a{
     color: #f76440!important;
 }
 
