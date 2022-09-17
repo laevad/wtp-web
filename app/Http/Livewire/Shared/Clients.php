@@ -21,6 +21,8 @@ class Clients extends  GlobalVar {
         ])->validate();
 
         if ($this->photo){
+            $previousPath = $this->user->avatar;
+            Storage::disk('avatars')->delete($previousPath);
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
         }else{
             $previousPath = $this->user->avatar;
