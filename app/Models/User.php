@@ -20,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
     const ROLE_ADMIN  = "1";
     const ROLE_USER = "2";
     const ROLE_CLIENT = "3";
-//    const ROLE_DRIVER = "4";
+    const ROLE_DRIVER = "4";
     /**
      * The "type" of the auto-incrementing ID.
      *
