@@ -133,5 +133,67 @@
 
     });
 </script>
+
+<script>
+    window.addEventListener('show-form', event => {
+        $("#form").modal('show');
+    });
+    window.addEventListener('show-form-incentive', event => {
+        $("#form-incentive").modal('show');
+    });
+    window.addEventListener('hide-form', event => {
+        $("#form").modal('hide');
+        toastr.success(event.detail.message, 'Success!');
+    });
+    window.addEventListener('hide-form-incentive', event => {
+        $("#form-incentive").modal('hide');
+        toastr.success(event.detail.message, 'Success!');
+    });
+    window.addEventListener('show-delete-modal', event => {
+        $("#confirmationModal").modal('show');
+    });
+    window.addEventListener('hide-delete-modal', event => {
+        $("#confirmationModal").modal('hide');
+        toastr.success(event.detail.message, 'Success!');
+    });
+    window.addEventListener('updated', event=>{
+        toastr.success(event.detail.message, 'Success!');
+    });
+    $("#disposeBtn").click(function() {
+        $("#myModal").modal('dispose');
+    });
+
+
+    window.addEventListener('show-delete-confirmation', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('deleteConfirmed');
+            }
+        })
+    });
+    window.addEventListener('show-select-delete-confirmation', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('deleteSelected');
+            }
+        })
+    });
+</script>
 @stack('js')
 </html>

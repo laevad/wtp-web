@@ -42,4 +42,6 @@ class Clients extends  GlobalVar {
         $this->resetPage();
         return redirect()->back();
     }
+
+
 }

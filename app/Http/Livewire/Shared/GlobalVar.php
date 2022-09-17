@@ -30,5 +30,14 @@ class GlobalVar extends  Component{
     public $selectedPageRows = false;
 
 
+    /*ADD USER*/
+    public function addNew(){
+        $this->showEditModal= false;
+        $this->viewMode= false;
+        //        $this->reset();
+        $this->photo = null;
+        $this->state = [];
+        $this->dispatchBrowserEvent('show-form');
+    }
 
 }

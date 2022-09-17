@@ -96,4 +96,6 @@
         </div>
 
     </div>
+    {{--Modal for client--}}
+    <x-modals.client :isEdit="$showEditModal" :photo="$photo" :state="$state"></x-modals.client>
 </div>
