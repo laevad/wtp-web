@@ -13,11 +13,15 @@ class Item extends Component
 {
     public string $icon;
     public string $currentPage;
+    public array $treeNav;
+    public bool $isTree;
 
-    public function __construct($icon, $currentPage)
+    public function __construct($icon, $currentPage, $treeNav=[], $isTree=false)
     {
         $this->icon = $icon;
         $this->currentPage = $currentPage;
+        $this->treeNav = $treeNav;
+        $this->isTree = $isTree;
     }
 
     public function isCurrent(): bool

@@ -35,7 +35,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']], function (){
     $routeArr = [
         'dashboard'=>AdminDashboard::class,'settings'=>AdminSettings::class, 'clients'=>AdminClients::class,
-        'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'bookings'=> AdminBookings::class
+        'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'booking-list'=> AdminBookings::class
     ];
     foreach ($routeArr as $uri=> $data){
         Route::get($uri,$data )->name($uri);
