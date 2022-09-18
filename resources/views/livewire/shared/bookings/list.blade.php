@@ -27,7 +27,7 @@
             {{--                            </div>--}}
         </div>
         <div class="card">
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 @if (\Session::has('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>{!! \Session::get('success') !!}</strong>
