@@ -30,6 +30,7 @@ class AdminBookings extends BookingList
         $clients =User::where('role_id', '=', User::ROLE_CLIENT)->get();
         $drivers =User::where('role_id', '=', User::ROLE_DRIVER)->get();
         $vehicles = Vehicle::all();
+        $this->cPageChanges($bookings->currentPage());
         return view('livewire.admin.admin-bookings',[
             'bookings'=> $bookings,
             'trip_status' => $trip_status,
@@ -39,16 +40,5 @@ class AdminBookings extends BookingList
             'drivers'=>$drivers,
         ]);
     }
-    private function getBookingQuery(){
-        return  Booking::join('users','users.id','=', 'bookings.user_id')
-            ->join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
-            ->join('users as driver','driver.id','=', 'bookings.driver_id')
-            ->select('bookings.id', 'bookings.user_id','bookings.vehicle_id', 'bookings.t_trip_start','bookings.t_trip_end','bookings.driver_id', 'bookings.trip_start_date','bookings.trip_end_date','bookings.trip_status_id','bookings.t_total_distance')
-            ->where('users.name', 'LIKE', '%'. $this->searchTerm."%")
-            ->orWhere('bookings.t_trip_start', 'LIKE', '%'. $this->searchTerm."%")
-            ->orWhere('bookings.t_trip_end', 'LIKE', '%'. $this->searchTerm."%")
-            ->orWhere('driver.name', 'LIKE', '%'. $this->searchTerm."%")
-            ->orWhere('vehicles.name', 'LIKE', '%'. $this->searchTerm."%")
-            ->orderBy('bookings.id', 'DESC')->paginate(5);
-    }
+
 }

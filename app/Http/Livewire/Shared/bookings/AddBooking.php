@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class AddBooking extends  Component{
+
     public $isUpdate = false;
     public $viewMode = false;
     public $state= ['trip_status_id'=>1];
@@ -47,7 +48,9 @@ class AddBooking extends  Component{
         Booking::create($validatedData);
         $this->state=[];
         return redirect()->route('admin.booking-list')->with('success', 'Booking added successfully!');
-
-
     }
+    /*unselect selected row if click next / previous*/
+    public  int $cPage =0 ;
+
+
 }
