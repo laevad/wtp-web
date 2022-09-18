@@ -189,19 +189,6 @@
 
     <script>
         $(document).ready(function () {
-            toastr.options = {
-                "positionClass": "toast-bottom-right",
-                "progressBar": true,
-            }
-            window.addEventListener('updated', event=>{
-                toastr.success(event.detail.message, 'Success!');
-            });
-        });
-    </script>
-
-
-    <script>
-        $(document).ready(function () {
             Livewire.on('nameChanged',(name)=>{
                 $('[x-ref="username"]').text(name);
             });
