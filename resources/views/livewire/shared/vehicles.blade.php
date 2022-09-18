@@ -97,7 +97,7 @@
                                         <div class="dropdown-divider"></div>
                                         <a href="" class="dropdown-item"
                                            wire:click.prevent="confirmVehicleRemoval('{{ $vehicle->id }}')">
-                                            <i class="fa fa-trash text-danger ml-2"></i> Delete1
+                                            <i class="fa fa-trash text-danger ml-2"></i> Delete
                                         </a>
                                     </div>
                                 </div>
