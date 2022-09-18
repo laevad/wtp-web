@@ -31,6 +31,7 @@ class AddBooking extends  Component{
             'trip_status_id'=>'required|in:1,2,3,4',
             'trip_start_date'=>'required|date',
             'trip_end_date'=>'required|date',
+            't_total_distance'=>'numeric',
 
         ],[
             'user_id.required'=>'The client field is required.',
@@ -39,6 +40,7 @@ class AddBooking extends  Component{
             't_trip_start.required'=>'The trip start location field is required.',
             't_trip_end.required'=>'The trip end location field is required.',
             'trip_status_id.required'=>'The trip status field is required.',
+            't_total_distance.number'=>'The total distance must be a number.',
         ])->validate();
         $validatedData['t_total_distance'] = $this->state['t_total_distance'];
 //        dd($validatedData);
