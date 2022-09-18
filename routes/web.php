@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Livewire\Admin\AdminAddBooking;
 use App\Http\Livewire\Admin\AdminBookings;
 use App\Http\Livewire\Admin\AdminClients;
 use App\Http\Livewire\Admin\AdminDashboard;
@@ -35,7 +36,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']], function (){
     $routeArr = [
         'dashboard'=>AdminDashboard::class,'settings'=>AdminSettings::class, 'clients'=>AdminClients::class,
-        'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'booking-list'=> AdminBookings::class
+        'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'booking-list'=> AdminBookings::class,
+        'add-booking'=> AdminAddBooking::class,
     ];
     foreach ($routeArr as $uri=> $data){
         Route::get($uri,$data )->name($uri);

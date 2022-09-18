@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             ClientSeeder::class,
             DriverSeeder::class,
             VehicleSeeder::class,
+            TripStatusSeeder::class,
         ]);
     }
 }

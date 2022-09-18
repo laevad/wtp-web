@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('trip_start_date')->nullable();
             $table->string('trip_end_date')->nullable();
             $table->integer('t_total_distance')->default(0);
+            $table->timestamps();
         });
     }
 

@@ -1,3 +1,3 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
+    @include('livewire.shared.bookings.list')
 </div>
