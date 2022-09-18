@@ -82,6 +82,7 @@ class GlobalVar extends  Component{
         }else{
             $this->reset(['selectedRows', 'selectedPageRows']);
         }
+
     }
 
     public function getUsersProperty(){
@@ -97,6 +98,7 @@ class GlobalVar extends  Component{
         Storage::disk('avatars')->delete($previousPath);
         $client = User::findOrFail($this->userBeignRemoved);
         $client->delete();
+        $this->reset(['selectedRows', 'selectedPageRows']);
         $this->dispatchBrowserEvent('deleted', ['message'=>'User deleted successfully']);
     }
 
@@ -154,4 +156,13 @@ class GlobalVar extends  Component{
         }
     }
 
+    /*unselect selected row if click next / previous*/
+    public  int $cPage =0 ;
+
+    public function cPageChanges($currPage){
+        if ($this->cPage != $currPage){
+            $this->cPage = $currPage;
+            $this->reset(['selectedRows', 'selectedPageRows']);
+        }
+    }
 }

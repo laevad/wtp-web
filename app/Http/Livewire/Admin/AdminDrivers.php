@@ -15,6 +15,7 @@ class AdminDrivers extends Drivers
             $this->resetPage();
             $this->getDriverQuery();
         }
+        $this->cPageChanges($users->currentPage());
         return view('livewire.admin.admin-drivers',[
             'users'=>$users
         ]);

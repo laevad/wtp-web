@@ -5,6 +5,7 @@ use App\Http\Livewire\Admin\AdminClients;
 use App\Http\Livewire\Admin\AdminDashboard;
 use App\Http\Livewire\Admin\AdminDrivers;
 use App\Http\Livewire\Admin\AdminSettings;
+use App\Http\Livewire\Admin\AdminVehicles;
 use App\Http\Livewire\Client\ClientDashboard;
 use App\Http\Livewire\Client\ClientSettings;
 use App\Http\Livewire\User\UserDashboard;
@@ -28,12 +29,13 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth']], function (){
-    Route::get('dashboard', AdminDashboard::class)->name('admin.dashboard');
-    Route::get('settings', AdminSettings::class)->name('admin.settings');
-    Route::get('clients', AdminClients::class)->name('admin.clients');
-    Route::get('drivers', AdminDrivers::class)->name('admin.drivers');
 
+
+Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']], function (){
+    $routeArr = ['dashboard'=>AdminDashboard::class,'settings'=>AdminSettings::class, 'clients'=>AdminClients::class, 'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class];
+    foreach ($routeArr as $uri=> $data){
+        Route::get($uri,$data )->name($uri);
+    }
 });
 
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function (){

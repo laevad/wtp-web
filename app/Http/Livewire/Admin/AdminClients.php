@@ -27,6 +27,7 @@ class AdminClients extends Clients
             $this->resetPage();
             $this->getUserQuery();
         }
+        $this->cPageChanges($users->currentPage());
         return view('livewire.admin.admin-clients', [
             'users' =>$users
         ]);
