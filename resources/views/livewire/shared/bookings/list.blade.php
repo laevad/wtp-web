@@ -39,7 +39,7 @@
                 @endif
 
                 <table class="table table-hover table-responsive-sm
-                                 table-responsive-lg table-bordered">
+                                 table-responsive-lg">
 
                     <thead>
                     <tr>
