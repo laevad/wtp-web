@@ -1,3 +1,4 @@
+<x-animation.ball-spin></x-animation.ball-spin>
 <div class="row">
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
@@ -98,7 +99,7 @@
                             </td>
                             <td>
                                 <div class="btn-group">
-                                    <a type="button" href="" class="btn btn-outline-success"
+                                    <a type="button" href="{{ route('admin.booking-details', $booking->id) }}" class="btn btn-outline-success"
                                     ><i
                                             class="fa fa-eye mr-1"></i> View</a>
                                     <button type="button"
@@ -107,7 +108,7 @@
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu" role="menu">
-                                        <a class="dropdown-item" href="#"
+                                        <a class="dropdown-item" href="{{ route('admin.booking-details', $booking->id) }}"
                                         >
                                             <i class="fa fa-eye text-success ml-2"></i> View
                                         </a>

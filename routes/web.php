@@ -8,6 +8,7 @@ use App\Http\Livewire\Admin\AdminDashboard;
 use App\Http\Livewire\Admin\AdminDrivers;
 use App\Http\Livewire\Admin\AdminSettings;
 use App\Http\Livewire\Admin\AdminVehicles;
+use App\Http\Livewire\Admin\AdminViewBooking;
 use App\Http\Livewire\Client\ClientDashboard;
 use App\Http\Livewire\Client\ClientSettings;
 use App\Http\Livewire\User\UserDashboard;
@@ -42,6 +43,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']
     foreach ($routeArr as $uri=> $data){
         Route::get($uri,$data )->name($uri);
     }
+    Route::get('booking-details/{booking}', AdminViewBooking::class)->name('booking-details');
 });
 
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function (){

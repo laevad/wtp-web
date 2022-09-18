@@ -1,4 +1,4 @@
-
+<x-animation.ball-spin></x-animation.ball-spin>
 <form autocomplete="off" wire:submit.prevent="{{ $isUpdate ? 'updateBooking' : 'createBooking' }}">
     <div class="card-body" >
         <div class="row">
