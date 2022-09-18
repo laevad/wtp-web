@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
-use Livewire\Component;
+use App\Http\Livewire\Shared\BookingList;
 
-class AdminBookings extends Component
+class AdminBookings extends BookingList
 {
     public function render()
     {
