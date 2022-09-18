@@ -5,6 +5,7 @@ use App\Models\Vehicle;
 use Illuminate\Support\Facades\Validator;
 
 class Vehicles extends GlobalVar{
+    public $listeners = ['deleteConfirmed'=> 'deleteVehicle',  'deleteSelected'=>'deletedSelectedVehicleRows' ];
     public function addNew(){
         $this->showEditModal= false;
         $this->photo = null;
@@ -74,17 +75,17 @@ class Vehicles extends GlobalVar{
         return redirect()->back();
     }
 
-    public function confirmUserRemoval($vehicleId){
-        $this->vehicleBeignRemoved = $vehicleId;
+    public function confirmVehicleRemoval($vehicleId){
+        $this->vehicleBeingRemoved = $vehicleId;
         $this->dispatchBrowserEvent('show-delete-confirmation');
     }
 
 
-    public function deleteUser(){
-        $vehicle = Vehicle::findOrFail($this->vehicleBeignRemoved);
+    public function deleteVehicle(){
+        $vehicle = Vehicle::findOrFail($this->vehicleBeingRemoved);
         $vehicle->delete();
         $this->reset(['selectedRows', 'selectedPageRows']);
-        $this->dispatchBrowserEvent('deleted', ['message'=>'User deleted successfully']);
+        $this->dispatchBrowserEvent('deleted', ['message'=>'Vehicle deleted successfully']);
     }
 
     /*SELECTED*/
@@ -98,7 +99,7 @@ class Vehicles extends GlobalVar{
         }
     }
 
-    public function deletedSelectedRows(){
+    public function deletedSelectedVehicleRows(){
         Vehicle::whereIn('id',$this->selectedRows)->delete();
         $this->dispatchBrowserEvent('deleted',['message'=>'All selected vehicles got deleted.']);
         $this->reset(['selectedRows', 'selectedPageRows']);

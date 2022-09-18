@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminVehicles extends Vehicles
 {
-
     public function render()
     {
         $vehicles = $this->getVehicleQuery();

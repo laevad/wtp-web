@@ -21,7 +21,7 @@ class GlobalVar extends  Component{
     public $user;
     public $vehicle;
     public $userBeignRemoved = null;
-    public $vehicleBeignRemoved = null;
+    public $vehicleBeingRemoved = null;
     public $searchTerm ;
     public $photo ='';
     public $sortColumnName ='created_at';
