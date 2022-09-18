@@ -103,6 +103,8 @@ class BookingList extends  GlobalVar{
             $booking = Booking::findOrFail($this->bookingBeingRemoved);
             $booking->delete();
             $this->dispatchBrowserEvent('deleted', ['message'=>'Booking deleted successfully']);
+            $this->reset(['selectedRows', 'selectedPageRows']);
+            $this->resetPage();
         }catch (\Exception ){
             $this->dispatchBrowserEvent('error-booking', ['message'=>'Booking deleted unsuccessfully']);
         }
@@ -113,10 +115,14 @@ class BookingList extends  GlobalVar{
     }
 
     public function deletedSelectedRowsBooking(){
-        Booking::whereIn('id',$this->selectedRows)->delete();
-        $this->dispatchBrowserEvent('deleted',['message'=>'All selected booking/s got deleted.']);
-        $this->reset(['selectedRows', 'selectedPageRows']);
-        $this->resetPage();
+        try {
+            Booking::whereIn('id',$this->selectedRows)->delete();
+            $this->dispatchBrowserEvent('deleted',['message'=>'All selected booking/s got deleted.']);
+            $this->reset(['selectedRows', 'selectedPageRows']);
+            $this->resetPage();
+        }catch(\Exception){
+            $this->dispatchBrowserEvent('error-booking', ['message'=>'Booking deleted unsuccessfully']);
+        }
     }
 
     /*SELECTED*/
