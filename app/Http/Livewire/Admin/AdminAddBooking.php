@@ -13,6 +13,7 @@ class AdminAddBooking extends AddBooking
 
     public function render()
     {
+        $role ='admin';
         $trip_status = TripStatus::all();
         $clients =User::where('role_id', '=', User::ROLE_CLIENT)->get();
         $drivers =User::where('role_id', '=', User::ROLE_DRIVER)->get();
@@ -24,6 +25,7 @@ class AdminAddBooking extends AddBooking
             'drivers'=>$drivers,
             'apiKey'=> $apiKey,
             'trip_status'=>$trip_status,
+            'role'=>$role
         ]);
     }
 }

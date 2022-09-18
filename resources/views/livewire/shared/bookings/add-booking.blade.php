@@ -1,4 +1,5 @@
 <x-animation.ball-spin></x-animation.ball-spin>
+<a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
 <form autocomplete="off" wire:submit.prevent="{{ $isUpdate ? 'updateBooking' : 'createBooking' }}">
     <div class="card-body" >
         <div class="row">
@@ -53,8 +54,6 @@
         </div>
     </div>
     <div class="card-footer justify-content-end d-flex">
-                    <div class="mr-2"><a type="button" href="@if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN) {{ route('admin.booking-list') }} @endif" class="btn btn-secondary" onclick=""><i
-                                class="fa fa-times mr-2"></i>{{ $viewMode ? 'Close' : 'Cancel' }}</a></div>
         @if(!$viewMode)
             <button type="submit" class="btn customBg text-white"><i
                     class="fa fa-save mr-2"></i>{{ $isUpdate ? 'Save Changes' : 'Save' }}</button>
