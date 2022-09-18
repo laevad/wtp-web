@@ -72,7 +72,7 @@
                             <td>{{ $vehicle->model }}</td>
                             <td>{{ $vehicle->chassis_no }}</td>
                             <td>
-                                <span class="badge @if($vehicle->status=='ACTIVE') badge-success @else badge-danger @endif">{{ $vehicle->status }}</span>
+                                <span class="badge @if($vehicle->status=='active') badge-success @else badge-danger @endif">{{ $vehicle->status }}</span>
                             </td>
 
                             <td>
@@ -114,5 +114,8 @@
             </div>
         </div>
     </div>
-    <!-- /.col-md-6 -->
+    {{--vehicle modal--}}
+    <x-modals.vehicle :isView="$viewMode"></x-modals.vehicle>
 </div>
+
+

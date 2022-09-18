@@ -1,4 +1,4 @@
-@props(['isEdit'=>false, 'isView'=>false, 'photo', 'state'])
+    @props(['isEdit'=>false, 'isView'=>false, 'photo', 'state'])
 <div class="modal fade " id="form" tabindex="-1" role="dialog" data-backdrop="static"
      aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-lg" role="document">

@@ -185,8 +185,6 @@
 @endpush
 
 @push('js')
-
-
     <script>
         $(document).ready(function () {
             Livewire.on('nameChanged',(name)=>{
