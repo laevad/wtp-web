@@ -1,5 +1,5 @@
 <x-animation.ball-spin></x-animation.ball-spin>
-<a href="{{ route(request()->segment(1).".booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
+<a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
 <div class="row">
     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
         <!-- Profile Image -->
@@ -152,3 +152,4 @@
     </div>
     <!-- /.col -->
 </div>
+<x-modals.view-booking :booking="$booking" :isIncentive="$isIncentive" ></x-modals.view-booking>

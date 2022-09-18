@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Cash extends Model
 {
-    use HasFactory;
+    use HasFactory, uuid;
 
     const CASH_EXPENSE = 1;
     const CASH_INCENTIVE = 2;

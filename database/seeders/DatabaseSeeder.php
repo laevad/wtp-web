@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             DriverSeeder::class,
             VehicleSeeder::class,
             TripStatusSeeder::class,
+            CashTypeSeeder::class,
         ]);
     }
 }

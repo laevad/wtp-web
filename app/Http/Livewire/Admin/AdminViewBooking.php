@@ -8,6 +8,7 @@ use App\Models\Cash;
 
 class AdminViewBooking extends ViewBooking
 {
+
     public function render()
     {
 
@@ -30,8 +31,9 @@ class AdminViewBooking extends ViewBooking
                 ->latest()
                 ->paginate(5);
         }
+        $role ='admin';
         return view('livewire.admin.admin-view-booking',[
-            'expenses' => $expenses,'incentives'=>$incentives
+            'expenses' => $expenses,'incentives'=>$incentives, 'role'=>$role
         ]);
     }
 }
