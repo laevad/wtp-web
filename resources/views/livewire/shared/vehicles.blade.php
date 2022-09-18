@@ -36,11 +36,13 @@
                     <thead>
                     <tr>
                         <th>
-                            <div class="icheck-orange d-inline">
-                                <input type="checkbox" value="" name="todo1" id="todoCheck2"
-                                       wire:model="selectedPageRows">
-                                <label for="todoCheck2"></label>
-                            </div>
+                            @if(count($vehicles) != 0)
+                                <div class="icheck-orange d-inline">
+                                    <input type="checkbox" value="" name="todo1" id="todoCheck2"
+                                           wire:model="selectedPageRows">
+                                    <label for="todoCheck2"></label>
+                                </div>
+                            @endif
                         </th>
                         <th scope="col">#</th>
                         <th scope="col"> Vehicle Name</th>
@@ -101,7 +103,7 @@
                             </td>
                         </tr>
                     @empty
-                       <x-custom.empty colSpan="7"></x-custom.empty>
+                       <x-custom.empty colSpan="8"></x-custom.empty>
                     @endforelse
                     </tbody>
                 </table>
