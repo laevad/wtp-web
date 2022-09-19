@@ -58,20 +58,16 @@
                             <div class="user-block">
                                              <span class="description-header mr-2">Trip Status: <span class="badge badge-{{ $booking->status_type_badge }}">{{ $booking->status->name }}</span>
                                              </span>
-
                                 <span
                                     class="description-header d-block">Distance: <strong>{{ $booking->t_total_distance }}</strong></span>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
                 <div class="post">
                     <div class="row">
                         <h5>Trip Expense:</h5>
-                        <table class="table table-hover table-bordered table-responsive-sm ">
-
+                        <table class="table table-hover table-responsive-sm ">
                             <thead>
                             <tr class="text-muted">
                                 <th scope="col">#</th>
@@ -79,11 +75,8 @@
                                 <th>Notes</th>
                                 <th>Added On</th>
                                 <th>Actions</th>
-
                             </tr>
                             </thead>
-
-
                             <tbody wire:loading.class="text-muted">
                             @forelse($expenses as $index=> $data)
                                 <tr class="text-muted">
@@ -104,12 +97,10 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="post">
                     <div class="row">
                         <h5>Incentive: </h5>
-                        <table class="table table-hover table-bordered table-responsive-sm ">
-
+                        <table class="table table-hover table-responsive-sm ">
                             <thead>
                             <tr class="text-muted">
                                 <th scope="col">#</th>
@@ -117,11 +108,8 @@
                                 <th>Notes</th>
                                 <th>Added On</th>
                                 <th>Actions</th>
-
                             </tr>
                             </thead>
-
-
                             <tbody wire:loading.class="text-muted">
                             @forelse($incentives as $index=> $data)
                                 <tr class="text-muted">
