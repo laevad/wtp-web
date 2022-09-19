@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Admin\AdminAddBooking;
 use App\Http\Livewire\Admin\AdminBookings;
+use App\Http\Livewire\Admin\AdminCash;
 use App\Http\Livewire\Admin\AdminClients;
 use App\Http\Livewire\Admin\AdminDashboard;
 use App\Http\Livewire\Admin\AdminDrivers;
@@ -39,7 +40,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']
     $routeArr = [
         'dashboard'=>AdminDashboard::class,'settings'=>AdminSettings::class, 'clients'=>AdminClients::class,
         'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'booking-list'=> AdminBookings::class,
-        'add-booking'=> AdminAddBooking::class,
+        'add-booking'=> AdminAddBooking::class,'incentives-&-expenses'=> AdminCash::class,
     ];
     foreach ($routeArr as $uri=> $data){
         Route::get($uri,$data )->name($uri);

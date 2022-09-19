@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Validator;
 
 class Clients extends  GlobalVar {
 
-
-
-
     public function updateUser(): RedirectResponse
     {
         $validatedData = Validator::make($this->state,[

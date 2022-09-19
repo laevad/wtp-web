@@ -5,7 +5,7 @@
     @endif
     <i class="nav-icon fas {{ $icon }}"></i>
     <p>
-        {{ ucfirst($currentPage) }}
+        {{ ucwords(str_replace('-', ' ',$currentPage)) }}
     </p>
 </a>
     @if($isTree)
@@ -15,7 +15,7 @@
                     <li class="nav-item">
                         <a  href="{{ route(request()->segment(1).".$treeData") }}" class="nav-link text-white {{ request()->segment(2) == $treeData? 'active' : '' }}">
                             <i class="nav-icon fas {{ $treeIcon }}"></i>
-                            <p>{{  ucfirst(str_replace("-", ' ', $treeData)) }}</p>
+                            <p>{{  ucwords(str_replace("-", ' ', $treeData)) }}</p>
                         </a>
                     </li>
                 @endforeach

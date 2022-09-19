@@ -29,6 +29,7 @@
                     <x-nav.item icon="fa-user-secret" currentPage="drivers"></x-nav.item>
                     <x-nav.item icon="fa-truck" currentPage="vehicles"></x-nav.item>
                     <x-nav.item icon="fa-road" currentPage="bookings" :treeNav="['booking-list'=>'fa-clipboard-list','add-booking'=>'fa-plus']" isTree="true"></x-nav.item>
+                    <x-nav.item icon="fa-truck" currentPage="incentives-&-expenses"></x-nav.item>
                 @endif
                 <x-nav.item icon="fa-wrench" currentPage="settings"></x-nav.item>
             </ul>
