@@ -31,6 +31,7 @@ class AdminBookings extends BookingList
         $drivers =User::where('role_id', '=', User::ROLE_DRIVER)->get();
         $vehicles = Vehicle::all();
         $this->cPageChanges($bookings->currentPage());
+        $role ='admin';
         return view('livewire.admin.admin-bookings',[
             'bookings'=> $bookings,
             'trip_status' => $trip_status,
@@ -38,6 +39,7 @@ class AdminBookings extends BookingList
             'clients' =>$clients,
             'vehicles'=>$vehicles,
             'drivers'=>$drivers,
+            'role'=>$role,
         ]);
     }
 

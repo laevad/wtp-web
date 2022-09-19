@@ -108,11 +108,11 @@
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu" role="menu">
-                                        <a class="dropdown-item" href="{{ route('admin.booking-details', $booking->id) }}"
+                                        <a class="dropdown-item" href="{{ route("$role.booking-details", $booking->id) }}"
                                         >
                                             <i class="fa fa-eye text-success ml-2"></i> View
                                         </a>
-                                        <a href="" class="dropdown-item"
+                                        <a href="{{ route("$role.update.bookings", $booking) }}" class="dropdown-item"
                                         >
                                             <i class="fa fa-edit text-primary ml-2"></i> Edit
                                         </a>
