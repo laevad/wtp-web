@@ -10,11 +10,17 @@ use App\Models\Vehicle;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class AdminUpdateBooking extends UpdateBooking
 {
-    public function updateBooking(){
+    /**
+     * @throws ValidationException
+     */
+    public function updateBooking(): RedirectResponse
+    {
         Validator::make($this->state,[
             'user_id'=>'required',
             'vehicle_id'=>'required',
