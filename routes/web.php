@@ -10,6 +10,7 @@ use App\Http\Livewire\Admin\AdminClients;
 use App\Http\Livewire\Admin\AdminDashboard;
 use App\Http\Livewire\Admin\AdminDrivers;
 use App\Http\Livewire\Admin\AdminSettings;
+use App\Http\Livewire\Admin\AdminTracking;
 use App\Http\Livewire\Admin\AdminUpdateBooking;
 use App\Http\Livewire\Admin\AdminVehicles;
 use App\Http\Livewire\Admin\AdminViewBooking;
@@ -44,6 +45,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']
         'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'booking-list'=> AdminBookings::class,
         'add-booking'=> AdminAddBooking::class,'incentives-&-expenses'=> AdminCash::class,
         'booking-report'=> AdminBookingReport::class, 'expenses-&-incentives'=>AdminCashReport::class,
+        'tracking'=> AdminTracking::class
     ];
     foreach ($routeArr as $uri=> $data){
         Route::get($uri,$data )->name($uri);
