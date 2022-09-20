@@ -6,15 +6,11 @@
             <div class="card-body table-responsive">
                 <table class="table table-hover table-condensed table-responsive-md" id="reportBookingTable">
                     <thead>
-                    <th>Customer</th>
-                    <th>Vehicle</th>
                     <th>Driver</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Distance</th>
-                    <th>Trip Status</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Type</th>
                     <th>Date Created</th>
                     </thead>
                     <tbody>
@@ -29,7 +25,10 @@
             <div class="card-header">Report</div>
             <div class="card-body">
                 <div class="form-group">
-                    <x-custom.select2 id="vehicle_id" label="Vehicle" selectLabel="Select Vehicle" :datas="$vehicles" isAll="true"></x-custom.select2>
+                    <x-custom.select2 id="driver_id" label="Driver" selectLabel="Select Driver" :datas="$drivers" isAll="true"></x-custom.select2>
+                </div>
+                <div class="form-group">
+                    <x-custom.select2 id="cash_type_id" label="Type" selectLabel="Select Type" :datas="$cashType" isAll="true"></x-custom.select2>
                 </div>
                 <div class="form-group">
                     <label for="daterange_textbox">Date Range</label>
@@ -39,24 +38,41 @@
         </div>
     </div>
 </div>
-
 @push('js')
     <script>
-        /*fetch dAtA*/
-        function fetch(start_date, end_date, vehicle_id) {
+        $('#daterange_textbox').daterangepicker({
+            ranges:{
+                'Today' : [moment(), moment()],
+                'Yesterday' : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days' : [moment().subtract(29, 'days'), moment()],
+                'This Month' : [moment().startOf('month'), moment().endOf('month')],
+                'Last Month' : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            format : 'YYYY-MM-DD',
+        }, function(start, end){
+            var driver_id = $("#driver_id").val();
+            var cash_type_id = $("#driver_id").val();
+            $('#reportBookingTable').DataTable().destroy();
+            fetch(start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'), driver_id, cash_type_id);
+        });
+
+
+        function fetch(start_date, end_date, driver_id,cash_type_id ) {
             $.ajax({
-                url: "{{ route('admin.report.report.bookings') }}",
+                url: "{{ route('admin.ei.report') }}",
                 type: 'get',
                 data: {
                     start_date: start_date,
                     end_date: end_date,
-                    vehicle_id, vehicle_id,
+                    driver_id: driver_id,
+                    cash_type_id, cash_type_id,
                 },
                 dataType: "json",
                 success: function(data) {
-                    var i = 1;
+                    let i = 1;
                     $('#reportBookingTable').DataTable({
-                        "data": data.bookings,
+                        "data": data.ie,
                         // buttons
                         "dom": "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
                             "<'row'<'col-sm-12'tr>>" +
@@ -98,7 +114,7 @@
                         "autoWidth": true,
                         info:true,
                         searching:true,
-                        "pageLength": 3,
+                        "pageLength": 5,
                         "responsive": true,
                         lengthMenu: [
                             [3,5,10, 25, 50, -1],
@@ -106,63 +122,39 @@
                         ],
                         "columns": [
                             {
-                                "data": "client",
+                                "data": "name",
                                 "render": function(data, type, row, meta) {
-                                    return row.client;
+                                    return row.name;
                                 }
                             },
                             {
-                                "data": "vehicle",
+                                "data": "date",
                                 "render": function(data, type, row, meta) {
-                                    return row.vehicle;
+                                    return row.date;
                                 }
                             },
                             {
-                                "data": "driver",
+                                "data": "note",
                                 "render": function(data, type, row, meta) {
-                                    return row.driver;
+                                    return row.note;
                                 }
                             },
                             {
-                                "data": "t_trip_start",
+                                "data": "amount",
                                 "render": function(data, type, row, meta) {
-                                    return row.t_trip_start;
+                                    return row.amount;
                                 }
                             },
                             {
-                                "data": "t_trip_end",
+                                "data": "type",
                                 "render": function(data, type, row, meta) {
-                                    return row.t_trip_end;
-                                }
-                            },
-                            {
-                                "data": "trip_start_date",
-                                "render": function(data, type, row, meta) {
-                                    return row.trip_start_date;
-                                }
-                            },
-                            {
-                                "data": "trip_end_date",
-                                "render": function(data, type, row, meta) {
-                                    return row.trip_end_date;
-                                }
-                            },
-                            {
-                                "data": "t_total_distance",
-                                "render": function(data, type, row, meta) {
-                                    return row.t_total_distance;
-                                }
-                            },
-                            {
-                                "data": "status",
-                                "render": function(data, type, row, meta) {
-                                    return row.status;
+                                    return row.type;
                                 }
                             },
                             {
                                 "data": "created_at",
                                 "render": function(data, type, row, meta) {
-                                    return moment(data).format("MM/DD/YYYY hh:mm A");
+                                    return moment(data).format("MM-DD-YYYY hh:mm A");
                                 }
                             },
                         ]
@@ -173,38 +165,30 @@
 
 
 
-
-
-
-        $('#daterange_textbox').daterangepicker({
-            ranges:{
-                'Today' : [moment(), moment()],
-                'Yesterday' : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days' : [moment().subtract(29, 'days'), moment()],
-                'This Month' : [moment().startOf('month'), moment().endOf('month')],
-                'Last Month' : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-            format : 'YYYY-MM-DD',
-        }, function(start, end){
-            $('#reportBookingTable').DataTable().destroy();
-            var vehicle_id = $("#vehicle_id").val();
-            fetch(start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'), vehicle_id);
-
-        });
-
-        $(document.body).on("change","#vehicle_id",function(){
+        $(document.body).on("change","#cash_type_id",function(){
             let start = $('#daterange_textbox').data('daterangepicker').startDate;
             let end = $('#daterange_textbox').data('daterangepicker').endDate;
+            let driver_id = $('#driver_id').val();
             $('#reportBookingTable').DataTable().destroy();
-            fetch(start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'), this.value);
+            fetch(start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'), driver_id, this.value);
         });
+
+        $(document.body).on("change","#driver_id",function(){
+            let start = $('#daterange_textbox').data('daterangepicker').startDate;
+            let end = $('#daterange_textbox').data('daterangepicker').endDate;
+            let type = $('#cash_type_id').val();
+            $('#reportBookingTable').DataTable().destroy();
+            fetch(start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'), this.value, type);
+        });
+
+
         $( window ).on( "load", function (){
             let start = $('#daterange_textbox').data('daterangepicker').startDate;
             let end = $('#daterange_textbox').data('daterangepicker').endDate;
-            var vehicle_id = $("#vehicle_id").val();
-            fetch( start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'), vehicle_id)
-        } );
+            let driver_id = $('#driver_id').val();
+            let type = $('#cash_type_id').val();
+            fetch(start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'), driver_id, type);
+        });
 
 
     </script>

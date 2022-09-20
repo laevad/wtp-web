@@ -5,6 +5,7 @@ use App\Http\Livewire\Admin\AdminAddBooking;
 use App\Http\Livewire\Admin\AdminBookingReport;
 use App\Http\Livewire\Admin\AdminBookings;
 use App\Http\Livewire\Admin\AdminCash;
+use App\Http\Livewire\Admin\AdminCashReport;
 use App\Http\Livewire\Admin\AdminClients;
 use App\Http\Livewire\Admin\AdminDashboard;
 use App\Http\Livewire\Admin\AdminDrivers;
@@ -41,12 +42,14 @@ Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']
     $routeArr = [
         'dashboard'=>AdminDashboard::class,'settings'=>AdminSettings::class, 'clients'=>AdminClients::class,
         'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'booking-list'=> AdminBookings::class,
-        'add-booking'=> AdminAddBooking::class,'incentives-&-expenses'=> AdminCash::class,'booking-report'=> AdminBookingReport::class
+        'add-booking'=> AdminAddBooking::class,'incentives-&-expenses'=> AdminCash::class,
+        'booking-report'=> AdminBookingReport::class, 'expenses-&-incentives'=>AdminCashReport::class,
     ];
     foreach ($routeArr as $uri=> $data){
         Route::get($uri,$data )->name($uri);
     }
-    Route::get('/booking-report-report', [AdminBookingReport::class, 'rBooking' ])->name('report.report.bookings');
+    Route::get('/ei-report', [AdminCashReport::class, 'report' ])->name('ei.report');
+    Route::get('booking-report-report', [AdminBookingReport::class, 'rBooking' ])->name('report.report.bookings');
     Route::get('booking-details/{booking}', AdminViewBooking::class)->name('booking-details');
     Route::get('update-booking/{booking}', AdminUpdateBooking::class)->name('update.bookings');
 });
