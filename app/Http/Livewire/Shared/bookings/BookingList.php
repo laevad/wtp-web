@@ -20,7 +20,7 @@ class BookingList extends  GlobalVar{
         return  Booking::join('users','users.id','=', 'bookings.user_id')
             ->join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
             ->join('users as driver','driver.id','=', 'bookings.driver_id')
-            ->select('bookings.id', 'bookings.user_id','bookings.vehicle_id', 'bookings.t_trip_start','bookings.t_trip_end','bookings.driver_id', 'bookings.trip_start_date','bookings.trip_end_date','bookings.trip_status_id','bookings.t_total_distance')
+            ->select('bookings.id', 'bookings.user_id','bookings.vehicle_id', 'bookings.t_trip_start','bookings.t_trip_end','bookings.driver_id', 'bookings.trip_start_date','bookings.trip_end_date','bookings.trip_status_id','bookings.t_total_distance','bookings.created_at')
             ->where('users.name', 'LIKE', '%'. $this->searchTerm."%")
             ->orWhere('bookings.t_trip_start', 'LIKE', '%'. $this->searchTerm."%")
             ->orWhere('bookings.t_trip_end', 'LIKE', '%'. $this->searchTerm."%")

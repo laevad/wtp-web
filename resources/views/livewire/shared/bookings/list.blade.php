@@ -59,6 +59,7 @@
                         <th>Distance</th>
                         <th>Driver</th>
                         <th>Trip status</th>
+                        <th>Date Created</th>
                         <th>Actions</th>
 
                     </tr>
@@ -96,6 +97,9 @@
                                     @endforeach
 
                                 </select>
+                            </td>
+                            <td>
+                                {{ $booking->created_at->toFormattedDateTime() }}
                             </td>
                             <td>
                                 <div class="btn-group">
