@@ -73,6 +73,7 @@
                                 <th scope="col">#</th>
                                 <th>Amount</th>
                                 <th>Notes</th>
+                                <th>Date</th>
                                 <th>Added On</th>
                                 <th>Actions</th>
                             </tr>
@@ -83,9 +84,10 @@
                                     <th scope="row">{{ $expenses->firstItem() + $index }}</th>
                                     <td class="">{{ $data->amount  }}</td>
                                     <td class="">{{ $data->note == null ? 'N/A' : $data->note  }}</td>
+                                    <td>{{  $data->date }}</td>
                                     <td class="">{{ $data->created_at->toFormattedDateTime()  }}</td>
                                     <th>
-                                        <a href="" wire:click.prevent="confirmExpenseRemoval({{ $data->id }})">
+                                        <a href="" wire:click.prevent="confirmExpenseRemoval('{{ $data->id }}')">
                                             <i class="fa fa-trash text-danger ml-2"></i>
                                         </a>
                                     </th>
@@ -106,6 +108,7 @@
                                 <th scope="col">#</th>
                                 <th>Amount</th>
                                 <th>Notes</th>
+                                <th>Date</th>
                                 <th>Added On</th>
                                 <th>Actions</th>
                             </tr>
@@ -116,9 +119,10 @@
                                     <th scope="row">{{ $expenses->firstItem() + $index }}</th>
                                     <td class="">{{ $data->amount  }}</td>
                                     <td class="">{{ $data->note == null ? 'N/A' : $data->note  }}</td>
-                                    <td class="">{{ $data->created_at  }}</td>
+                                    <td>{{  $data->date }}</td>
+                                    <td class="">{{ $data->created_at->toFormattedDateTime()  }}</td>
                                     <th>
-                                        <a href="" wire:click.prevent="confirmIncentiveRemoval({{ $data->id }})">
+                                        <a href="" wire:click.prevent="confirmIncentiveRemoval('{{ $data->id }}')">
                                             <i class="fa fa-trash text-danger ml-2"></i>
                                         </a>
                                     </th>
