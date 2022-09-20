@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cash extends Model
 {
     use HasFactory, uuid;
-
+    protected $keyType = 'string';
     const CASH_EXPENSE = 1;
     const CASH_INCENTIVE = 2;
 
