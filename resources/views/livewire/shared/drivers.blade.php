@@ -3,7 +3,7 @@
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
             <div class="">
-                <button wire:click.prevent="addNew" class="btn customBg text-white"><i class="fa fa-plus-circle mr-1"></i>Add driver</button>
+                <button wire:click.prevent="addNew" class="btn-sm customBg text-white"><i class="fa fa-plus-circle mr-1"></i>Add driver</button>
                 @if($selectedRows)
                     <div class="btn-group p-1">
                         <button type="button" class="btn btn-default">Bulk Action</button>
