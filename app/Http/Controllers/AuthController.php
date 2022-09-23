@@ -31,8 +31,8 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         $validators = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required|email',
+            'password' => 'required|min:4'
         ]);
         if ($validators->fails()){
             $errors = $validators->errors();
