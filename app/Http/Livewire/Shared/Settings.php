@@ -32,7 +32,9 @@ class Settings extends  Component{
         $previousPath = auth()->user()->avatar;
         $path =$this->image->store('/','avatars');
         auth()->user()->update(['avatar'=>$path]);
-        Storage::disk('avatars')->delete($previousPath);
+        if ($previousPath !=null){
+            Storage::disk('avatars')->delete($previousPath);
+        }
         $this->dispatchBrowserEvent('updated', ['message'=>'Profile changed successfully']);
     }
 

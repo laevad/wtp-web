@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ApiMiddleware;
 use App\Http\Middleware\isAdminMiddleware;
 use App\Http\Middleware\isClientMiddleware;
 use App\Http\Middleware\isUserMiddleware;
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'isAdmin' => isAdminMiddleware::class,
         'isUser' => isUserMiddleware::class,
         'isClient' => isClientMiddleware::class,
+        'api.auth' => ApiMiddleware::class,
     ];
 }
