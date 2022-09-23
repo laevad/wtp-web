@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -24,12 +26,27 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth($this->guard)->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $validators = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        if ($validators->fails()){
+            $errors = $validators->errors();
+            $err = [
+                'email' => $errors->first('email'),
+                'password' => $errors->first('password'),
+            ];
+            return response()->json([
+                'errors' => $err
+            ], 422);
+        }
+
+        else if (! $token = auth($this->guard)->attempt($credentials)) {
+            return response()->json(['error' => 'Invalid credentials'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -79,7 +96,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth($this->guard)->factory()->getTTL() * 60
+            'expires_in' => auth($this->guard)->factory()->getTTL() * 60,
         ]);
     }
 }
