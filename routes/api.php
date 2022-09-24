@@ -26,5 +26,5 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'],function () {
     Route::post('logout', [AuthController::class,"logout"]);
 });
 Route::group(['middleware' => 'api.auth', 'prefix' => 'user'],function () {
-    Route::put('update',[ApiUserController::class, 'updateProfile']);
+    Route::post('update',[ApiUserController::class, 'updateProfile']);
 });
