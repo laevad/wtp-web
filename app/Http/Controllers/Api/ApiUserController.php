@@ -61,23 +61,25 @@ class ApiUserController extends Controller
     {
         $validators = Validator::make($request->all(), [
             'name'=> 'sometimes|min:2|nullable',
-            'avatar'=> 'sometimes|nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'image'=> 'sometimes|nullable|image|mimes:jpg,png,jpeg|max:2048',
             'email' => 'sometimes|email|unique:users,email,'.auth($this->guard)->user()->id,
-            'current_password' => ['sometimes', 'nullable', 'required_with:new_password', 'string', new MatchOldPassword],
-            'new_password' =>['sometimes', 'nullable', 'string','confirmed',Password::min(8)
+            'current_password' => ['sometimes', 'required_with:new_password', 'string', new MatchOldPassword],
+            'new_password' =>['sometimes','required_with:current_password', 'nullable', 'string','same:password_confirmation',Password::min(8)
                 ->letters()
                 ->mixedCase()
                 ->numbers()
                 ->symbols()
                 ->uncompromised(),],
+            'password_confirmation' => ['sometimes', 'nullable',  'same:new_password'],
         ]);
         $errors = $validators->errors();
         $err = [
             'name' => $errors->first('name'),
             'email' => $errors->first('email'),
-            'avatar' => $errors->first('avatar'),
+            'image' => $errors->first('avatar'),
             'current_password' => $errors->first('current_password'),
             'new_password' => $errors->first('new_password'),
+            'password_confirmation' => $errors->first('password_confirmation'),
         ];
         if ($validators->fails()){
             return response()->json([
@@ -87,7 +89,17 @@ class ApiUserController extends Controller
         $user = Auth::user();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('new_password'));
+        if($request->has('image')){
+            $previousPath = auth()->user()->avatar;
+            $path = $request->file('image');
+            auth()->user()->update(['avatar'=>$path]);
+            if ($previousPath !=null){
+                Storage::disk('avatars')->delete($previousPath);
+            }
+        }
+        if($request->has('new_password') && $request->filled('new_password')){
+            $user->password = Hash::make($request->input('new_password'));
+        }
         $user->update();
         return response()->json([
             'errors' => $err
