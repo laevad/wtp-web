@@ -27,7 +27,11 @@ class Booking extends Model
         'trip_start_date',
         'trip_end_date',
         't_total_distance',
-        'created_at'
+        'created_at',
+        'from_latitude',
+        'from_longitude',
+        'to_latitude',
+        'to_longitude',
 
     ];
 

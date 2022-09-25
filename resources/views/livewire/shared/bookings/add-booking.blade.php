@@ -77,6 +77,7 @@
                     var longitudes = place.geometry.location.lng();
                     document.getElementById("t_trip_fromlat").value = latitudes;
                     document.getElementById("t_trip_fromlog").value = longitudes;
+
                 });
                 var places = new google.maps.places.Autocomplete(document.getElementById('t_trip_end'));
                 google.maps.event.addListener(places, 'place_changed', function () {
@@ -85,6 +86,7 @@
                     var longitude = toplace.geometry.location.lng();
                     document.getElementById("t_trip_tolat").value = latitude;
                     document.getElementById("t_trip_tolog").value = longitude;
+                    Livewire.emit('t_lat_long', latitude, longitude);
                     distance(document.getElementById("t_trip_fromlat").value, document.getElementById("t_trip_fromlog").value, latitude, longitude, 'K');
                 });
             });
@@ -107,7 +109,8 @@
                     if (unit==="K") { dist = dist * 1.609344 }
                     if (unit==="N") { dist = dist * 0.8684 }
                     document.getElementById("t_total_distance").value =  Math.round(dist);
-                    Livewire.emit('total_distance',  Math.round(dist));
+                    console.log(lat1, lon1, lat2, lon2);
+                    Livewire.emit('total_distance',  Math.round(dist),lat1, lon1, lat2, lon2);
                     // document.getElementById("t_total_distance").value =  Math.round(dist);
 
                 }

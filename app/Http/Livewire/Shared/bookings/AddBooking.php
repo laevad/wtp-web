@@ -12,13 +12,18 @@ class AddBooking extends  Component{
     public $state= ['trip_status_id'=>1];
     public $total_distance;
     protected $listeners =[
-        'total_distance' => 'totalDistance',
+        'total_distance' => 'totalDistance'
     ];
 
 
-    public function totalDistance($t_distance){
+    public function totalDistance($t_distance,$lat,$lon,$lat1,$lon1){
         $this->state['t_total_distance'] = $t_distance;
+        $this->state['from_latitude'] = $lat;
+        $this->state['from_longitude'] = $lon;
+        $this->state['to_latitude'] = $lat1;
+        $this->state['to_longitude'] = $lon1;
     }
+
 
 
     public function createBooking(){
@@ -33,6 +38,10 @@ class AddBooking extends  Component{
             'trip_start_date'=>'required|date',
             'trip_end_date'=>'required|date',
             't_total_distance'=>'required|numeric',
+            'from_latitude'=>'',
+            'from_longitude'=>'',
+            'to_latitude'=>'',
+            'to_longitude'=>'',
 
         ],[
             'user_id.required'=>'The client field is required.',
