@@ -23,8 +23,8 @@ class ApiTripController extends Controller
             ->select('bookings.id', 'users.name as client','vehicles.name as vehicle',
                 'bookings.t_trip_start','bookings.t_trip_end','driver.name as driver',
                 'bookings.trip_start_date','bookings.trip_end_date',
-                'trip_statuses.name as trip_status','bookings.t_total_distance','bookings.created_at')
-            ->where('trip_statuses.id', '!=', '2')
+                'trip_statuses.name as trip_status','bookings.t_total_distance','bookings.created_at',
+                'bookings.from_latitude', 'bookings.from_longitude','bookings.to_latitude', 'bookings.to_longitude')
             ->orderBy('bookings.created_at', 'DESC')->paginate(12);
         return response()->json($booking);
     }
