@@ -26,7 +26,7 @@ class BookingList extends  GlobalVar{
             ->orWhere('bookings.t_trip_end', 'LIKE', '%'. $this->searchTerm."%")
             ->orWhere('driver.name', 'LIKE', '%'. $this->searchTerm."%")
             ->orWhere('vehicles.name', 'LIKE', '%'. $this->searchTerm."%")
-            ->orderBy('bookings.id', 'DESC')->paginate(5);
+            ->orderBy('bookings.created_at', 'DESC')->paginate(5);
     }
 
 

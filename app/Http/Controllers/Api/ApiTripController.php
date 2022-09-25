@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class ApiTripController extends Controller
 {
-    public  $guard = 'api';
+    public string $guard = 'api';
     public function __construct()
     {
         $this->middleware('api.auth');
     }
 
-    public function trip(){
+    public function trip(): JsonResponse
+    {
         $booking = Booking::join('users','users.id','=', 'bookings.user_id')
             ->join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
             ->join('users as driver','driver.id','=', 'bookings.driver_id')
@@ -24,7 +25,7 @@ class ApiTripController extends Controller
                 'bookings.trip_start_date','bookings.trip_end_date',
                 'trip_statuses.name as trip_status','bookings.t_total_distance','bookings.created_at')
             ->where('trip_statuses.id', '!=', '2')
-                ->orderBy('bookings.id', 'DESC')->paginate(12);
+            ->orderBy('bookings.created_at', 'DESC')->paginate(12);
         return response()->json($booking);
     }
 }
