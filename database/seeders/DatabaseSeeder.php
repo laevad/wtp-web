@@ -25,9 +25,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             APISeeder::class,
-//            ClientSeeder::class,
-//            DriverSeeder::class,
-//            VehicleSeeder::class,
+            ClientSeeder::class,
+            DriverSeeder::class,
+            VehicleSeeder::class,
             TripStatusSeeder::class,
             CashTypeSeeder::class,
         ]);

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,52 +11,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiUserController extends Controller
 {
     public  $guard = 'api';
     public function __construct()
     {
-
-
         $this->middleware('api.auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-
-
-    public function updateProfile(Request $request)
+    public function updateProfile(Request $request): JsonResponse
     {
         $validators = Validator::make($request->all(), [
             'name'=> 'sometimes|min:2|nullable',
@@ -107,14 +69,4 @@ class ApiUserController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiTripController;
 use App\Http\Controllers\Api\ApiUserController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
@@ -27,4 +28,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'],function () {
 });
 Route::group(['middleware' => 'api.auth', 'prefix' => 'user'],function () {
     Route::post('update',[ApiUserController::class, 'updateProfile']);
+});
+Route::group(['middleware' => 'api.auth', 'prefix' => 'trip'],function () {
+    Route::get('trip',[ApiTripController::class, 'trip']);
 });
