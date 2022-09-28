@@ -28,6 +28,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'],function () {
 });
 Route::group(['middleware' => 'api.auth', 'prefix' => 'user'],function () {
     Route::post('update',[ApiUserController::class, 'updateProfile']);
+    Route::post('location',[ApiUserController::class, 'addLocation']);
 });
 Route::group(['middleware' => 'api.auth', 'prefix' => 'trip'],function () {
     Route::get('trip',[ApiTripController::class, 'trip']);

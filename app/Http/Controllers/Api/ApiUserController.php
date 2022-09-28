@@ -69,4 +69,25 @@ class ApiUserController extends Controller
 
     }
 
+    public function addLocation(Request $request){
+        $validators = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'latitude' => 'numeric|required',
+            'longitude' => 'numeric|required',
+        ]);
+        $errors = $validators->errors();
+        $err = [
+            'user_id' => $errors->first('user_id'),
+            'latitude' => $errors->first('latitude'),
+            'longitude' => $errors->first('longitude'),
+        ];
+        if ($validators->fails()){
+            return response()->json([
+                'errors' => $err
+            ], 422);
+        }
+
+        return response()->json(['message'=>'okay', 'errors'=>$err], 201);
+    }
+
 }
