@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Location;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -87,7 +88,13 @@ class ApiUserController extends Controller
             ], 422);
         }
 
-        return response()->json(['message'=>'okay', 'errors'=>$err], 201);
+        $loc = new Location;
+        $loc->user_id = $request->input('user_id');
+        $loc->latitude = $request->input('latitude');
+        $loc->longitude = $request->input('longitude');
+        $loc->save();
+
+        return response()->json(['message'=>'success!', 'errors'=>$err, 'location'=>$loc], 201);
     }
 
 }

@@ -11,5 +11,17 @@ class Location extends Model
     use HasFactory,Uuid;
     protected $keyType = 'string';
 
-    public $incrementing = true;
+//    public $incrementing = false;
+    protected $fillable = [
+        'user_id',
+        'latitude',
+        'longitude'
+    ];
+    protected $hidden = [
+        'id'
+    ];
+
+
+
+
 }
