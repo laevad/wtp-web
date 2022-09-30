@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ApiTripController extends Controller
 {
@@ -31,6 +32,21 @@ class ApiTripController extends Controller
     }
     public function updateTripStatus(Request $request): JsonResponse
     {
-        return response()->json(['msg'=>'ok']);
+        $validators = Validator::make($request->all(), [
+            'booking_id' => 'required|exists:bookings,id',
+            'status_id' => 'required|exists:trip_statuses,id',
+        ]);
+        $errors = $validators->errors();
+        $err = [
+            'booking_id' => $errors->first('booking_id'),
+            'status_id' => $errors->first('status_id'),
+        ];
+        if ($validators->fails()){
+            return response()->json([
+                'errors' => $err
+            ], 422);
+        }
+        Booking::where('id', '=', $request->input('booking_id'))->update(['trip_status_id'=>$request->input('status_id')]);
+        return response()->json(['message'=>'success update!', 'errors'=>$err], 201);
     }
 }
