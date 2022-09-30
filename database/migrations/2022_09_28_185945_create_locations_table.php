@@ -17,8 +17,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->float('latitude', 10, 7);
-            $table->float('longitude',10, 7);
+            $table->float('latitude', 10, 6);
+            $table->float('longitude',10, 6);
             $table->timestamps();
         });
     }
