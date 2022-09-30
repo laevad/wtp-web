@@ -92,16 +92,17 @@ class ApiUserController extends Controller
             ], 422);
         }
         $check_id = Location::where('user_id', '=', $request->input('user_id'))->first();
+
+        $loc =  Location::where('user_id', '=',  $request->input('user_id'))->first();
         $loc->user_id = $request->input('user_id');
         $loc->latitude = $request->input('latitude');
         $loc->longitude = $request->input('longitude');
         if($check_id==null){
             $loc->save();
             return response()->json(['message'=>'success added!', 'errors'=>$err, 'location'=>$loc], 201);
-        }else{
-            $loc->update();
-            return response()->json(['message'=>'success updated!', 'errors'=>$err, 'location'=>$loc], 201);
         }
+        $loc->update();
+        return response()->json(['message'=>'success updated!', 'errors'=>$err, 'location'=>$loc], 201);
 
 
     }
