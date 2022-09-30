@@ -32,4 +32,5 @@ Route::group(['middleware' => 'api.auth', 'prefix' => 'user'],function () {
 });
 Route::group(['middleware' => 'api.auth', 'prefix' => 'trip'],function () {
     Route::get('trip',[ApiTripController::class, 'trip']);
+    Route::post('status',[ApiTripController::class, 'updateTripStatus']);
 });

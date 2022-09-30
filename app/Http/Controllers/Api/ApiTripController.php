@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ApiTripController extends Controller
 {
@@ -27,5 +28,9 @@ class ApiTripController extends Controller
                 'bookings.from_latitude', 'bookings.from_longitude','bookings.to_latitude', 'bookings.to_longitude')
             ->orderBy('bookings.created_at', 'DESC')->paginate(12);
         return response()->json($booking);
+    }
+    public function updateTripStatus(Request $request): JsonResponse
+    {
+        return response()->json(['msg'=>'ok']);
     }
 }
