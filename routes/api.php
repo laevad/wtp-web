@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiIncentiveController;
 use App\Http\Controllers\Api\ApiTripController;
 use App\Http\Controllers\Api\ApiUserController;
 use App\Http\Controllers\Api\AuthController;
@@ -33,4 +34,7 @@ Route::group(['middleware' => 'api.auth', 'prefix' => 'user'],function () {
 Route::group(['middleware' => 'api.auth', 'prefix' => 'trip'],function () {
     Route::get('trip',[ApiTripController::class, 'trip']);
     Route::post('status',[ApiTripController::class, 'updateTripStatus']);
+});
+Route::group(['middleware' => 'api.auth', 'prefix' => 'incentive'],function () {
+    Route::get('incentive',[ApiIncentiveController::class, 'incentive']);
 });
