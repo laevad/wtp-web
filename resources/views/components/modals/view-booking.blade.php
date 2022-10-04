@@ -24,7 +24,12 @@
                     <div class="form-group row">
                         <label for="note" class="col-sm-4 col-form-label">Notes</label>
                         <div class="form-group col-sm-8">
-                            <textarea class="form-control"  wire:model.defer="state.note" placeholder="Enter Notes"></textarea>
+                            <textarea class="form-control "  wire:model.defer="state.note" placeholder="Enter Notes"></textarea>
+                            @error('note')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                 </div>

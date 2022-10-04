@@ -26,7 +26,7 @@ class ApiUserController extends Controller
             'name'=> 'sometimes|min:2|nullable',
             'image'=> 'sometimes|nullable|image|mimes:jpg,png,jpeg|max:2048',
             'email' => 'sometimes|email|unique:users,email,'.auth($this->guard)->user()->id,
-            'current_password' => ['sometimes', 'required_with:new_password', 'string', new MatchOldPassword],
+            'current_password' => ['sometimes','nullable','required_with:new_password', 'string', new MatchOldPassword],
             'new_password' =>['sometimes','required_with:current_password', 'nullable', 'string','same:password_confirmation',Password::min(8)
                 ->letters()
                 ->mixedCase()

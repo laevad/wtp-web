@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('cashes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('date')->nullable();
-            $table->double('amount')->default(0);
+            $table->double('amount',10,2)->default(0);
             $table->string('note')->nullable();
             $table->timestamps();
         });

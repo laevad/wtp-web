@@ -53,7 +53,7 @@ class CashController extends GlobalVar{
         $this->viewMode=false;
         $this->showEditModal = true;
         $this->state = $cash->toArray();
-        $this->state['driver'] = $b->driver->name; 
+        $this->state['driver'] = $b->driver->name;
         $this->incentive = $cash;
         $this->dispatchBrowserEvent('show-form-incentive');
     }
@@ -92,7 +92,7 @@ class CashController extends GlobalVar{
             'vehicle_id'=>'required',
             'date'=>'required',
             'amount'=>'required|numeric',
-            'note'=>'nullable'
+            'note'=>'required'
         ],[
             'vehicle_id.required'=>'The vehicle field is required.'
         ])->validate();
@@ -108,7 +108,7 @@ class CashController extends GlobalVar{
             'vehicle_id'=>'required',
             'date'=>'required',
             'amount'=>'required|numeric',
-            'note'=>'nullable',
+            'note'=>'required',
         ],[
             'vehicle_id.required'=>'The vehicle field is required.'
         ])->validate();

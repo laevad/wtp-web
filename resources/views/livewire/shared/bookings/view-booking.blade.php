@@ -93,7 +93,7 @@
                                     </th>
                                 </tr>
                             @empty
-                                <x-custom.empty colSpan="5"></x-custom.empty>
+                                <x-custom.empty colSpan="6"></x-custom.empty>
                             @endforelse
                             </tbody>
                         </table>
@@ -128,7 +128,7 @@
                                     </th>
                                 </tr>
                             @empty
-                                <x-custom.empty colSpan="5"></x-custom.empty>
+                                <x-custom.empty colSpan="6"></x-custom.empty>
                             @endforelse
                             </tbody>
                         </table>

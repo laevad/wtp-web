@@ -112,7 +112,7 @@
                             </td>
                         </tr>
                     @empty
-                        <x-custom.empty></x-custom.empty>
+                        <x-custom.empty colSpan="6"></x-custom.empty>
                     @endforelse
                     </tbody>
                 </table>
