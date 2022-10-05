@@ -9,10 +9,16 @@ use Illuminate\Database\Eloquent\Model;
 class Marker extends Model
 {
     use HasFactory,Uuid;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'booking_id',
         'latitude',
         'longitude',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 }

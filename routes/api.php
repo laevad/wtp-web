@@ -42,4 +42,5 @@ Route::group(['middleware' => 'api.auth', 'prefix' => 'incentive'],function () {
 
 Route::group(['middleware' => 'api.auth', 'prefix' => 'marker'],function () {
     Route::post('marker',[ApiMarkerController::class, 'marker']);
+    Route::post('get-marker',[ApiMarkerController::class, 'getMarker']);
 });

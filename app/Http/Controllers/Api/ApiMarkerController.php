@@ -39,4 +39,10 @@ class ApiMarkerController extends Controller
         $marker->save();
         return response()->json(['errors' => $err, 'markers'=>$request->all()], 201);
     }
+
+    public function getMarker(Request $request): JsonResponse
+    {
+        $marker = Marker::where('booking_id', '=', $request->input('booking_id'))->get();
+        return response()->json(['data'=>$marker]);
+    }
 }
