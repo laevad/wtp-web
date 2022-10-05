@@ -31,7 +31,7 @@
                     <x-nav.item icon="fa-road" currentPage="bookings" :treeNav="['booking-list'=>'fa-clipboard-list','add-booking'=>'fa-plus']" isTree="true"></x-nav.item>
                     <x-nav.item icon="fa-truck" currentPage="incentives-&-expenses"></x-nav.item>
                     <x-nav.item icon="fa-calculator" currentPage="Reports" :treeNav="['booking-report'=>'fa-file-download','expenses-&-incentives'=>'fa-file-download']" isTree="true"></x-nav.item>
-                    <x-nav.item icon="fa-map-pin" currentPage="tracking"></x-nav.item>
+{{--                    <x-nav.item icon="fa-map-pin" currentPage="tracking"></x-nav.item>--}}
                 @endif
                 <x-nav.item icon="fa-wrench" currentPage="settings"></x-nav.item>
             </ul>
