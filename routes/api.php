@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiIncentiveController;
+use App\Http\Controllers\Api\ApiMarkerController;
 use App\Http\Controllers\Api\ApiTripController;
 use App\Http\Controllers\Api\ApiUserController;
 use App\Http\Controllers\Api\AuthController;
@@ -37,4 +38,8 @@ Route::group(['middleware' => 'api.auth', 'prefix' => 'trip'],function () {
 });
 Route::group(['middleware' => 'api.auth', 'prefix' => 'incentive'],function () {
     Route::get('incentive',[ApiIncentiveController::class, 'incentive']);
+});
+
+Route::group(['middleware' => 'api.auth', 'prefix' => 'marker'],function () {
+    Route::post('marker',[ApiMarkerController::class, 'marker']);
 });

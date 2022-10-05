@@ -72,9 +72,6 @@ class ApiUserController extends Controller
 
     public function addLocation(Request $request): JsonResponse
     {
-        $loc = new Location;
-
-
         $validators = Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id',
             'latitude' => 'numeric|required',
@@ -87,9 +84,7 @@ class ApiUserController extends Controller
             'longitude' => $errors->first('longitude'),
         ];
         if ($validators->fails()){
-            return response()->json([
-                'errors' => $err
-            ], 422);
+            return response()->json(['errors' => $err], 422);
         }
         $check_id = Location::where('user_id', '=', $request->input('user_id'))->first();
 
