@@ -1,4 +1,5 @@
 <x-animation.ball-spin></x-animation.ball-spin>
+@dump($location)
 <div class="row">
     <div class="col-lg-12">
     </div>

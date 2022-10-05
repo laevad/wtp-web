@@ -2,12 +2,22 @@
 
 namespace App\Http\Livewire\Admin;
 
-use Livewire\Component;
+use App\Http\Livewire\Shared\Dashboard;
+use App\Models\Location;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
-class AdminDashboard extends Component
+
+class AdminDashboard extends Dashboard
 {
-    public function render()
+    public function render(): Factory|View|Application
     {
-        return view('livewire.admin.admin-dashboard');
+        $location = Location::all()->toArray();
+        return view('livewire.admin.admin-dashboard',[
+            'location'=>$location
+        ]);
     }
+
+
 }
