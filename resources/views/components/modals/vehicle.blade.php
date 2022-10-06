@@ -1,4 +1,4 @@
-@props(['isEdit'=>false, 'isView'=>false,])
+@props(['isEdit'=>false, 'isView'=>false, 'status'])
 <div class="modal fade " id="form" tabindex="-1" role="dialog" data-backdrop="static"  aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content" >
@@ -21,15 +21,16 @@
                         <x-custom.input model="registration_expiry_date" :isView="$isView" isDate="true">Reg. Expiry Date</x-custom.input>
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group">
-                                <label for="d_is_active" class="form-label">Driver Status @if(!$isView)<span class="text-red">*</span> @endif</label>
-                                <div class="@error('status') is-invalid border  border-danger round custom-error @enderror">
-                                    <x-custom.select id="status" :view="$isView">
-                                        <option value="">Select Driver Status</option>
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
+                                <label for="d_is_active" class="form-label">Vehicle Status @if(!$isView)<span class="text-red">*</span> @endif</label>
+                                <div class="@error('status_id') is-invalid border  border-danger round custom-error @enderror">
+                                    <x-custom.select id="status_id" :view="$isView">
+                                        <option value="">Select Vehicle Status</option>
+                                        @foreach($status as $stats)
+                                            <option value="{{ $stats->id }}">{{  ucwords($stats->name) }}</option>
+                                        @endforeach
                                     </x-custom.select>
                                 </div>
-                                @error('status')
+                                @error('status_id')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

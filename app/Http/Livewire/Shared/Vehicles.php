@@ -1,6 +1,7 @@
 <?php
 namespace  App\Http\Livewire\Shared;
 
+use App\Models\Status;
 use App\Models\Vehicle;
 use App\Models\VehicleStatus;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -9,11 +10,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 class Vehicles extends GlobalVar{
+
     public $listeners = ['deleteConfirmed'=> 'deleteVehicle',  'deleteSelected'=>'deletedSelectedVehicleRows' ];
     public function addNew(){
         $this->showEditModal= false;
         $this->photo = null;
-        $this->state = ['status'=>'ACTIVE'];
+        $this->state = ['status_id'=>VehicleStatus::ACTIVE];
         $this->viewMode = false;
         $this->dispatchBrowserEvent('show-form');
     }
@@ -71,7 +73,7 @@ class Vehicles extends GlobalVar{
             'engine_no'=>'required',
             'manufactured_by'=>'required',
             'registration_expiry_date'=>'required',
-            'status'=> 'required'
+            'status_id'=> 'required'
         ])->validate();
 
         $this->vehicle->update($validatedData);
