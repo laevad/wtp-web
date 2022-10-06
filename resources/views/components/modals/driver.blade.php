@@ -25,11 +25,11 @@
                         <div class="p-2">
                             <div class="form-group">
                                 <label for="d_is_active" class="form-label">Driver Status @if(!$isView)<span class="text-red">*</span> @endif</label>
-                                <div class="@error('status') is-invalid border  border-danger round  @enderror">
-                                    <x-custom.select id="status" :view="$isView">
+                                <div class="@error('status_id') is-invalid border  border-danger round  @enderror">
+                                    <x-custom.select id="status_id" :view="$isView">
                                         <option value="">Select Driver Status</option>
-                                        <option value="ACTIVE">Active</option>
-                                        <option value="INACTIVE">Inactive</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
                                     </x-custom.select>
                                 </div>
                                 @error('status')

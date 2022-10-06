@@ -5,6 +5,7 @@ use App\Models\Status;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleStatus;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -223,5 +224,11 @@ class GlobalVar extends  Component{
         }
         $vehicle->update(['status_id'=> $status]);
         $this->dispatchBrowserEvent('updated', ['message'=>"Vehicle status changed to {$stats} successfully!"]);
+    }
+
+    /* get the user status */
+        public function getUserStatus(): Collection
+        {
+       return  Status::all();
     }
 }

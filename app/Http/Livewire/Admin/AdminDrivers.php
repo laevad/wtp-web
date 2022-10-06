@@ -20,7 +20,7 @@ class AdminDrivers extends Drivers
             $this->getDriverQuery();
         }
         $this->cPageChanges($users->currentPage());
-        $status = Status::all();
+        $status = $this->getUserStatus();
         return view('livewire.admin.admin-drivers',[
             'users'=>$users,
             'status'=>$status

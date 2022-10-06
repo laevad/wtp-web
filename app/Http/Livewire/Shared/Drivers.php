@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Livewire\Shared;
 
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
@@ -12,7 +13,7 @@ class Drivers extends GlobalVar{
     public $viewMode = false;
     public function addNew(){
         $this->showEditModal= false;
-        $this->state = ['status'=>'ACTIVE'];
+        $this->state = ['status_id'=>Status::ACTIVE];
         $this->photo = null;
         $this->viewMode = false;
         $this->dispatchBrowserEvent('show-form');
@@ -80,7 +81,7 @@ class Drivers extends GlobalVar{
             'total_experience'=>'required|numeric',
             'license_expiry_date'=>'required|date',
             'date_of_joining'=>'required|date',
-            'status'=>'required',
+            'status_id'=>'required',
             'address'=>''
         ])->validate();
 
