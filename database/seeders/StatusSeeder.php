@@ -18,7 +18,7 @@ class StatusSeeder extends Seeder
         DB::table('statuses')->insert(
             [
                 ['id'=>1,'name'=>'active'],
-                ['id'=>1,'name'=>'inactive'],
+                ['id'=>2,'name'=>'inactive'],
             ],
         );
     }

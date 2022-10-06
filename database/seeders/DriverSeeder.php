@@ -33,7 +33,7 @@ class DriverSeeder extends GlobalSeeder
                     'total_experience'=> fake()->numerify('#'),
                     'license_expiry_date'=> now()->toFormattedDate(),
                     'date_of_joining'=> now()->toFormattedDate(),
-                    'status'=>'ACTIVE',
+                    'status_id'=> 1,
                     'address'=>'CDO',
                     'avatar' => $this->setInitialPhoto($fName[0]),
                 ]

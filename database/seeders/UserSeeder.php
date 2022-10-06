@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                 'password'=> bcrypt('1234'),
                 'created_at'=>now(),
                 'email_verified_at'=>now(),
+                'status_id'=> 1,
                 'role_id'=>'1',
 
             ],

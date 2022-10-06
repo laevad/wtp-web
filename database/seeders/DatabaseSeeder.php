@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             RoleSeeder::class,
-            UserSeeder::class,
             APISeeder::class,
-            ClientSeeder::class,
-            DriverSeeder::class,
             VehicleSeeder::class,
             TripStatusSeeder::class,
             CashTypeSeeder::class,
-            StatusSeeder::class
+            StatusSeeder::class,
+            UserSeeder::class,
+            ClientSeeder::class,
+            DriverSeeder::class,
         ]);
     }
 }
