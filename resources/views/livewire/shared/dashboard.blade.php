@@ -38,7 +38,7 @@
                 streetViewControl: false,
                 fullscreenControl: false,
                 mapTypeControl: false,
-                @if(\PHPUnit\Framework\isEmpty($location))
+                @if(count($location)==0)
                 center: pune,
                 zoom: 7,
                 @endif
@@ -49,10 +49,13 @@
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
             map.setTilt(100);
             let infoWindowContent = [
+                    @foreach($location as $loc)
                 [
                     '<div class="info_content">' +
-                    '<h4>title</h4></div>'
-                ]
+                    '<h5>{{ $loc->user->name }}</h5></div>'
+                ],
+                    @endforeach
+
             ];
             // let markers = [
             //     ["name",8.44,124.66]
@@ -60,7 +63,7 @@
 
             let markers = [
                     @foreach($location as $loc)
-                ['{{ $loc->id }}',  {{ $loc->latitude }},  {{ $loc->longitude }}, '{{ asset('images/2.png') }}']
+                ['{{ $loc->user->name }}',  {{ $loc->latitude }},  {{ $loc->longitude }}, '{{ asset('images/2.png') }}'],
                 @endforeach
             ];
 
@@ -90,7 +93,7 @@
 
             }
 
-            @if(!\PHPUnit\Framework\isEmpty($location))
+            @if(count($location)!=0)
             map.fitBounds(bounds);
             // Set zoom level
             let boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {

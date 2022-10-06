@@ -21,8 +21,8 @@ class Location extends Model
         'id'
     ];
 
-    public function booking(){
-        return $this->hasOne(Booking::class,'id', 'booking_id');
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
 }
