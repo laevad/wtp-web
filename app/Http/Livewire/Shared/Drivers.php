@@ -60,6 +60,7 @@ class Drivers extends GlobalVar{
     public function view(User $user){
         //        $this->reset();
         $this->state = [];
+        $this->showEditModal = false;
         $this->viewMode = true;
         $this->state = $user->toArray();
         $this->user = $user;

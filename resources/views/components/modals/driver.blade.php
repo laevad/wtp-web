@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"
-                    id="exampleModalLabel">{{ $isEdit  ? 'Update Driver': ($isView? 'Driver details' : 'Add New Client') }}</h5>
+                    id="exampleModalLabel">{{ $isEdit  ? 'Update Driver': ($isView? 'Driver details' : 'Add New Driver') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
                     <span aria-hidden="true">&times;</span>
                 </button>
