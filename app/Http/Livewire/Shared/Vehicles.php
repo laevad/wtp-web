@@ -21,17 +21,9 @@ class Vehicles extends GlobalVar{
     }
 
     public function createVehicle(){
-        $validatedData = Validator::make($this->state,[
-            'registration_number'=>'required',
-            'name'=>'required',
-            'model'=>'required',
-            'chassis_no'=>'required',
-            'engine_no'=>'required',
-            'manufactured_by'=>'required',
-            'registration_expiry_date'=>'required',
-            'status'=> 'required'
-        ])->validate();
+        $validatedData = $this->validateVehicle();
         Vehicle::create($validatedData);
+        $this->disable = true;
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Vehicle added successfully']);
         $this->resetPage();
         return redirect()->back();
@@ -66,16 +58,7 @@ class Vehicles extends GlobalVar{
     public function updateVehicle(): RedirectResponse
     {
 
-        $validatedData = Validator::make($this->state,[
-            'registration_number'=>'required',
-            'name'=>'required',
-            'model'=>'required',
-            'chassis_no'=>'required',
-            'engine_no'=>'required',
-            'manufactured_by'=>'required',
-            'registration_expiry_date'=>'required',
-            'status_id'=> 'required'
-        ])->validate();
+        $validatedData = $this->validateVehicle();
 
         $this->vehicle->update($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Driver updated successfully']);
@@ -150,6 +133,40 @@ class Vehicles extends GlobalVar{
     public function getVehicleStatus(): Collection
     {
         return VehicleStatus::all();
+    }
+
+    public function validateVehicle(){
+
+        if ($this->showEditModal){
+            return  Validator::make($this->state,[
+                'registration_number'=>'required|min:3|max:120',
+                'name'=>'required',
+                'model'=>'required',
+                'chassis_no'=>'required',
+                'engine_no'=>'required',
+                'manufactured_by'=>'required',
+                'registration_expiry_date'=>'required',
+                'status_id'=> 'required'
+            ])->validate();
+        }
+
+        return Validator::make($this->state,[
+            'registration_number'=>'required|min:3|max:120',
+            'name'=>'required',
+            'model'=>'required',
+            'chassis_no'=>'required',
+            'engine_no'=>'required',
+            'manufactured_by'=>'required',
+            'registration_expiry_date'=>'required',
+            'status_id'=> 'required'
+        ])->validate();
+    }
+
+    public function updated(){
+        $validatedData = $this->validateVehicle();
+        if(isset($validatedData)){
+            $this->disable = true;
+        }
     }
 
 }
