@@ -1,4 +1,4 @@
-<x-animation.ball-spin></x-animation.ball-spin>
+{{--<x-animation.ball-spin></x-animation.ball-spin>--}}
 <div class="row">
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
