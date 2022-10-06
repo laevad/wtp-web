@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('license_expiry_date')->nullable();
             $table->integer('total_experience')->nullable();
             $table->string('date_of_joining')->nullable();
-            $table->string('status')->default('active');
             $table->text('address')->nullable();
             $table->rememberToken();
             $table->timestamps();
