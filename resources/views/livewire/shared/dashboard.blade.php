@@ -6,7 +6,7 @@
             <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-truck text-white"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Total Vehicle's</span>
-                <span class="info-box-number">14  </span>
+                <span class="info-box-number">{{ $totalVehicle }}  </span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -18,7 +18,7 @@
             <span class="info-box-icon bg-success elevation-1"><i class="fa fa-user-secret"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Total Drivers</span>
-                <span class="info-box-number">14 </span>
+                <span class="info-box-number">{{ $totalDriver }} </span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -32,7 +32,7 @@
             <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-user text-white"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Total Client</span>
-                <span class="info-box-number">14 </span>
+                <span class="info-box-number">{{ $totalClient }} </span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -91,7 +91,7 @@
                     '<div class="info_content">' +
                     '<h5>{{ $loc->user->name }}</h5></div>'
                 ],
-                    @endforeach
+                @endforeach
 
             ];
             // let markers = [
@@ -138,11 +138,7 @@
                 google.maps.event.removeListener(boundsListener);
             });
             @endif
-
-
-
         }
-
 
     </script>
 @endpush
