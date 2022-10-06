@@ -25,7 +25,7 @@ class AdminDashboard extends Dashboard
         ]);
     }
 
-    function countTotalVehicle($name): int
+    function countTotal($name): int
     {
         if ($name =='vehicle')
             return Vehicle::all()->count();
@@ -36,9 +36,9 @@ class AdminDashboard extends Dashboard
     }
 
     public function mount(){
-       $this->totalVehicle = $this->countTotalVehicle('vehicle');
-       $this->totalDriver = $this->countTotalVehicle('driver');
-       $this->totalClient = $this->countTotalVehicle('client');
+       $this->totalVehicle = $this->countTotal('vehicle');
+       $this->totalDriver = $this->countTotal('driver');
+       $this->totalClient = $this->countTotal('client');
     }
 
 
