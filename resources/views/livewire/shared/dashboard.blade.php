@@ -30,6 +30,7 @@
     <script>
 
         function loadMap() {
+            const pune = {lat: 8.44, lng: 124.66};
             let map;
             let bounds = new google.maps.LatLngBounds();
             let mapOptions = {
@@ -37,6 +38,10 @@
                 streetViewControl: false,
                 fullscreenControl: false,
                 mapTypeControl: false,
+                @if(\PHPUnit\Framework\isEmpty($location))
+                center: pune,
+                zoom: 7,
+                @endif
                 zoomControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_TOP
                 }
@@ -44,18 +49,18 @@
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
             map.setTilt(100);
             let infoWindowContent = [
-               [
-                   '<div class="info_content">' +
-                   '<h4>title</h4></div>'
-               ]
+                [
+                    '<div class="info_content">' +
+                    '<h4>title</h4></div>'
+                ]
             ];
             // let markers = [
             //     ["name",8.44,124.66]
             // ];
 
             let markers = [
-                @foreach($location as $loc)
-               ['{{ $loc->id }}',  {{ $loc->latitude }},  {{ $loc->longitude }}, '{{ asset('images/2.png') }}']
+                    @foreach($location as $loc)
+                ['{{ $loc->id }}',  {{ $loc->latitude }},  {{ $loc->longitude }}, '{{ asset('images/2.png') }}']
                 @endforeach
             ];
 
@@ -85,14 +90,17 @@
 
             }
 
-            // Center the map to fit all markers on the screen
+            @if(!\PHPUnit\Framework\isEmpty($location))
             map.fitBounds(bounds);
-
             // Set zoom level
             let boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
                 this.setZoom(14);
                 google.maps.event.removeListener(boundsListener);
             });
+            @endif
+
+
+
         }
 
 
