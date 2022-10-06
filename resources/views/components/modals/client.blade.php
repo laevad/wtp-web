@@ -15,6 +15,23 @@
                         <x-custom.input model="name" isClient="true"></x-custom.input>
                         <x-custom.input model="email" isClient="true"></x-custom.input>
                         <x-custom.input model="mobile" isClient="true"></x-custom.input>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="d_is_active" class="form-label">Client Status <span class="text-red">*</span></label>
+                                <div class="@error('status_id') is-invalid border  border-danger round  @enderror">
+                                    <x-custom.select id="status_id" :view="false">
+                                        <option value="">Select Driver Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
+                                    </x-custom.select>
+                                </div>
+                                @error('status_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     {{--custom display picture--}}
                     <x-custom.profile-photo :photo="$photo"></x-custom.profile-photo>

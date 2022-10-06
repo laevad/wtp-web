@@ -15,6 +15,7 @@ class Clients extends  GlobalVar {
             'name'=>'required',
             'email'=>'required|email|unique:users,email,'.$this->user->id,
             'mobile'=>'required|numeric|unique:users,mobile,'.$this->user->id,
+            'status_id'=>'required',
         ])->validate();
 
         $previousPath = $this->user->avatar;

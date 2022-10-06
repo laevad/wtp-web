@@ -32,7 +32,7 @@
                                         <option value="2">Inactive</option>
                                     </x-custom.select>
                                 </div>
-                                @error('status')
+                                @error('status_id')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
