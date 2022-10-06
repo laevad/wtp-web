@@ -54,6 +54,7 @@
                                         </span>
                         </th>
                         <th>Mobile</th>
+                        <th>Status</th>
                         <th scope="col">Registered Date</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -72,6 +73,7 @@
                                 {{ $user->name }}</td>
                             <td class="">{{ $user->email }}</td>
                             <td class="">{{ $user->mobile }}</td>
+                            <td><span class="badge @if($user->status=='active') badge-success @else badge-danger @endif">{{ $user->status }}</span></td>
                             <td>{{ $user->created_at->toFormattedDate() }}</td>
 
                             <td>
