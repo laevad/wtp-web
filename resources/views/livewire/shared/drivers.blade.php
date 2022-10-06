@@ -84,7 +84,14 @@
                             <td>{{ $user->license_expiry_date }}</td>
                             <td>{{ $user->date_of_joining }}</td>
                             <td>
-                                <span class="badge @if($user->status=='ACTIVE') badge-success @else badge-danger @endif">{{ $user->status }}</span>
+                                <select class="badge badge-{{$user->statusTypeBadge}}"
+                                        wire:change="changeUserStatus({{ $user }},$event.target.value)"
+                                >
+                                    @foreach($status as $data)
+                                        <option value="{{ $data->id }}" @if($data->id == $user->status_id) selected @endif>{{ strtoupper($data->name) }}</option>
+                                    @endforeach
+
+                                </select>
                             </td>
 
                             <td>

@@ -3,12 +3,16 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Http\Livewire\Shared\Drivers;
+use App\Models\Status;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class AdminDrivers extends Drivers
 {
-    public function render()
+    public function render(): Factory|View|Application
     {
         $users = $this->getDriverQuery();
         if (count($users) == 0){
@@ -16,8 +20,10 @@ class AdminDrivers extends Drivers
             $this->getDriverQuery();
         }
         $this->cPageChanges($users->currentPage());
+        $status = Status::all();
         return view('livewire.admin.admin-drivers',[
-            'users'=>$users
+            'users'=>$users,
+            'status'=>$status
         ]);
     }
 
