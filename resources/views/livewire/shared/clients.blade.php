@@ -1,4 +1,4 @@
-<x-animation.ball-spin></x-animation.ball-spin>
+{{--<x-animation.ball-spin></x-animation.ball-spin>--}}
 <div class="row">
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
@@ -107,5 +107,5 @@
         </div>
     </div>
     {{--Modal for client--}}
-    <x-modals.client :isEdit="$showEditModal" :photo="$photo" :state="$state"></x-modals.client>
+    <x-modals.client :isEdit="$showEditModal" :photo="$photo" :state="$state" :isDisable="$disable"></x-modals.client>
 </div>

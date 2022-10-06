@@ -1,13 +1,31 @@
 <?php
 namespace App\Http\Livewire\Shared;
 
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class Clients extends  GlobalVar {
+
+    public bool $disable =false;
+
+
+
+
+
+    public function updated(){
+        $validatedData = $this->validateClient();
+
+      if(isset($validatedData)){
+          $this->disable = true;
+      }
+
+    }
 
     public function updateUser(): RedirectResponse
     {
@@ -34,11 +52,7 @@ class Clients extends  GlobalVar {
 
     public function createUser(): RedirectResponse
     {
-        $validatedData = Validator::make($this->state,[
-            'name'=>'required|unique:users',
-            'email'=>'required|email|unique:users',
-            'mobile'=>'required|numeric|unique:users',
-        ])->validate();
+        $validatedData = $this->validateClient();
         $validatedData['password'] = bcrypt('1234');
         $validatedData['role_id'] = User::ROLE_CLIENT;
         if ($this->photo){
@@ -59,5 +73,18 @@ class Clients extends  GlobalVar {
             ->latest()->paginate(5);
     }
 
+
+    public function validateClient()
+    {
+        return Validator::make($this->state,[
+            'name'=>'required|unique:users|min:4|max:60',
+            'email'=>'required|email|unique:users|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
+            'mobile'=>'required|numeric|phone',
+            'status_id'=>[
+                'required',
+                Rule::in(Status::INACTIVE, Status::ACTIVE),
+            ],
+        ], ['status_id.required'=>'The status field is required.'])->validate();
+    }
 
 }

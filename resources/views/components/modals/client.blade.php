@@ -1,4 +1,4 @@
-@props(['isEdit', 'photo'])
+@props(['isEdit', 'photo', 'isDisable'])
 <div class="modal fade" id="form" tabindex="-1" role="dialog" data-backdrop="static"  aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog " role="document">
         <div class="modal-content" >
@@ -39,7 +39,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=""><i class="fa fa-times mr-2"></i>Cancel</button>
-                    <button type="submit" class="btn customBg text-white"><i class="fa fa-save mr-2"></i>{{ $isEdit ? 'Save Changes' : 'Save' }}</button>
+                    <button type="submit" class="btn customBg text-white" @if(!$isDisable) disabled @endif><i class="fa fa-save mr-2" ></i>{{ $isEdit ? 'Save Changes' : 'Save' }}</button>
                 </div>
             </form>
         </div>

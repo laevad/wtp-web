@@ -5,7 +5,7 @@
         <label for="{{ $model }}">{{ $customLabel == null?  ucfirst(str_replace("_", ' ', $model)) : $customLabel }} <span class="text-red">*</span></label>
         <input
             type="{{$isPass? 'password' : 'text' }}"
-            wire:model.defer="state.{{ $model }}"
+            wire:model="state.{{ $model }}"
             class="form-control @error($model) is-invalid @enderror @if($isDate)  datetimepicker-input @endif" id="{{ $model }}"
             placeholder="{{ $customLabel == null?  ucfirst(str_replace("_", ' ', $model)) : $customLabel }}"
             {{ $isView? 'disabled' : '' }}
