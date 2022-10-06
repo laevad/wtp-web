@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('vehicles', function (Blueprint $table) {
             $table->bigInteger('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('statuses');
+            $table->foreign('status_id')->references('id')->on('vehicle_statuses');
         });
     }
 
@@ -26,8 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_status_id_foreign');
+        Schema::table('vehicles', function (Blueprint $table) {
+            $table->dropForeign('vehicles_status_id_foreign');
             $table->dropColumn('status_id');
         });
     }

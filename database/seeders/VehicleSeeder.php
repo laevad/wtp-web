@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\VehicleStatus;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,7 @@ class VehicleSeeder extends Seeder
                     'engine_no'=> fake()->numerify('#####'),
                     'manufactured_by'=> fake()->company(),
                     'registration_expiry_date'=> now()->toFormattedDate(),
-                    'status'=> 'inactive',
+                    'status_id'=> VehicleStatus::ACTIVE,
                 ]
             ]);
         }

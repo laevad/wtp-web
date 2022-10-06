@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('engine_no')->nullable();
             $table->string('manufactured_by')->nullable();
             $table->string('registration_expiry_date')->nullable();
-            $table->string('status')->default('inactive');
             $table->timestamps();
         });
     }
