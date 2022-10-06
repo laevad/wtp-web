@@ -1,8 +1,45 @@
 <x-animation.ball-spin></x-animation.ball-spin>
 {{--@dump($location)--}}
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box">
+            <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-truck text-white"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Total Vehicle's</span>
+                <span class="info-box-number">14  </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
+    <!-- /.col -->
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1"><i class="fa fa-user-secret"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Total Drivers</span>
+                <span class="info-box-number">14 </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <!-- fix for small devices only -->
+    <div class="clearfix hidden-md-up"></div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-user text-white"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Total Client</span>
+                <span class="info-box-number">14 </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <!-- /.col -->
 </div>
 
 <div id="m-container">
