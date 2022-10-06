@@ -14,28 +14,16 @@ class Clients extends  GlobalVar {
 
     public bool $disable =false;
 
-
-
-
-
     public function updated(){
         $validatedData = $this->validateClient();
-
       if(isset($validatedData)){
           $this->disable = true;
       }
-
     }
 
     public function updateUser(): RedirectResponse
     {
-        $validatedData = Validator::make($this->state,[
-            'name'=>'required',
-            'email'=>'required|email|unique:users,email,'.$this->user->id,
-            'mobile'=>'required|numeric|unique:users,mobile,'.$this->user->id,
-            'status_id'=>'required',
-        ])->validate();
-
+        $validatedData = $this->validateClient();
         $previousPath = $this->user->avatar;
         if ($this->photo){
             Storage::disk('avatars')->delete($previousPath);
@@ -46,6 +34,8 @@ class Clients extends  GlobalVar {
             $validatedData['avatar'] = $newPath;
         }
         $this->user->update($validatedData);
+        $this->showEditModal = false;
+        $this->disable = false;
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Client updated successfully']);
         return redirect()->back();
     }
@@ -64,6 +54,7 @@ class Clients extends  GlobalVar {
         User::create($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Client added successfully']);
         $this->resetPage();
+        $this->disable = false;
         return redirect()->back();
     }
 
@@ -76,15 +67,27 @@ class Clients extends  GlobalVar {
 
     public function validateClient()
     {
+        if ($this->showEditModal){
+            return Validator::make($this->state,[
+                'name'=>'required|min:4|max:60',
+                'email'=>'required|email|unique:users,email,'.$this->user->id.'|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
+                'mobile'=>'required|numeric|phone|unique:users,mobile,'.$this->user->id,
+                'status_id'=>[
+                    'required',
+                    Rule::in(Status::INACTIVE, Status::ACTIVE),
+                ],
+            ], ['status_id.required'=>'The status field is required.'])->validate();
+        }
         return Validator::make($this->state,[
-            'name'=>'required|unique:users|min:4|max:60',
-            'email'=>'required|email|unique:users|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
-            'mobile'=>'required|numeric|phone',
+            'name'=>'required|min:4|max:60',
+            'email'=>'required|email|unique:users,email|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
+            'mobile'=>'required|numeric|phone|unique:users,mobile',
             'status_id'=>[
                 'required',
                 Rule::in(Status::INACTIVE, Status::ACTIVE),
             ],
         ], ['status_id.required'=>'The status field is required.'])->validate();
+
     }
 
 }
