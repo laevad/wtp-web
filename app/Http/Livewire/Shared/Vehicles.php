@@ -42,6 +42,7 @@ class Vehicles extends GlobalVar{
     public function view(Vehicle $vehicle){
         //        $this->reset();
         $this->state = [];
+        $this->showEditModal = false;
         $this->viewMode = true;
         $this->state = $vehicle->toArray();
         $this->vehicle = $vehicle;
