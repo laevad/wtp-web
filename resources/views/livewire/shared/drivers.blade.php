@@ -108,7 +108,7 @@
                                             <i class="fa fa-edit text-primary ml-2"></i> Edit
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a href="" class="dropdown-item" wire:click.prevent="confirmUserRemoval({{ $user->id }})">
+                                        <a href="" class="dropdown-item" wire:click.prevent="confirmUserRemoval('{{ $user->id }}')">
                                             <i class="fa fa-trash text-danger ml-2"></i> Delete
                                         </a>
                                     </div>

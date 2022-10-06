@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 
 class Clients extends  GlobalVar {
 
-    public bool $disable =false;
+
 
     public function updated(){
         $validatedData = $this->validateClient();
@@ -78,7 +78,7 @@ class Clients extends  GlobalVar {
             ], ['status_id.required'=>'The status field is required.'])->validate();
         }
         return Validator::make($this->state,[
-            'name'=>'required|min:4|max:60',
+            'name'=>'required|min:4|max:200',
             'email'=>'required|email|unique:users,email|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
             'mobile'=>'required|numeric|phone|unique:users,mobile',
             'status_id'=>[

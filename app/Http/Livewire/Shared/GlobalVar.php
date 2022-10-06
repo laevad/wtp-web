@@ -20,7 +20,7 @@ class GlobalVar extends  Component{
     use WithPagination;
 
     protected $paginationTheme ='bootstrap';
-
+    public bool $disable =false;
     public $state = [];
     public $showEditModal = false;
     public $viewMode= false;

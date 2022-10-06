@@ -56,7 +56,6 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'avatar',
         'mobile',
-        'age',
         'license_number',
         'license_expiry_date',
         'total_experience',
@@ -65,6 +64,7 @@ class User extends Authenticatable implements JWTSubject
         'address',
         'role_id',
         'number',
+        'age',
     ];
 
     /**
@@ -86,6 +86,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'license_expiry_date' => 'datetime',
         'date_of_joining' => 'datetime',
+        'date_of_birth' => 'datetime',
     ];
 
     public function getJWTIdentifier()
@@ -125,6 +126,9 @@ class User extends Authenticatable implements JWTSubject
         return Carbon::parse($value)->toFormattedDate();
     }
     public function getDateOfJoiningAttribute($value){
+        return Carbon::parse($value)->toFormattedDate();
+    }
+    public function getDateOfBirthAttribute($value){
         return Carbon::parse($value)->toFormattedDate();
     }
 

@@ -3,6 +3,7 @@ namespace App\Http\Livewire\Shared;
 
 use App\Models\Status;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -19,32 +20,32 @@ class Drivers extends GlobalVar{
         $this->dispatchBrowserEvent('show-form');
     }
 
-    /**
-     * @throws ValidationException
-     */
+    public function confirmUserRemoval($userId){
+        $this->userBeignRemoved = $userId;
+        $this->dispatchBrowserEvent('show-delete-confirmation');
+    }
+    public function confirmSelectedUserRemoval(){
+        $this->dispatchBrowserEvent('show-select-delete-confirmation');
+    }
     public function createUser(): RedirectResponse
     {
-        $validatedData = Validator::make($this->state,[
-            'name'=>'required|unique:users',
-            'email'=>'required|email|unique:users',
-            'mobile'=>'required|numeric',
-            'age'=>'required|numeric',
-            'license_number'=>'required|numeric',
-            'total_experience'=>'required|numeric',
-            'license_expiry_date'=>'required|date',
-            'date_of_joining'=>'required|date',
-            'status'=>'required',
-            'address'=>''
-        ])->validate();
+
+        $validatedData =  $this->validateDriver();
+
         $validatedData['password'] = bcrypt('1234');
         $validatedData['role_id'] = User::ROLE_DRIVER;
-
+        $validatedData['age'] = Carbon::parse($validatedData['date_of_birth'])->age;
         if ($this->photo){
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
+        }else{
+            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
         }
+
+
         User::create($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Driver added successfully']);
         $this->resetPage();
+        $this->disable = false;
         return redirect()->back();
     }
 
@@ -73,18 +74,7 @@ class Drivers extends GlobalVar{
      */
     public function updateUser(): RedirectResponse
     {
-        $validatedData = Validator::make($this->state,[
-            'name'=>'required|unique:users,email,'.$this->user->id,
-            'email'=>'required|email|unique:users,email,'.$this->user->id,
-            'mobile'=>'required|numeric',
-            'age'=>'required|numeric',
-            'license_number'=>'required|numeric',
-            'total_experience'=>'required|numeric',
-            'license_expiry_date'=>'required|date',
-            'date_of_joining'=>'required|date',
-            'status_id'=>'required',
-            'address'=>''
-        ])->validate();
+        $validatedData = $this->validateDriver();
 
         $previousPath = $this->user->avatar;
         if ($this->photo){
@@ -96,6 +86,7 @@ class Drivers extends GlobalVar{
             $validatedData['avatar'] = $newPath;
         }
         $this->user->update($validatedData);
+        $this->disable = false;
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Driver updated successfully']);
         return redirect()->back();
     }
@@ -110,5 +101,43 @@ class Drivers extends GlobalVar{
         User::whereIn('id', $this->selectedRows)->update(['status'=>'INACTIVE']);
         $this->dispatchBrowserEvent('updated',['message'=>'Driver/s marked as inactive']);
         $this->reset(['selectedRows', 'selectedPageRows']);
+    }
+
+    public function validateDriver(){
+        if ($this->showEditModal){
+            return  Validator::make($this->state,[
+                'name'=>'required|min:4|max:60',
+                'email'=>'required|email|unique:users,email,'.$this->user->id.'|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
+                'mobile'=>'required|numeric|phone|unique:users,mobile,'.$this->user->id,
+                'date_of_birth'=>'required|min:4|max:150',
+                'license_number'=>'required|min:4|max:150',
+                'total_experience'=>'required|numeric',
+                'license_expiry_date'=>'required|date',
+                'date_of_joining'=>'required|date',
+                'status_id'=>'required',
+                'address'=>'',
+                'age'=>''
+            ])->validate();
+        }
+        return Validator::make($this->state,[
+            'name'=>'required|min:4|max:200',
+            'email'=>'required|email|unique:users,email|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
+            'mobile'=>'required|numeric|phone|unique:users,mobile',
+            'date_of_birth'=>'required|min:4|max:150',
+            'license_number'=>'required|min:4|max:150',
+            'total_experience'=>'required|numeric',
+            'license_expiry_date'=>'required|date',
+            'date_of_joining'=>'required|date',
+            'status_id'=>'required',
+            'address'=>'',
+            'age'=>''
+        ])->validate();
+    }
+
+    public function updated(){
+        $validatedData = $this->validateDriver();
+        if(isset($validatedData)){
+            $this->disable = true;
+        }
     }
 }

@@ -17,12 +17,15 @@
                         <x-custom.input model="name" :isView="$isView"></x-custom.input>
                         <x-custom.input model="email" :isView="$isView"></x-custom.input>
                         <x-custom.input model="mobile" :isView="$isView"></x-custom.input>
-                        <x-custom.input model="age" :isView="$isView"></x-custom.input>
+                        <x-custom.input model="date_of_birth" isDate="true" :isView="$isView"></x-custom.input>
+                        @if($isView)
+                            <x-custom.input model="age" :isView="true"></x-custom.input>
+                        @endif
                         <x-custom.input model="license_number" :isView="$isView"></x-custom.input>
                         <x-custom.input model="license_expiry_date" isDate="true" :isView="$isView"></x-custom.input>
                         <x-custom.input model="date_of_joining" isDate="true" :isView="$isView"></x-custom.input>
                         <x-custom.input model="total_experience" :isView="$isView"></x-custom.input>
-                        <div class="p-2">
+                        <div class="">
                             <div class="form-group">
                                 <label for="d_is_active" class="form-label">Driver Status @if(!$isView)<span class="text-red">*</span> @endif</label>
                                 <div class="@error('status_id') is-invalid border  border-danger round  @enderror">
