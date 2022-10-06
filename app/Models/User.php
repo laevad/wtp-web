@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +22,11 @@ class User extends Authenticatable implements JWTSubject
     const ROLE_USER = "2";
     const ROLE_CLIENT = "3";
     const ROLE_DRIVER = "4";
+
+    /* status */
+    const STATUS_ACTIVE = 1;
+    const  STATUS_INACTIVE = 2;
+
     /**
      * The "type" of the auto-incrementing ID.
      *
@@ -96,12 +102,13 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
     }
 
-    public function role(){
+    public function role(): BelongsTo
+    {
         return $this->belongsTo(Role::class);
     }
 
@@ -110,7 +117,8 @@ class User extends Authenticatable implements JWTSubject
         'avatar_url',
     ];
 
-    public function getAvatarUrlAttribute(){
+    public function getAvatarUrlAttribute(): string
+    {
         if ($this->avatar && Storage::disk('avatars')->exists($this->avatar)){
             return Storage::disk('avatars')->url($this->avatar);
         }
@@ -124,18 +132,36 @@ class User extends Authenticatable implements JWTSubject
         return Carbon::parse($value)->toFormattedDate();
     }
 
-    public function isAdmin(){
+    public function isAdmin(): bool
+    {
         if ($this->role->role != self::ROLE_ADMIN){
             return false;
         }else{
             return true;
         }
     }
-    public function isClient(){
+    public function isClient(): bool
+    {
         if ($this->role->role != self::ROLE_CLIENT){
             return false;
         }else{
             return true;
         }
     }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function getStatusTypeBadgeAttribute(): string
+    {
+        $badges = [
+            self::STATUS_ACTIVE=>'success',
+            self::STATUS_INACTIVE=>'danger'
+        ];
+        return $badges[$this->status_id];
+    }
+
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Http\Livewire\Shared\Clients;
 use App\Models\Role;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -23,7 +24,7 @@ class AdminClients extends Clients
     public function render()
     {
         $users = $this->getUserQuery();
-        $roles = User::where('role_id', '=', User::ROLE_CLIENT)->get();
+        $status = Status::all();
 
         if (count($users) == 0){
             $this->resetPage();
@@ -32,7 +33,7 @@ class AdminClients extends Clients
         $this->cPageChanges($users->currentPage());
         return view('livewire.admin.admin-clients', [
             'users' =>$users,
-            'roles'=>$roles,
+            'status'=>$status,
         ]);
     }
 

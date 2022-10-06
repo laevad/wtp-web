@@ -26,7 +26,8 @@ class Cash extends Model
         'date' => 'datetime',
     ];
 
-    public function getCashTypeBadgeAttribute(){
+    public function getCashTypeBadgeAttribute(): string
+    {
         $badges = [
             self::CASH_EXPENSE=>'primary',
             self::CASH_INCENTIVE=>'success'

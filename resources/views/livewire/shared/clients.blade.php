@@ -73,7 +73,17 @@
                                 {{ $user->name }}</td>
                             <td class="">{{ $user->email }}</td>
                             <td class="">{{ $user->mobile }}</td>
-                            <td><span class="badge @if($user->status=='active') badge-success @else badge-danger @endif">{{ $user->status }}</span></td>
+{{--                            <td><span class="badge @if($user->status=='active') badge-success @else badge-danger @endif">{{ $user->status }}</span></td>--}}
+                            <td>
+                                <select class="badge badge-{{$user->statusTypeBadge}}"
+                                        wire:change=""
+                                >
+                                    @foreach($status as $data)
+                                        <option value="{{ $user->status_id }}" @if($data->id == $user->status_id) selected @endif>{{ strtoupper($data->name) }}</option>
+                                    @endforeach
+
+                                </select>
+                            </td>
                             <td>{{ $user->created_at->toFormattedDate() }}</td>
 
                             <td>
