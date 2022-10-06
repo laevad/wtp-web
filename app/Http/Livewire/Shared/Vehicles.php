@@ -3,7 +3,9 @@ namespace  App\Http\Livewire\Shared;
 
 use App\Models\Vehicle;
 use App\Models\VehicleStatus;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 class Vehicles extends GlobalVar{
@@ -58,7 +60,7 @@ class Vehicles extends GlobalVar{
 
 
     /*update*/
-    public function updateVehicle()
+    public function updateVehicle(): RedirectResponse
     {
 
         $validatedData = Validator::make($this->state,[
@@ -122,7 +124,8 @@ class Vehicles extends GlobalVar{
     }
 
 
-    public function getVehiclesProperty(){
+    public function getVehiclesProperty(): LengthAwarePaginator
+    {
         return Vehicle::query()
             ->latest()->paginate(5);
     }
