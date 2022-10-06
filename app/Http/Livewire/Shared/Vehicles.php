@@ -8,6 +8,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class Vehicles extends GlobalVar{
 
@@ -23,7 +24,7 @@ class Vehicles extends GlobalVar{
     public function createVehicle(){
         $validatedData = $this->validateVehicle();
         Vehicle::create($validatedData);
-        $this->disable = true;
+        $this->disable = false;
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Vehicle added successfully']);
         $this->resetPage();
         return redirect()->back();
@@ -59,7 +60,7 @@ class Vehicles extends GlobalVar{
     {
 
         $validatedData = $this->validateVehicle();
-
+        $this->disable = false;
         $this->vehicle->update($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Driver updated successfully']);
         return redirect()->back();
@@ -140,25 +141,25 @@ class Vehicles extends GlobalVar{
         if ($this->showEditModal){
             return  Validator::make($this->state,[
                 'registration_number'=>'required|min:3|max:120',
-                'name'=>'required',
-                'model'=>'required',
-                'chassis_no'=>'required',
-                'engine_no'=>'required',
-                'manufactured_by'=>'required',
-                'registration_expiry_date'=>'required',
-                'status_id'=> 'required'
+                'name'=>'required|min:2|max:120',
+                'model'=>'required|min:3|max:120',
+                'chassis_no'=>'required|min:3|max:120',
+                'engine_no'=>'required|min:3|max:120',
+                'manufactured_by'=>'required|min:3|max:120',
+                'registration_expiry_date'=>'required|date',
+                'status_id'=> ['required', Rule::in([VehicleStatus::ACTIVE, VehicleStatus::MAINTENANCE, VehicleStatus::INACTIVE])]
             ])->validate();
         }
 
         return Validator::make($this->state,[
             'registration_number'=>'required|min:3|max:120',
-            'name'=>'required',
-            'model'=>'required',
-            'chassis_no'=>'required',
-            'engine_no'=>'required',
-            'manufactured_by'=>'required',
-            'registration_expiry_date'=>'required',
-            'status_id'=> 'required'
+            'name'=>'required|min:2|max:120',
+            'model'=>'required|min:3|max:120',
+            'chassis_no'=>'required|min:3|max:120',
+            'engine_no'=>'required|min:3|max:120',
+            'manufactured_by'=>'required|min:3|max:120',
+            'registration_expiry_date'=>'required|date',
+            'status_id'=> ['required', Rule::in([VehicleStatus::ACTIVE, VehicleStatus::MAINTENANCE, VehicleStatus::INACTIVE])]
         ])->validate();
     }
 

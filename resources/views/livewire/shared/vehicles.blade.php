@@ -121,7 +121,7 @@
         </div>
     </div>
     {{--vehicle modal--}}
-    <x-modals.vehicle :isView="$viewMode" :isEdit="$showEditModal" :status="$status"></x-modals.vehicle>
+    <x-modals.vehicle :isView="$viewMode" :isEdit="$showEditModal" :status="$status" :isDisable="$disable"></x-modals.vehicle>
 </div>
 
 
