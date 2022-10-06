@@ -93,13 +93,19 @@ class GlobalVar extends  Component{
 
     /*DELETE*/
     public function deleteUser(){
-        $user = User::query()->where('id', '=' , $this->userBeignRemoved)->first();
-        $previousPath = $user->avatar;
-        Storage::disk('avatars')->delete($previousPath);
-        $client = User::findOrFail($this->userBeignRemoved);
-        $client->delete();
-        $this->reset(['selectedRows', 'selectedPageRows']);
-        $this->dispatchBrowserEvent('deleted', ['message'=>'User deleted successfully']);
+        try {
+            $user = User::query()->where('id', '=' , $this->userBeignRemoved)->first();
+            $previousPath = $user->avatar;
+            Storage::disk('avatars')->delete($previousPath);
+            $client = User::findOrFail($this->userBeignRemoved);
+            $client->delete();
+            $this->reset(['selectedRows', 'selectedPageRows']);
+            $this->dispatchBrowserEvent('deleted', ['message'=>'User deleted successfully']);
+        }catch (\Exception){
+            $this->reset(['selectedRows', 'selectedPageRows']);
+            $this->resetPage();
+            $this->dispatchBrowserEvent('error-booking', ['message'=>'User deleted unsuccessfully']);
+        }
     }
 
     public function confirmUserRemoval($userId){
@@ -111,23 +117,29 @@ class GlobalVar extends  Component{
     }
 
     public function deletedSelectedRows(){
-        if ($this->selectedPageRows){
-            $selectedR =$this->selectedRows->toArray();
-        }else{
-            $selectedR =$this->selectedRows;
-        }
-        foreach ($selectedR as  $selected){
-            $user = User::query()->where('id', '=' ,$selected)->first();
-            if ( $user->avatar !=null){
-                $previousPath = $user->avatar;
-                Storage::disk('avatars')->delete($previousPath);
-            }
-        }
+       try{
+           if ($this->selectedPageRows){
+               $selectedR =$this->selectedRows->toArray();
+           }else{
+               $selectedR =$this->selectedRows;
+           }
+           foreach ($selectedR as  $selected){
+               $user = User::query()->where('id', '=' ,$selected)->first();
+               if ( $user->avatar !=null){
+                   $previousPath = $user->avatar;
+                   Storage::disk('avatars')->delete($previousPath);
+               }
+           }
 
-        User::whereIn('id',$this->selectedRows)->delete();
-        $this->dispatchBrowserEvent('deleted',['message'=>'All selected user/s got deleted.']);
-        $this->reset(['selectedRows', 'selectedPageRows']);
-        $this->resetPage();
+           User::whereIn('id',$this->selectedRows)->delete();
+           $this->dispatchBrowserEvent('deleted',['message'=>'All selected user/s got deleted.']);
+           $this->reset(['selectedRows', 'selectedPageRows']);
+           $this->resetPage();
+       }catch (\Exception){
+           $this->reset(['selectedRows', 'selectedPageRows']);
+           $this->resetPage();
+           $this->dispatchBrowserEvent('error-booking', ['message'=>'User deleted unsuccessfully']);
+       }
     }
 
 
