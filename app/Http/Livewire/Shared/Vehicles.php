@@ -82,10 +82,17 @@ class Vehicles extends GlobalVar{
 
 
     public function deleteVehicle(){
-        $vehicle = Vehicle::findOrFail($this->vehicleBeingRemoved);
-        $vehicle->delete();
-        $this->reset(['selectedRows', 'selectedPageRows']);
-        $this->dispatchBrowserEvent('deleted', ['message'=>'Vehicle deleted successfully']);
+        try {
+            $vehicle = Vehicle::findOrFail($this->vehicleBeingRemoved);
+            $vehicle->delete();
+            $this->reset(['selectedRows', 'selectedPageRows']);
+            $this->dispatchBrowserEvent('deleted', ['message'=>'Vehicle deleted successfully']);
+        }catch (\Exception){
+            $this->reset(['selectedRows', 'selectedPageRows']);
+            $this->resetPage();
+            $this->dispatchBrowserEvent('error-booking', ['message'=>'Vehicle deleted unsuccessfully']);
+
+        }
     }
 
     /*SELECTED*/
@@ -100,10 +107,16 @@ class Vehicles extends GlobalVar{
     }
 
     public function deletedSelectedVehicleRows(){
-        Vehicle::whereIn('id',$this->selectedRows)->delete();
-        $this->dispatchBrowserEvent('deleted',['message'=>'All selected vehicles got deleted.']);
-        $this->reset(['selectedRows', 'selectedPageRows']);
-        $this->resetPage();
+        try {
+            Vehicle::whereIn('id',$this->selectedRows)->delete();
+            $this->dispatchBrowserEvent('deleted',['message'=>'All selected vehicles got deleted.']);
+            $this->reset(['selectedRows', 'selectedPageRows']);
+            $this->resetPage();
+        }catch(\Exception){
+            $this->dispatchBrowserEvent('error-booking', ['message'=>'Vehicle deleted unsuccessfully']);
+            $this->reset(['selectedRows', 'selectedPageRows']);
+            $this->resetPage();
+        }
     }
 
 
