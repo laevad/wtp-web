@@ -76,10 +76,10 @@
 {{--                            <td><span class="badge @if($user->status=='active') badge-success @else badge-danger @endif">{{ $user->status }}</span></td>--}}
                             <td>
                                 <select class="badge badge-{{$user->statusTypeBadge}}"
-                                        wire:change=""
+                                        wire:change="changeUserStatus({{ $user }},$event.target.value)"
                                 >
                                     @foreach($status as $data)
-                                        <option value="{{ $user->status_id }}" @if($data->id == $user->status_id) selected @endif>{{ strtoupper($data->name) }}</option>
+                                        <option value="{{ $data->id }}" @if($data->id == $user->status_id) selected @endif>{{ strtoupper($data->name) }}</option>
                                     @endforeach
 
                                 </select>

@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Livewire\Shared;
 
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -176,5 +179,25 @@ class GlobalVar extends  Component{
             $this->cPage = $currPage;
             $this->reset(['selectedRows', 'selectedPageRows']);
         }
+    }
+
+    /* change the status [active, inactive]*/
+    public function changeUserStatus(User $user, $status){
+        Validator::make(['status_id'=>$status],[
+                'status_id'=>[
+                    'required',
+                    Rule::in(Status::INACTIVE, Status::ACTIVE),
+                ],
+            ]
+        )->validate();
+        if ( $status == 1){
+            $stats = 'ACTIVE';
+        }elseif ($status == 2) {
+            $stats = 'INACTIVE';
+        }else{
+            $stats= '';
+        }
+        $user->update(['status_id'=> $status]);
+        $this->dispatchBrowserEvent('updated', ['message'=>"Status changed to {$stats} successfully!"]);
     }
 }

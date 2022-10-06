@@ -2,6 +2,7 @@
 namespace App\Http\Livewire\Shared;
 
 use App\Models\User;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -51,7 +52,8 @@ class Clients extends  GlobalVar {
         return redirect()->back();
     }
 
-    public function getUsersProperty(){
+    public function getUsersProperty(): LengthAwarePaginator
+    {
         return User::query()->where('role_id', '=',User::ROLE_CLIENT)
             ->latest()->paginate(5);
     }

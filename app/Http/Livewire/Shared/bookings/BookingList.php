@@ -3,6 +3,7 @@ namespace App\Http\Livewire\Shared\bookings;
 
 use App\Http\Livewire\Shared\GlobalVar;
 use App\Models\Booking;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -40,7 +41,8 @@ class BookingList extends  GlobalVar{
 
 
     /*create booking*/
-    public function createBooking(){
+    public function createBooking(): RedirectResponse
+    {
 //        dd($this->state);
         $validatedData = Validator::make($this->state,[
             'user_id'=>'required',

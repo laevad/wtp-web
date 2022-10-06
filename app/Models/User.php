@@ -65,7 +65,7 @@ class User extends Authenticatable implements JWTSubject
         'license_expiry_date',
         'total_experience',
         'date_of_joining',
-        'status',
+        'status_id',
         'address',
         'role_id',
         'number',
