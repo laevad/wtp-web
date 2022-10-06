@@ -13,7 +13,7 @@ class AdminDashboard extends Dashboard
 {
     public function render(): Factory|View|Application
     {
-        $location = Location::all()->toArray();
+        $location = Location::all();
         return view('livewire.admin.admin-dashboard',[
             'location'=>$location
         ]);
