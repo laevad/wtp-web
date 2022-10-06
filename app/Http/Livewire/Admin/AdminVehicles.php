@@ -19,7 +19,8 @@ class AdminVehicles extends Vehicles
         }
         $this->cPageChanges($vehicles->currentPage());
         return view('livewire.admin.admin-vehicles', [
-            'vehicles'=> $vehicles
+            'vehicles'=> $vehicles,
+            'status' => $this->getVehicleStatus(),
         ]);
     }
 

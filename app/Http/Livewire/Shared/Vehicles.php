@@ -2,6 +2,8 @@
 namespace  App\Http\Livewire\Shared;
 
 use App\Models\Vehicle;
+use App\Models\VehicleStatus;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Validator;
 
 class Vehicles extends GlobalVar{
@@ -136,6 +138,12 @@ class Vehicles extends GlobalVar{
         Vehicle::whereIn('id', $this->selectedRows)->update(['status'=>'INACTIVE']);
         $this->dispatchBrowserEvent('updated',['message'=>'Driver/s marked as inactive']);
         $this->reset(['selectedRows', 'selectedPageRows']);
+    }
+
+
+    public function getVehicleStatus(): Collection
+    {
+        return VehicleStatus::all();
     }
 
 }

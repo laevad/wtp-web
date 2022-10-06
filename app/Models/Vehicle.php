@@ -20,7 +20,7 @@ class Vehicle extends Model
         'engine_no',
         'manufactured_by',
         'registration_expiry_date',
-        'status'
+        'status_id'
     ];
 
     protected $casts = [
@@ -30,5 +30,15 @@ class Vehicle extends Model
 
     public function getRegistrationExpiryDateAttribute($value){
         return Carbon::parse($value)->toFormattedDate();
+    }
+
+    public function getStatusTypeBadgeAttribute(): string
+    {
+        $badges = [
+            VehicleStatus::ACTIVE=>'success',
+            VehicleStatus::INACTIVE=>'danger',
+            VehicleStatus::MAINTENANCE=>'warning',
+        ];
+        return $badges[$this->status_id];
     }
 }

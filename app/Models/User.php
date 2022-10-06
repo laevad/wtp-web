@@ -23,10 +23,6 @@ class User extends Authenticatable implements JWTSubject
     const ROLE_CLIENT = "3";
     const ROLE_DRIVER = "4";
 
-    /* status */
-    const STATUS_ACTIVE = 1;
-    const  STATUS_INACTIVE = 2;
-
     /**
      * The "type" of the auto-incrementing ID.
      *
@@ -157,8 +153,8 @@ class User extends Authenticatable implements JWTSubject
     public function getStatusTypeBadgeAttribute(): string
     {
         $badges = [
-            self::STATUS_ACTIVE=>'success',
-            self::STATUS_INACTIVE=>'danger'
+            Status::ACTIVE=>'success',
+            Status::INACTIVE=>'danger'
         ];
         return $badges[$this->status_id];
     }

@@ -72,7 +72,13 @@
                             <td>{{ $vehicle->model }}</td>
                             <td>{{ $vehicle->chassis_no }}</td>
                             <td>
-                                <span class="badge @if($vehicle->status=='active') badge-success @else badge-danger @endif">{{ $vehicle->status }}</span>
+                                <select class="badge badge-{{$vehicle->statusTypeBadge}}"
+                                        wire:change="changeVehicleStatus({{ $vehicle }},$event.target.value)"
+                                >
+                                    @foreach($status as $data)
+                                        <option value="{{ $data->id }}" @if($data->id == $vehicle->status_id) selected @endif>{{ strtoupper($data->name) }}</option>
+                                    @endforeach
+                                </select>
                             </td>
 
                             <td>

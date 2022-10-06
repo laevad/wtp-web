@@ -3,6 +3,8 @@ namespace App\Http\Livewire\Shared;
 
 use App\Models\Status;
 use App\Models\User;
+use App\Models\Vehicle;
+use App\Models\VehicleStatus;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -181,7 +183,7 @@ class GlobalVar extends  Component{
         }
     }
 
-    /* change the status [active, inactive]*/
+    /* change the user status [active, inactive]*/
     public function changeUserStatus(User $user, $status){
         Validator::make(['status_id'=>$status],[
                 'status_id'=>[
@@ -199,5 +201,27 @@ class GlobalVar extends  Component{
         }
         $user->update(['status_id'=> $status]);
         $this->dispatchBrowserEvent('updated', ['message'=>"Status changed to {$stats} successfully!"]);
+    }
+    /* change the vehicle status [active, inactive, maintenance]*/
+    public function changeVehicleStatus(Vehicle $vehicle, $status){
+        Validator::make(['status_id'=>$status],[
+                'status_id'=>[
+                    'required',
+                    Rule::in(VehicleStatus::INACTIVE, VehicleStatus::ACTIVE, VehicleStatus::MAINTENANCE),
+                ],
+            ]
+        )->validate();
+        if ( $status == VehicleStatus::ACTIVE){
+            $stats = 'ACTIVE';
+        }elseif ($status == VehicleStatus::INACTIVE) {
+            $stats = 'INACTIVE';
+        }elseif ($status == VehicleStatus::MAINTENANCE) {
+            $stats = 'MAINTENANCE';
+        }
+        else{
+            $stats= '';
+        }
+        $vehicle->update(['status_id'=> $status]);
+        $this->dispatchBrowserEvent('updated', ['message'=>"Vehicle status changed to {$stats} successfully!"]);
     }
 }
