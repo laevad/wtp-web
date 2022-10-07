@@ -44,7 +44,7 @@
                             <td>
                                 <a href="" wire:click.prevent="editExpense({{ $data }})">
                                     <i class="fa fa-edit mr-2"></i>
-                                </a> <a href="{{ route("$role.booking-details", $data->booking_id ) }}">
+                                </a> <a target="_new" href="{{ route("$role.booking-details", $data->booking_id ) }}">
                                     <i class="fa fa-eye text-success"></i>
                                 </a>
                             </td>
@@ -106,7 +106,7 @@
                             <td>
                                 <a href="" wire:click.prevent="editIncentive({{ $data }})">
                                     <i class="fa fa-edit mr-2"></i>
-                                </a> <a href="{{ route("$role.booking-details", $data->booking_id ) }}">
+                                </a> <a target="_new" href="{{ route("$role.booking-details", $data->booking_id ) }}">
                                     <i class="fa fa-eye text-success"></i>
                                 </a>
                             </td>
