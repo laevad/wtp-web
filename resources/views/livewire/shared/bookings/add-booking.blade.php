@@ -1,4 +1,5 @@
-<x-animation.ball-spin></x-animation.ball-spin>
+{{--<x-animation.ball-spin></x-animation.ball-spin>--}}
+
 <a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
 <form autocomplete="off" wire:submit.prevent="{{ $isUpdate ? 'updateBooking' : 'createBooking' }}">
     <div class="card-body" >
@@ -48,14 +49,41 @@
             </div>
         </div>
         <div class="row">
-            <x-custom.input model="t_trip_start" customLabel="Trip start" :view="$viewMode"  isAddBooking="true" isOnChange="true">Trip Start Location</x-custom.input>
-            <x-custom.input model="t_trip_end"  customLabel="Trip End" :view="$viewMode"  isAddBooking="true" isOnChange="true">Trip End Location</x-custom.input>
-            <x-custom.input model="t_total_distance" customLabel="Total Distance" :view="$viewMode"  isAddBooking="true" isOnChange="true" dis="true">Approx Total KM</x-custom.input>
+            <div class="form-group col-md-4" wire:ignore.self>
+                <label for="t_trip_start">Trip start <span class="text-red">*</span></label>
+                <input type="text" wire:model="state.t_trip_start" class="form-control
+                @error('t_trip_start') is-invalid @enderror  " id="t_trip_start" placeholder="Trip start"
+                       onchange="this.dispatchEvent(new InputEvent('input'))">
+                @error('t_trip_start')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group col-md-4" wire:ignore.self>
+                <label for="t_trip_end">Trip end <span class="text-red">*</span></label>
+                <input type="text" wire:model.defer="state.t_trip_end" class="form-control  @error('t_trip_end') is-invalid @enderror  " id="t_trip_end" placeholder="Trip end" onchange="this.dispatchEvent(new InputEvent('input'))">
+                @error('t_trip_end')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group col-md-4">
+                <label for="t_total_distance">Total Distance <span class="text-red">*</span></label>
+                <input type="text" wire:model.defer="state.t_total_distance" class="form-control @error('t_total_distance') is-invalid @enderror " id="t_total_distance" placeholder="Total Distance" onchange="this.dispatchEvent(new InputEvent('input'))" >
+                @error('t_total_distance')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
         </div>
     </div>
     <div class="card-footer justify-content-end d-flex">
         @if(!$viewMode)
-            <button type="submit" class="btn customBg text-white"><i
+            <button type="submit" class="btn customBg text-white" @if(!$disable) disabled @endif><i
                     class="fa fa-save mr-2"></i>{{ $isUpdate ? 'Save Changes' : 'Save' }}</button>
         @endif
     </div>
@@ -110,6 +138,8 @@
                     if (unit==="N") { dist = dist * 0.8684 }
                     document.getElementById("t_total_distance").value =  Math.round(dist);
                     console.log(lat1, lon1, lat2, lon2);
+                    console.log(dist);
+                    console.log( Math.round(dist),lat1, lon1, lat2, lon2);
                     Livewire.emit('total_distance',  Math.round(dist),lat1, lon1, lat2, lon2);
                     // document.getElementById("t_total_distance").value =  Math.round(dist);
 

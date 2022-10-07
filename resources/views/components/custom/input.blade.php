@@ -5,14 +5,18 @@
         <label for="{{ $model }}">{{ $customLabel == null?  ucfirst(str_replace("_", ' ', $model)) : $customLabel }} <span class="text-red">*</span></label>
         <input
             type="{{$isPass? 'password' : 'text' }}"
-            wire:model="state.{{ $model }}"
+            wire:model.debounce.1000ms="state.{{ $model }}"
             class="form-control @error($model) is-invalid @enderror @if($isDate)  datetimepicker-input @endif" id="{{ $model }}"
             placeholder="{{ $customLabel == null?  ucfirst(str_replace("_", ' ', $model)) : $customLabel }}"
             {{ $isView? 'disabled' : '' }}
-            @if($isDate || $isAddBooking)
+            @if($isDate)
                 onchange="this.dispatchEvent(new InputEvent('input'))"
             data-toggle="datetimepicker"
             @endif
+            @if($isAddBooking)
+                onchange="this.dispatchEvent(new InputEvent('input'))"
+
+                @endif
         >
         @error($model)
         <div class="invalid-feedback">
