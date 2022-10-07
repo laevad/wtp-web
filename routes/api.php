@@ -33,7 +33,7 @@ Route::group(['middleware' => 'api.auth', 'prefix' => 'user'],function () {
     Route::post('location',[ApiUserController::class, 'addLocation']);
 });
 Route::group(['middleware' => 'api.auth', 'prefix' => 'trip'],function () {
-    Route::get('trip',[ApiTripController::class, 'trip']);
+    Route::post('trip',[ApiTripController::class, 'trip']);
     Route::post('status',[ApiTripController::class, 'updateTripStatus']);
 });
 Route::group(['middleware' => 'api.auth', 'prefix' => 'incentive'],function () {

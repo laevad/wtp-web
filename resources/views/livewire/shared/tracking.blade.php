@@ -1,3 +1,4 @@
+{{--@dump($currentLocation)--}}
 <div id="m-container">
     <div id="map"></div>
 

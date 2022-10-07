@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +17,21 @@ class ApiTripController extends Controller
         $this->middleware('api.auth');
     }
 
-    public function trip(): JsonResponse
+    public function trip(Request $request): JsonResponse
     {
+        $validators = Validator::make($request->all(), [
+            'driver_id' => 'required|exists:users,id',
+
+        ]);
+        $errors = $validators->errors();
+        $err = [
+            'driver_id' => $errors->first('driver_id'),
+        ];
+        if ($validators->fails()){
+            return response()->json([
+                'errors' => $err
+            ], 422);
+        }
         $booking = Booking::join('users','users.id','=', 'bookings.user_id')
             ->join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
             ->join('users as driver','driver.id','=', 'bookings.driver_id')
@@ -27,6 +41,8 @@ class ApiTripController extends Controller
                 'bookings.trip_start_date','bookings.trip_end_date',
                 'trip_statuses.name as trip_status','bookings.t_total_distance','bookings.created_at','bookings.trip_status_id as status_id',
                 'bookings.from_latitude', 'bookings.from_longitude','bookings.to_latitude', 'bookings.to_longitude')
+            ->where('bookings.driver_id', '=', $request->input('driver_id'))
+            ->where('driver.role_id', '=', User::ROLE_DRIVER)
             ->orderBy('bookings.created_at', 'DESC')->paginate(12);
         return response()->json($booking);
     }
