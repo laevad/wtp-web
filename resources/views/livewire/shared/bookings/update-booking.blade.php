@@ -1,4 +1,5 @@
 <x-animation.ball-spin></x-animation.ball-spin>
+<a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
 <form autocomplete="off" wire:submit.prevent="updateBooking">
     <div class="card-body" >
         <div class="row">
@@ -47,15 +48,102 @@
             </div>
         </div>
         <div class="row">
-            <x-custom.input model="t_trip_start" customLabel="Trip start" :view="$viewMode"  isAddBooking="true" isOnChange="true">Trip Start Location</x-custom.input>
-            <x-custom.input model="t_trip_end"  customLabel="Trip End" :view="$viewMode"  isAddBooking="true" isOnChange="true">Trip End Location</x-custom.input>
-            <x-custom.input model="t_total_distance" customLabel="Total Distance" :view="$viewMode"  isAddBooking="true" isOnChange="true" dis="true">Approx Total KM</x-custom.input>
+            <div class="form-group col-md-4" wire:ignore.self>
+                <label for="t_trip_start">Trip start <span class="text-red">*</span></label>
+                <input type="text" wire:model="state.t_trip_start" class="form-control
+                @error('t_trip_start') is-invalid @enderror  " id="t_trip_start" placeholder="Trip start"
+                       onchange="this.dispatchEvent(new InputEvent('input'))">
+                @error('t_trip_start')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group col-md-4" wire:ignore.self>
+                <label for="t_trip_end">Trip end <span class="text-red">*</span></label>
+                <input type="text" wire:model.defer="state.t_trip_end" class="form-control  @error('t_trip_end') is-invalid @enderror  " id="t_trip_end" placeholder="Trip end" onchange="this.dispatchEvent(new InputEvent('input'))">
+                @error('t_trip_end')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group col-md-4">
+                <label for="t_total_distance">Total Distance <span class="text-red">*</span></label>
+                <input type="text" wire:model.defer="state.t_total_distance" class="form-control @error('t_total_distance') is-invalid @enderror " id="t_total_distance" placeholder="Total Distance" onchange="this.dispatchEvent(new InputEvent('input'))" >
+                @error('t_total_distance')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
         </div>
     </div>
     <div class="card-footer justify-content-end d-flex">
         @if(!$viewMode)
-            <button type="submit" class="btn customBg text-white"><i
+            <button type="submit" class="btn customBg text-white" @if(!$disable) disabled @endif><i
                     class="fa fa-save mr-2"></i>{{ $isUpdate ? 'Save Changes' : 'Save' }}</button>
         @endif
     </div>
 </form>
+
+@push('js')
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <script type="text/javascript"
+            src="https://maps.google.com/maps/api/js?key={{ $apiKey }}&libraries=drawing&libraries=places,drawing"></script>
+
+    <script>
+        (function($){
+            'use strict';
+            window.addEventListener('load', (event) => {
+                var googleplaces = new google.maps.places.Autocomplete(document.getElementById('t_trip_start'));
+                google.maps.event.addListener(googleplaces, 'place_changed', function () {
+                    var place = googleplaces.getPlace();
+                    var latitudes = place.geometry.location.lat();
+                    var longitudes = place.geometry.location.lng();
+                    document.getElementById("t_trip_fromlat").value = latitudes;
+                    document.getElementById("t_trip_fromlog").value = longitudes;
+
+                });
+                var places = new google.maps.places.Autocomplete(document.getElementById('t_trip_end'));
+                google.maps.event.addListener(places, 'place_changed', function () {
+                    var toplace = places.getPlace();
+                    var latitude = toplace.geometry.location.lat();
+                    var longitude = toplace.geometry.location.lng();
+                    document.getElementById("t_trip_tolat").value = latitude;
+                    document.getElementById("t_trip_tolog").value = longitude;
+                    Livewire.emit('t_lat_long', latitude, longitude);
+                    distance(document.getElementById("t_trip_fromlat").value, document.getElementById("t_trip_fromlog").value, latitude, longitude, 'K');
+                });
+            });
+            function distance(lat1, lon1, lat2, lon2, unit) {
+                if ((lat1 === lat2) && (lon1 === lon2)) {
+                    return 0;
+                }
+                else {
+                    var radlat1 = Math.PI * lat1/180;
+                    var radlat2 = Math.PI * lat2/180;
+                    var theta = lon1-lon2;
+                    var radtheta = Math.PI * theta/180;
+                    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+                    if (dist > 1) {
+                        dist = 1;
+                    }
+                    dist = Math.acos(dist);
+                    dist = dist * 180/Math.PI;
+                    dist = dist * 60 * 1.1515;
+                    if (unit==="K") { dist = dist * 1.609344 }
+                    if (unit==="N") { dist = dist * 0.8684 }
+                    document.getElementById("t_total_distance").value =  Math.round(dist);
+                    console.log(lat1, lon1, lat2, lon2);
+                    console.log(dist);
+                    console.log( Math.round(dist),lat1, lon1, lat2, lon2);
+                    Livewire.emit('total_distance',  Math.round(dist),lat1, lon1, lat2, lon2);
+                    // document.getElementById("t_total_distance").value =  Math.round(dist);
+
+                }
+            }
+        })(jQuery);
+    </script>
+@endpush
