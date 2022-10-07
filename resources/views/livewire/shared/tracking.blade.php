@@ -26,7 +26,14 @@
             const pune = {lat: 8.44, lng: 124.66};
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 7,
-                center: pune
+                center: pune,
+                mapTypeId: 'roadmap',
+                streetViewControl: false,
+                fullscreenControl: false,
+                mapTypeControl: false,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                }
             });
         }
     </script>

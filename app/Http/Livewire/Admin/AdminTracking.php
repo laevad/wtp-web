@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire\Admin;
 
-use Livewire\Component;
+use App\Http\Livewire\Shared\Tracking;
 
-class AdminTracking extends Component
+
+class AdminTracking extends Tracking
 {
+    public function test(){
+
+    }
     public function render()
     {
         return view('livewire.admin.admin-tracking');

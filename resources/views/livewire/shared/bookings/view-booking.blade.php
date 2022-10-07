@@ -27,6 +27,9 @@
                         <b class="d-block">{{ $booking->vehicle->name }}</b>
                         <b class="d-block">{{ $booking->vehicle->model }}</b>
                     </p>
+                    <p class="text-sm">Tracking URL
+                        <b class="d-block"><a target="_new" href="{{ route("$role.tracking", $booking) }}">{{ route("$role.tracking", $booking) }}</a></b>
+                    </p>
                 </div>
             </div>
             <!-- /.card-body -->

@@ -45,7 +45,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']
         'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'booking-list'=> AdminBookings::class,
         'add-booking'=> AdminAddBooking::class,'incentives-&-expenses'=> AdminCash::class,
         'booking-report'=> AdminBookingReport::class, 'expenses-&-incentives'=>AdminCashReport::class,
-        'tracking'=> AdminTracking::class
+
     ];
     foreach ($routeArr as $uri=> $data){
         Route::get($uri,$data )->name($uri);
@@ -53,6 +53,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']
     Route::get('/ei-report', [AdminCashReport::class, 'report' ])->name('ei.report');
     Route::get('booking-report-report', [AdminBookingReport::class, 'rBooking' ])->name('report.report.bookings');
     Route::get('booking-details/{booking}', AdminViewBooking::class)->name('booking-details');
+    Route::get('tracking/{booking}', AdminTracking::class)->name('tracking');
     Route::get('update-booking/{booking}', AdminUpdateBooking::class)->name('update.bookings');
 });
 
