@@ -1,6 +1,10 @@
 
 <div id="m-container">
     <div id="map"></div>
+
+    <div class="row col-md-6 mt-2 mx-auto">
+        <button wire:click="$emit('refreshComponent')"  class="btn btn-primary form-control">Reload</button>
+    </div>
 </div>
 
 @push('css')
@@ -20,6 +24,7 @@
 @endpush
 
 @push('js')
+
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIv9nK_pTbE3bZi_nXJBCEg2dmSiEyq4E&callback=loadMap"></script>
     <script>
         let map;
