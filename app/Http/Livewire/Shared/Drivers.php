@@ -14,7 +14,9 @@ class Drivers extends GlobalVar{
     public $viewMode = false;
     public function addNew(){
         $this->showEditModal= false;
-        $this->state = ['status_id'=>Status::ACTIVE];
+        $this->state = ['status_id'=>Status::ACTIVE,
+            'date_of_joining'=>now()->toFormattedDate(),
+            ];
         $this->photo = null;
         $this->viewMode = false;
         $this->dispatchBrowserEvent('show-form');
