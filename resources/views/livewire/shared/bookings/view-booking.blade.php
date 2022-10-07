@@ -86,7 +86,7 @@
                             <tbody wire:loading.class="text-muted">
                             @forelse($expenses as $index=> $data)
                                 <tr class="text-muted">
-                                    <th scope="row">{{ $expenses->firstItem() + $index }}</th>
+                                    <th scope="row">{{ ($expenses->firstItem() + $index) }}</th>
                                     <td class="">{{ $data->amount  }}</td>
                                     <td class="">{{ $data->note == null ? 'N/A' : $data->note  }}</td>
                                     <td>{{  $data->date }}</td>
@@ -121,7 +121,7 @@
                             <tbody wire:loading.class="text-muted">
                             @forelse($incentives as $index=> $data)
                                 <tr class="text-muted">
-                                    <th scope="row">{{ $expenses->firstItem() + $index }}</th>
+                                    <th scope="row">{{ $incentives->firstItem() + $index }}</th>
                                     <td class="">{{ $data->amount  }}</td>
                                     <td class="">{{ $data->note == null ? 'N/A' : $data->note  }}</td>
                                     <td>{{  $data->date }}</td>

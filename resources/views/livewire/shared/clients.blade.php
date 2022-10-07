@@ -5,6 +5,7 @@
         <div class="d-flex justify-content-between mb-2">
             <div class="">
                 <button wire:click.prevent="addNew" class="btn-sm customBg text-white"><i class="fa fa-plus-circle mr-1"></i>Add client</button>
+
                 @if($selectedRows)
                     <div class="btn-group p-1">
                         <button type="button" class="btn btn-default">Bulk Action</button>
@@ -17,6 +18,9 @@
                     </div>
                     <span>Selected {{ count($selectedRows) }} {{ Str::plural('client', count($selectedRows)) }}</span>
                 @endif
+            </div>
+            <div class="" wire:loading.delay wire:ignore.self>
+                <x-animation.ball-run></x-animation.ball-run>
             </div>
             <div class="">
                 <input type="text" class="form-control border-0" placeholder="Search" wire:model="searchTerm">

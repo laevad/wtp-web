@@ -1,4 +1,4 @@
-    @props(['isEdit'=>false, 'isView'=>false, 'photo', 'state'])
+    @props(['isEdit'=>false, 'isView'=>false, 'photo', 'state' , 'isDisable'=> false])
 <div class="modal fade " id="form" tabindex="-1" role="dialog" data-backdrop="static"
      aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-lg" role="document">
@@ -91,10 +91,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <div class="" wire:loading.delay>
+                        <x-animation.ball-clip></x-animation.ball-clip>
+                    </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=""><i
                             class="fa fa-times mr-2"></i>{{ $isView ? 'Close' : 'Cancel' }}</button>
                     @if(!$isView)
-                        <button type="submit" class="btn customBg text-white"><i
+                        <button type="submit" wire:loading.attr="disabled" class="btn customBg text-white" @if(!$isDisable) disabled @endif><i
                                 class="fa fa-save mr-2"></i>{{ $isEdit ? 'Save Changes' : 'Save' }}</button>
                     @endif
                 </div>

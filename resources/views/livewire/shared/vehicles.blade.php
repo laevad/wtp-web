@@ -1,4 +1,4 @@
-<x-animation.ball-spin></x-animation.ball-spin>
+{{--<x-animation.ball-spin></x-animation.ball-spin>--}}
 <div class="row">
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
@@ -21,6 +21,9 @@
                     </div>
                     <span>Selected {{ count($selectedRows) }} {{ Str::plural('driver', count($selectedRows)) }}</span>
                 @endif
+            </div>
+            <div class="" wire:loading.delay wire:ignore.self>
+                <x-animation.ball-run></x-animation.ball-run>
             </div>
             <div class="">
                 <input type="text" class="form-control border-0" placeholder="Search" wire:model="searchTerm">

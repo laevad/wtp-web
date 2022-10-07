@@ -20,6 +20,9 @@
                     <span>Selected {{ count($selectedRows) }} {{ Str::plural('driver', count($selectedRows)) }}</span>
                 @endif
             </div>
+            <div class="" wire:loading.delay wire:ignore.self>
+                <x-animation.ball-run></x-animation.ball-run>
+            </div>
             <div class="">
                 <label>
                     <input type="text" class="form-control border-0" placeholder="Search" wire:model="searchTerm">
@@ -127,5 +130,5 @@
         </div>
     </div>
     {{--modal driver--}}
-    <x-modals.driver :isEdit="$showEditModal" :isView="$viewMode" :photo="$photo" :state="$state"></x-modals.driver>
+    <x-modals.driver :isEdit="$showEditModal" :isView="$viewMode" :photo="$photo" :state="$state" :isDisable="$disable"></x-modals.driver>
 </div>
