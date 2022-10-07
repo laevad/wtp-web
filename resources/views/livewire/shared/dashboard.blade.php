@@ -116,7 +116,8 @@
                     position: position,
                     map: map,
                     icon: markers[i][3],
-                    title: markers[i][0]
+                    title: markers[i][0],
+                    animation: google.maps.Animation.DROP,
                 });
                 // Add info window to marker
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
