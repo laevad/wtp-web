@@ -1,4 +1,5 @@
 {{--<x-animation.ball-spin></x-animation.ball-spin>--}}
+
 <div class="row">
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
@@ -32,13 +33,13 @@
                     <thead>
                     <tr>
                         <th>
-                            @if(count($users) != 0)
-                                <div class="icheck-orange d-inline">
-                                    <input type="checkbox" value="" name="todo1" id="todoCheck2"
-                                           wire:model="selectedPageRows">
-                                    <label for="todoCheck2"></label>
-                                </div>
-                            @endif
+{{--                            @if(count($users) != 0)--}}
+{{--                                <div class="icheck-orange d-inline">--}}
+{{--                                    <input type="checkbox" value="" name="todo1" id="todoCheck2"--}}
+{{--                                           wire:model="selectedPageRows">--}}
+{{--                                    <label for="todoCheck2"></label>--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
                         </th>
                         <th scope="col">#</th>
                         <th scope="col">Name
@@ -63,7 +64,7 @@
                     <tbody wire:loading.class="text-muted">
                     @forelse($users as $index => $user)
                         <tr class="">
-                            <th> <div class="icheck-orange d-inline">
+                            <th> <div class="icheck-orange d-inline" >
                                     <input wire:model="selectedRows" type="checkbox" value="{{ $user->id }}" name="todo2" id="{{ $user->id }}" >
                                     <label for="{{ $user->id }}"></label>
                                 </div></th>

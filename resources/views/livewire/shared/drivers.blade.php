@@ -37,13 +37,13 @@
                     <thead>
                     <tr>
                         <th>
-                            @if(count($users) != 0)
-                                <div class="icheck-orange d-inline">
-                                    <input type="checkbox" value="" name="todo1" id="todoCheck2"
-                                           wire:model="selectedPageRows">
-                                    <label for="todoCheck2"></label>
-                                </div>
-                            @endif
+{{--                            @if(count($users) != 0)--}}
+{{--                                <div class="icheck-orange d-inline">--}}
+{{--                                    <input type="checkbox" value="" name="todo1" id="todoCheck2"--}}
+{{--                                           wire:model="selectedPageRows">--}}
+{{--                                    <label for="todoCheck2"></label>--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
                         </th>
                         <th scope="col">#</th>
                         <th scope="col">Name

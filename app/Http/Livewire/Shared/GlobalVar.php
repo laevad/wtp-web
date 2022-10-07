@@ -81,6 +81,7 @@ class GlobalVar extends  Component{
 
     /*SELECTED*/
     public function updatedSelectedPageRows($value){
+
         if ($value){
             $this->selectedRows = $this->users->pluck('id')->map(function ($id){
                 return (string) $id;
@@ -92,7 +93,7 @@ class GlobalVar extends  Component{
     }
 
     public function getUsersProperty(){
-        return User::query()->where('role_id', '=',User::ROLE_ADMIN)
+        return User::query()->where('role_id', '!=',User::ROLE_ADMIN)
             ->latest()->paginate(5);
     }
 

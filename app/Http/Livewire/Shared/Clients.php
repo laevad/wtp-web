@@ -15,6 +15,7 @@ class Clients extends  GlobalVar {
 
     public function updated(){
         $validatedData = $this->validateClient();
+
       if(isset($validatedData)){
           $this->disable = true;
       }
@@ -57,8 +58,12 @@ class Clients extends  GlobalVar {
         return redirect()->back();
     }
 
-    public function getUsersProperty(): LengthAwarePaginator
+
+
+
+    public function getUsersProperty()
     {
+//        dd();
         return User::query()->where('role_id', '=',User::ROLE_CLIENT)
             ->latest()->paginate(5);
     }
