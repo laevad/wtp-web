@@ -27,11 +27,14 @@ class ApiTripController extends Controller
         $err = [
             'driver_id' => $errors->first('driver_id'),
         ];
-        if ($validators->fails()){
+
+        $check_id = Booking::where('driver_id', '=', $request->input('driver_id'))->first();
+        if ($validators->fails() || $check_id==null){
             return response()->json([
                 'errors' => $err
             ], 422);
         }
+
         $booking = Booking::join('users','users.id','=', 'bookings.user_id')
             ->join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
             ->join('users as driver','driver.id','=', 'bookings.driver_id')
