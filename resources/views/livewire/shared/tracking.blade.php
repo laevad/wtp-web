@@ -1,4 +1,3 @@
-
 <div id="m-container">
     <div id="map"></div>
 
@@ -63,6 +62,27 @@
                     window.alert('Directions request failed due to ' + status);
                 }
             });
+
+
+            let markers = [
+                @foreach($markers as $m)
+                [{{ $m->latitude }}, {{ $m->longitude }}, '{{ asset('images/map/index.png') }}'],
+                @endforeach
+            ];
+
+            // Place each marker on the map
+            for( let i = 0; i < markers.length; i++ ) {
+                let position = new google.maps.LatLng(markers[i][0], markers[i][1]);
+                marker = new google.maps.Marker({
+
+                    position: position,
+                    map: map,
+                    icon: markers[i][2],
+                    title: 'Drop',
+                    animation: google.maps.Animation.DROP,
+                });
+            }
+
 
 
 

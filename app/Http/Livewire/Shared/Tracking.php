@@ -3,6 +3,7 @@ namespace App\Http\Livewire\Shared;
 
 
 use App\Models\Booking;
+use App\Models\Marker;
 use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
 
@@ -15,6 +16,7 @@ class Tracking extends Component{
     public $toLongitude;
 
     public $booking;
+    public $markers ;
 
     protected $listeners = ['refreshComponent' => 'reload'];
 
@@ -25,6 +27,9 @@ class Tracking extends Component{
         $this->fromLongitude = $booking->from_longitude;
         $this->toLatitude = $booking->to_latitude;
         $this->toLongitude = $booking->to_longitude;
+
+        $this->markers = Marker::where('booking_id' , '=', $this->bookingId)->get();
+
     }
 
     public function reload(){
