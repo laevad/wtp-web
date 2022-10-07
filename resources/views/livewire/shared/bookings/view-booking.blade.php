@@ -1,5 +1,7 @@
 <x-animation.ball-spin></x-animation.ball-spin>
-{{--<a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>--}}
+@if(url()->previous() == route($role.'.booking-list'))
+    <a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
+@endif
 <div class="row">
     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
         <!-- Profile Image -->
