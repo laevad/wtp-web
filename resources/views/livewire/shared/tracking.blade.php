@@ -1,5 +1,9 @@
-{{--@dump($currentLocation)--}}
+{{--@dump($bookStatus)--}}
 <div id="m-container">
+   <div class="form-group">
+        <span class="description-header mr-2">Trip Status: <span class="badge badge-{{ $booking->status_type_badge }}">{{ $booking->status->name }}</span>
+                                             </span>
+   </div>
     <div id="map"></div>
 
     <div class="row col-md-6 mt-2 mx-auto">
@@ -66,10 +70,18 @@
 
 
             let markers = [
-                @foreach($markers as $m)
+                    @foreach($markers as $m)
                 [{{ $m->latitude }}, {{ $m->longitude }}, '{{ asset('images/map/index.png') }}'],
+                    @endforeach
+                    @if($bookingStatus ==3)
+                    @foreach($currentLocation as $cur)
+                [{{ $cur->latitude }}, {{ $cur->longitude }}, '{{ asset('images/map/2.png') }}'],
                 @endforeach
+                @endif
+
             ];
+
+
 
             // Place each marker on the map
             for( let i = 0; i < markers.length; i++ ) {

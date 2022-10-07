@@ -102,8 +102,10 @@ class GlobalVar extends  Component{
     public function deleteUser(){
         try {
             $user = User::query()->where('id', '=' , $this->userBeignRemoved)->first();
-            $previousPath = $user->avatar;
-            Storage::disk('avatars')->delete($previousPath);
+            if ( $user->avatar !=null){
+                $previousPath = $user->avatar;
+                Storage::disk('avatars')->delete($previousPath);
+            }
             $client = User::findOrFail($this->userBeignRemoved);
             $client->delete();
             $this->reset(['selectedRows', 'selectedPageRows']);
