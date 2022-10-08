@@ -18,11 +18,11 @@ class BookingList extends  GlobalVar{
 
 
     public function getBookingQuery(){
-        return  Booking::join('users','users.id','=', 'bookings.user_id')
-
-
-            ->orderBy('bookings.created_at', 'DESC')->paginate(5);
+        return  Booking::latest()->paginate(5);
     }
+
+
+
 
 
     /*add modal */
