@@ -7,9 +7,7 @@ use App\Http\Livewire\Shared\Tracking;
 
 class AdminTracking extends Tracking
 {
-    public function test(){
 
-    }
     public function render()
     {
         return view('livewire.admin.admin-tracking');

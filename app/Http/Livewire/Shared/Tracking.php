@@ -21,6 +21,7 @@ class Tracking extends Component{
     public $currentLocation;
     public $bookingStatus;
     public $userId;
+    public $role = 'admin';
 
     protected $listeners = ['refreshComponent' => 'reload'];
 

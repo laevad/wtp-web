@@ -18,6 +18,7 @@ use App\Http\Livewire\Client\ClientAddBooking;
 use App\Http\Livewire\Client\ClientBookingList;
 use App\Http\Livewire\Client\ClientDashboard;
 use App\Http\Livewire\Client\ClientSettings;
+use App\Http\Livewire\Client\ClientTracking;
 use App\Http\Livewire\Client\ClientUpdateBooking;
 use App\Http\Livewire\Client\ClientViewBooking;
 use App\Http\Livewire\User\UserDashboard;
@@ -73,4 +74,5 @@ Route::group(['prefix'=>'client', 'middleware'=>['isClient','auth']], function (
     Route::get('settings', ClientSettings::class)->name('client.settings');
     Route::get('booking-details/{booking}', ClientViewBooking::class)->name('client.booking-details');
     Route::get('update-booking/{booking}', ClientUpdateBooking::class)->name('client.update.bookings');
+    Route::get('tracking/{booking}', ClientTracking::class)->name('client.tracking');
 });
