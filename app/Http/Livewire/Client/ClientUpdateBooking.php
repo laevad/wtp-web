@@ -10,6 +10,22 @@ use App\Models\Vehicle;
 
 class ClientUpdateBooking extends UpdateBooking
 {
+
+    public function updated(){
+        $validatedData = $this->validateUpdateBookingClient();
+        if(isset($validatedData)){
+            $this->disable = true;
+        }
+    }
+
+    public function updateBooking()
+    {
+        $this->validateUpdateBookingClient();
+        $this->booking->update($this->state);
+        $this->state = [];
+        $this->disable = false;
+        return redirect()->route('client.booking-list')->with('success', 'Booking updated successfully!');
+    }
     public function render()
     {
         $trip_status = TripStatus::all();

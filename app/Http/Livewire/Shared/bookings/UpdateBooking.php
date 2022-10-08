@@ -44,7 +44,7 @@ class UpdateBooking extends Component{
             'driver_id'=>'required|exists:users,id',
             't_trip_start'=>'required|min:2|max:200',
             't_trip_end'=>'required|min:2|max:200',
-            'trip_status_id'=>['required', Rule::in(TripStatus::YET_TO_START, TripStatus::COMPLETE, TripStatus::ON_GOING, TripStatus::CANCELLED)],
+            'trip_status_id'=>['required', Rule::in(TripStatus::YET_TO_START, TripStatus::COMPLETE, TripStatus::ON_GOING, TripStatus::CANCELLED, TripStatus::PENDING)],
             'trip_start_date'=>'required|date',
             'trip_end_date'=>'required|date',
             't_total_distance'=>'required|numeric',
@@ -60,6 +60,27 @@ class UpdateBooking extends Component{
             't_trip_start.required'=>'The trip start location field is required.',
             't_trip_end.required'=>'The trip end location field is required.',
             'trip_status_id.required'=>'The trip status field is required.',
+            't_total_distance.numeric'=>'The total distance must be a number.',
+            't_total_distance.required'=>'The total distance field is required.',
+        ])->validate();
+    }
+
+    public function validateUpdateBookingClient(){
+        return Validator::make($this->state,[
+            't_trip_start'=>'required|min:2|max:200',
+            't_trip_end'=>'required|min:2|max:200',
+            'trip_start_date'=>'required|date',
+            'trip_end_date'=>'required|date',
+            't_total_distance'=>'required|numeric',
+            'from_latitude'=>'',
+            'from_longitude'=>'',
+            'to_latitude'=>'',
+            'to_longitude'=>'',
+            'cargo_type' => ''
+
+        ],[
+            't_trip_start.required'=>'The trip start location field is required.',
+            't_trip_end.required'=>'The trip end location field is required.',
             't_total_distance.numeric'=>'The total distance must be a number.',
             't_total_distance.required'=>'The total distance field is required.',
         ])->validate();
