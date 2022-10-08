@@ -87,12 +87,7 @@
                             <td>{{ $booking->t_total_distance }}</td>
                             <td>{{ $booking->driver->name }}</td>
                             <td>
-                                <select class="badge
-                                                @if($booking->trip_status_id==1) badge-warning @endif
-                                                 @if($booking->trip_status_id==2) badge-success @endif
-                                                 @if($booking->trip_status_id==3) badge-primary @endif
-                                                 @if($booking->trip_status_id==4) badge-danger @endif
-                                                "
+                                <select class="badge badge-{{$booking->statusTypeBadge}}"
                                         wire:change="changeStatus({{ $booking  }},$event.target.value)"
                                 >
                                     @foreach($trip_status as $data)
