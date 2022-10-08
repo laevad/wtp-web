@@ -76,7 +76,7 @@ class UpdateBooking extends Component{
             'from_longitude'=>'',
             'to_latitude'=>'',
             'to_longitude'=>'',
-            'cargo_type' => ''
+            'cargo_type' => 'min:2|max:200'
 
         ],[
             't_trip_start.required'=>'The trip start location field is required.',
