@@ -1,3 +1,3 @@
 <div>
-    {{-- Be like water. --}}
+    @include('livewire.shared.bookings.update-booking')
 </div>
