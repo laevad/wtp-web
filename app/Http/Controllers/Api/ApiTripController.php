@@ -38,8 +38,9 @@ class ApiTripController extends Controller
         $booking = Booking::join('users','users.id','=', 'bookings.user_id')
             ->join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
             ->join('users as driver','driver.id','=', 'bookings.driver_id')
+            ->join('users as client','client.id','=', 'bookings.user_id')
             ->join('trip_statuses','trip_statuses.id','=', 'bookings.trip_status_id')
-            ->select('bookings.id', 'users.name as client','vehicles.name as vehicle',
+            ->select('bookings.id','driver.id as driver_id','client.id as client_id', 'users.name as client','vehicles.name as vehicle',
                 'bookings.t_trip_start','bookings.t_trip_end','driver.name as driver',
                 'bookings.trip_start_date','bookings.trip_end_date',
                 'trip_statuses.name as trip_status','bookings.t_total_distance','bookings.created_at','bookings.trip_status_id as status_id',

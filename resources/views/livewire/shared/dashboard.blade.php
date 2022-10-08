@@ -1,47 +1,49 @@
 <x-animation.ball-spin></x-animation.ball-spin>
 {{--@dump($location)--}}
-<div class="row">
-    <div class="col-12 col-sm-6 col-md-4">
-        <div class="info-box">
-            <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-truck text-white"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Total Vehicle's</span>
-                <span class="info-box-number">{{ $totalVehicle }}  </span>
+@if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box">
+                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-truck text-white"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Vehicle's</span>
+                    <span class="info-box-number">{{ $totalVehicle }}  </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
+            <!-- /.info-box -->
         </div>
-        <!-- /.info-box -->
-    </div>
-    <!-- /.col -->
-    <div class="col-12 col-sm-6 col-md-4">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-success elevation-1"><i class="fa fa-user-secret"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Total Drivers</span>
-                <span class="info-box-number">{{ $totalDriver }} </span>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fa fa-user-secret"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Drivers</span>
+                    <span class="info-box-number">{{ $totalDriver }} </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
+            <!-- /.info-box -->
         </div>
-        <!-- /.info-box -->
-    </div>
-    <!-- /.col -->
-    <!-- fix for small devices only -->
-    <div class="clearfix hidden-md-up"></div>
-    <div class="col-12 col-sm-6 col-md-4">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-user text-white"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Total Client</span>
-                <span class="info-box-number">{{ $totalClient }} </span>
+        <!-- /.col -->
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-user text-white"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Client</span>
+                    <span class="info-box-number">{{ $totalClient }} </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
+            <!-- /.info-box -->
         </div>
-        <!-- /.info-box -->
+        <!-- /.col -->
+        <!-- /.col -->
     </div>
-    <!-- /.col -->
-    <!-- /.col -->
-</div>
 
+@endif
 <div id="m-container">
     <div id="map"></div>
 </div>
