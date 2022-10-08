@@ -41,7 +41,9 @@
                                                                                     data-toggle="tab">Settings</a></li>
                     <li @click.prevent="currentTab = 'changePassword'" class="nav-item"><a class="nav-link" :class="currentTab == 'changePassword' ? 'active' : ''" href="#changePassword" data-toggle="tab">Change
                             Password</a></li>
-                    <li @click.prevent="currentTab = 'apiKey'" class="nav-item"><a class="nav-link" :class="currentTab == 'apiKey' ? 'active' : ''" href="#apiKey" data-toggle="tab">API Key</a></li>
+                    @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+                        <li @click.prevent="currentTab = 'apiKey'" class="nav-item"><a class="nav-link" :class="currentTab == 'apiKey' ? 'active' : ''" href="#apiKey" data-toggle="tab">API Key</a></li>
+                    @endif
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">

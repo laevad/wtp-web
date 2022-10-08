@@ -16,7 +16,9 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="profileLink">Profile</a>
                 <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="changePasswordLink">Change Password</a>
-                <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="apiKeyLink">API Key</a>
+                @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+                    <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="apiKeyLink">API Key</a>
+                @endif
                 <div class="dropdown-divider"></div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
