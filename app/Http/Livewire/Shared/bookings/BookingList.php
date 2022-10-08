@@ -78,7 +78,7 @@ class BookingList extends  GlobalVar{
         Validator::make(['trip_status_id'=>$status],[
                 'trip_status_id'=>[
                     'required',
-                    Rule::in(Booking::YET_TO_START, Booking::COMPLETE, Booking::ON_GOING, Booking::CANCELLED),
+                    Rule::in(Booking::YET_TO_START, Booking::COMPLETE, Booking::ON_GOING, Booking::CANCELLED, Booking::PENDING),
                 ],
             ]
         )->validate();
