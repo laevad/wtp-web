@@ -81,11 +81,11 @@
                             </th>
                             <th scope="row">{{ $bookings->firstItem() + $index }}</th>
                             <td>{{ $booking->user->name }}</td>
-                            <td>{{ $booking->vehicle->name }}</td>
+                            <td>{{ $booking->vehicle->name?? 'pending' }}</td>
                             <td>{{ $booking->t_trip_start }}</td>
                             <td>{{ $booking->t_trip_end }}</td>
                             <td>{{ $booking->t_total_distance }}</td>
-                            <td>{{ $booking->driver->name }}</td>
+                            <td>{{ $booking->driver->name?? 'pending' }}</td>
                             <td>
                                @if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN)
                                     <select class="badge badge-{{$booking->statusTypeBadge}}"
