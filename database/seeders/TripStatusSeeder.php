@@ -21,7 +21,7 @@ class TripStatusSeeder extends Seeder
                 ['id'=>2,'name'=>'Completed'],
                 ['id'=>3,'name'=>'Ongoing'],
                 ['id'=>4,'name'=>'Cancelled'],
-
+                ['id'=>5,'name'=>'Pending'],
             ],
         );
     }
