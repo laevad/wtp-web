@@ -120,10 +120,17 @@
                                         >
                                             <i class="fa fa-eye text-success ml-2"></i> View
                                         </a>
-                                        <a href="{{ route("$role.update.bookings", $booking) }}" class="dropdown-item"
-                                        >
-                                            <i class="fa fa-edit text-primary ml-2"></i> Edit
-                                        </a>
+                                        @if(auth()->user()->role_id == \App\Models\User::ROLE_CLIENT)
+                                            @if($booking->trip_status_id == \App\Models\TripStatus::PENDING)
+                                                <a href="{{ route("$role.update.bookings", $booking) }}" class="dropdown-item">
+                                                    <i class="fa fa-edit text-primary ml-2"></i> Edit
+                                                </a>
+                                            @endif
+                                        @else
+                                            <a href="{{ route("$role.update.bookings", $booking) }}" class="dropdown-item">
+                                                <i class="fa fa-edit text-primary ml-2"></i> Edit
+                                            </a>
+                                        @endif
                                         <div class="dropdown-divider"></div>
                                         <a href="" class="dropdown-item" wire:click.prevent="confirmUserRemoval('{{ $booking->id }}')">
                                             <i class="fa fa-trash text-danger ml-2"></i> Delete
