@@ -30,6 +30,7 @@
         <div class="row">
             <x-custom.input model="trip_start_date" :view="$viewMode" isAddBooking="true" isDate="true">Trip Start Date</x-custom.input>
             <x-custom.input model="trip_end_date" :view="$viewMode" isAddBooking="true" isDate="true">Trip End Date</x-custom.input>
+            <x-custom.input model="cargo_type" :view="$viewMode" isAddBooking="true" >Cargo Type</x-custom.input>
            @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
                 <div class="col-md-4" >
                     <div class="form-group">
