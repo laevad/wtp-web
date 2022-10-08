@@ -14,8 +14,12 @@ use App\Http\Livewire\Admin\AdminTracking;
 use App\Http\Livewire\Admin\AdminUpdateBooking;
 use App\Http\Livewire\Admin\AdminVehicles;
 use App\Http\Livewire\Admin\AdminViewBooking;
+use App\Http\Livewire\Client\ClientAddBooking;
+use App\Http\Livewire\Client\ClientBookingList;
 use App\Http\Livewire\Client\ClientDashboard;
 use App\Http\Livewire\Client\ClientSettings;
+use App\Http\Livewire\Client\ClientUpdateBooking;
+use App\Http\Livewire\Client\ClientViewBooking;
 use App\Http\Livewire\User\UserDashboard;
 use App\Http\Livewire\User\UserSettings;
 use Illuminate\Support\Facades\Route;
@@ -64,5 +68,9 @@ Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function (){
 
 Route::group(['prefix'=>'client', 'middleware'=>['isClient','auth']], function (){
     Route::get('dashboard', ClientDashboard::class)->name('client.dashboard');
+    Route::get('booking-list', ClientBookingList::class)->name('client.booking-list');
+    Route::get('add-booking', ClientAddBooking::class)->name('client.add-booking');
     Route::get('settings', ClientSettings::class)->name('client.settings');
+    Route::get('booking-details/{booking}', ClientViewBooking::class)->name('client.booking-details');
+    Route::get('update-booking/{booking}', ClientUpdateBooking::class)->name('client.update.bookings');
 });

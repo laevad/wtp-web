@@ -28,11 +28,15 @@
                     <x-nav.item icon="fa-users" currentPage="clients"></x-nav.item>
                     <x-nav.item icon="fa-user-secret" currentPage="drivers"></x-nav.item>
                     <x-nav.item icon="fa-truck" currentPage="vehicles"></x-nav.item>
-                    <x-nav.item icon="fa-road" currentPage="bookings" :treeNav="['booking-list'=>'fa-clipboard-list','add-booking'=>'fa-plus']" isTree="true"></x-nav.item>
+
+                @endif
+                <x-nav.item icon="fa-road" currentPage="bookings" :treeNav="['booking-list'=>'fa-clipboard-list','add-booking'=>'fa-plus']" isTree="true"></x-nav.item>
+                @if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN)
                     <x-nav.item icon="fa-truck" currentPage="incentives-&-expenses"></x-nav.item>
                     <x-nav.item icon="fa-calculator" currentPage="Reports" :treeNav="['booking-report'=>'fa-file-download','expenses-&-incentives'=>'fa-file-download']" isTree="true"></x-nav.item>
 {{--                    <x-nav.item icon="fa-map-pin" currentPage="tracking"></x-nav.item>--}}
-                @endif
+                    @endif
+
                 <x-nav.item icon="fa-wrench" currentPage="settings"></x-nav.item>
             </ul>
         </nav>
