@@ -3,7 +3,10 @@
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
             <div class="">
-                <a href="@if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN) {{ route($role.'.add-booking') }} @endif"  class="btn customBg text-white"><i class="fa fa-plus-circle mr-1"></i>Add booking</a>
+                <a href="@if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN) {{ route($role.'.add-booking') }} @endif"
+                   class="btn customBg text-white"><i class="fa fa-plus-circle mr-1">
+                    </i>{{ auth()->user()->role_id == \App\Models\User::ROLE_ADMIN? 'Add booking' : 'Request booking' }}
+                </a>
                 @if($selectedRows)
                     <div class="btn-group p-1">
                         <button type="button" class="btn btn-default">Bulk Action</button>
