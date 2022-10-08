@@ -87,14 +87,20 @@
                             <td>{{ $booking->t_total_distance }}</td>
                             <td>{{ $booking->driver->name }}</td>
                             <td>
-                                <select class="badge badge-{{$booking->statusTypeBadge}}"
-                                        wire:change="changeStatus({{ $booking  }},$event.target.value)"
-                                >
-                                    @foreach($trip_status as $data)
-                                        <option value="{{ $data->id }}" @if($data->id == $booking->trip_status_id) selected @endif>{{ $data->name }}</option>
-                                    @endforeach
+                               @if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN)
+                                    <select class="badge badge-{{$booking->statusTypeBadge}}"
+                                            wire:change="changeStatus({{ $booking  }},$event.target.value)"
+                                    >
+                                        @foreach($trip_status as $data)
+                                            <option value="{{ $data->id }}" @if($data->id == $booking->trip_status_id) selected @endif>{{ $data->name }}</option>
+                                        @endforeach
 
-                                </select>
+                                    </select>
+                                @else
+                                    <span class="badge badge-{{$booking->statusTypeBadge}}">
+                                    {{ $booking->status->name }}
+                                    </span>
+                                @endif
                             </td>
                             <td>
                                 {{ $booking->created_at->toFormattedDateTime() }}
