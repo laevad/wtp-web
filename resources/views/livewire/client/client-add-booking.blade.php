@@ -1,3 +1,3 @@
 <div>
-    {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
+    @include("livewire.shared.bookings.add-booking")
 </div>
