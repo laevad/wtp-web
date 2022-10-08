@@ -3,6 +3,7 @@ namespace App\Http\Livewire\Shared\bookings;
 
 use App\Models\Booking;
 use App\Models\TripStatus;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -33,10 +34,16 @@ class AddBooking extends  Component{
 
 
     public function createBooking(){
-//        dd($this->state);
-        $validatedData = $this->validateAddBooking();
+
+        if (auth()->user()->role_id == User::ROLE_ADMIN){
+            $validatedData = $this->validateAddBooking();
+        }
+        if(auth()->user()->role_id == User::ROLE_CLIENT){
+            $validatedData = $this->validateAddBookingClient();
+            $validatedData['user_id'] = auth()->user()->id;
+            $validatedData['trip_status_id'] = Booking::PENDING;
+        }
         $validatedData['t_total_distance'] = $this->state['t_total_distance'];
-//        dd($validatedData);
         Booking::create($validatedData);
         $this->state=[];
         return redirect()->route('admin.booking-list')->with('success', 'Booking added successfully!');
@@ -69,9 +76,34 @@ class AddBooking extends  Component{
             't_total_distance.required'=>'The total distance field is required.',
         ])->validate();
     }
+    public function validateAddBookingClient(){
+        return Validator::make($this->state,[
+            't_trip_start'=>'required|min:2|max:200',
+            't_trip_end'=>'required|min:2|max:200',
+            'trip_start_date'=>'required|date',
+            'trip_end_date'=>'required|date',
+            't_total_distance'=>'required|numeric',
+            'from_latitude'=>'',
+            'from_longitude'=>'',
+            'to_latitude'=>'',
+            'to_longitude'=>'',
+            'cargo_type' => ''
+
+        ],[
+            't_trip_start.required'=>'The trip start location field is required.',
+            't_trip_end.required'=>'The trip end location field is required.',
+            't_total_distance.numeric'=>'The total distance must be a number.',
+            't_total_distance.required'=>'The total distance field is required.',
+        ])->validate();
+    }
 
     public function updated(){
-        $validatedData = $this->validateAddBooking();
+        if (auth()->user()->role_id == User::ROLE_ADMIN){
+            $validatedData = $this->validateAddBooking();
+        }
+        if (auth()->user()->role_id == User::ROLE_CLIENT){
+            $validatedData = $this->validateAddBookingClient();
+        }
         if(isset($validatedData)){
             $this->disable = true;
         }
