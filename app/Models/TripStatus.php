@@ -13,6 +13,7 @@ class TripStatus extends Model
     const COMPLETE = 2;
     const ON_GOING = 3;
     const CANCELLED = 4;
+    const PENDING = 5;
 
 
     protected $fillable = [
