@@ -32,6 +32,7 @@ class Booking extends Model
         'from_longitude',
         'to_latitude',
         'to_longitude',
+        'cargo_type'
 
     ];
 
