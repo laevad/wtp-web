@@ -107,7 +107,7 @@
                             </td>
                             <td>
                                 <div class="btn-group">
-                                    <a type="button" href="{{ route('admin.booking-details', $booking->id) }}" class="btn btn-outline-success"
+                                    <a type="button" href="{{ route("$role.booking-details", $booking->id) }}" class="btn btn-outline-success"
                                     ><i
                                             class="fa fa-eye mr-1"></i> View</a>
                                     <button type="button"
