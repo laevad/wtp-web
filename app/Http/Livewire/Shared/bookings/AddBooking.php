@@ -46,7 +46,10 @@ class AddBooking extends  Component{
         $validatedData['t_total_distance'] = $this->state['t_total_distance'];
         Booking::create($validatedData);
         $this->state=[];
-        return redirect()->route('admin.booking-list')->with('success', 'Booking added successfully!');
+        if (auth()->user()->role_id == User::ROLE_ADMIN){
+            return redirect()->route('admin.booking-list')->with('success', 'Booking added successfully!');
+        }
+        return redirect()->route('client.booking-list')->with('success', 'Booking added successfully!');
     }
 
     public function validateAddBooking(){
