@@ -16,6 +16,7 @@ class Booking extends Model
     const  COMPLETE = 2;
     const  ON_GOING = 3;
     const  CANCELLED = 4;
+    const  PENDING = 5;
 
     protected $fillable = [
         'user_id',
@@ -48,6 +49,7 @@ class Booking extends Model
             self::COMPLETE=>'success',
             self::ON_GOING=>'primary',
             self::CANCELLED=>'danger',
+            self::PENDING=>'info',
         ];
         return $badges[$this->trip_status_id];
     }
