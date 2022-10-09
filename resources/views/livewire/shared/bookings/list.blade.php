@@ -124,9 +124,13 @@
                             </td>
                             <td>
                                 <div class="btn-group">
-                                    <a type="button" href="{{ route("$role.booking-details", $booking->id) }}" class="btn btn-outline-success"
-                                    ><i
-                                            class="fa fa-eye mr-1"></i> View</a>
+                                    @if($booking->trip_status_id == \App\Models\TripStatus::PENDING && auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+                                        <a type="button" href="{{ route("$role.update.bookings", $booking) }}" class="btn btn-outline-success">
+                                            <i class="fa fa-edit mr-1"></i>Edit</a>
+                                    @else
+                                        <a type="button" href="{{ route("$role.booking-details", $booking) }}" class="btn btn-outline-success">
+                                            <i class="fa fa-eye mr-1"></i>View</a>
+                                    @endif
                                     <button type="button"
                                             class="btn  btn-outline-secondary  dropdown-toggle dropdown-icon"
                                             data-toggle="dropdown">
