@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -47,6 +48,10 @@ class AuthController extends Controller
 
         else if (! $token = auth($this->guard)->attempt($credentials)) {
             return response()->json(['error' => 'Invalid credentials'], 401);
+        }
+
+        if (auth($this->guard)->user()->role_id != User::ROLE_DRIVER){
+            return response()->json(['error' => 'Only Driver Can login'], 422);
         }
 
         return $this->respondWithToken($token);
