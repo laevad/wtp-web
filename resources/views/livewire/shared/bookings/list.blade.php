@@ -72,7 +72,9 @@
 {{--                        @endif--}}
                         <th></th>
                         <th scope="col">#</th>
-                        <th>Customer</th>
+                        @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+                            <th>Customer</th>
+                        @endif
                         <th>Vehicle</th>
                         <th>Trip from</th>
                         <th>Trip to</th>
@@ -97,7 +99,9 @@
                                 </div>
                             </th>
                             <th scope="row">{{ $bookings->firstItem() + $index }}</th>
-                            <td>{{ $booking->user->name }}</td>
+                            @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+                                <td>{{ $booking->user->name }}</td>
+                            @endif
                             <td>{{ $booking->vehicle->name?? 'pending' }}</td>
                             <td>{{ $booking->t_trip_start }}</td>
                             <td>{{ $booking->t_trip_end }}</td>
