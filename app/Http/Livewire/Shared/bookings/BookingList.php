@@ -15,14 +15,22 @@ class BookingList extends  GlobalVar{
 
     public $state= ['trip_status_id'=>1];
 
+    public $status  ;
+
 
 
     public function getBookingQuery(){
-        return  Booking::latest()->paginate(5);
+        return  Booking::when($this->status, function ($query , $status){
+
+            return $query->where('trip_status_id', $status);
+        })
+        ->latest()->paginate(5);
     }
 
 
-
+    public function  filterBookingByStatus($status = null){
+        $this->status = $status;
+    }
 
 
     /*add modal */

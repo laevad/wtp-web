@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 
 class AdminBookings extends BookingList
 {
+
     public function render(): Factory|View|Application
     {
         $bookings = $this->getBookingQuery();
@@ -50,5 +51,8 @@ class AdminBookings extends BookingList
             'bookingComplete' => $bookingComplete,
         ]);
     }
+
+
+
 
 }
