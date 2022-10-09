@@ -21,8 +21,8 @@ class Tracking extends Component{
     public $currentLocation;
     public $bookingStatus;
     public $userId;
-    public $role = 'admin';
 
+    public $role = 'admin';
     protected $listeners = ['refreshComponent' => 'reload'];
 
     public function mount(Booking $booking){
@@ -37,12 +37,10 @@ class Tracking extends Component{
 
         $this->markers = Marker::where('booking_id' , '=', $this->bookingId)->get();
         $this->currentLocation = Location::where('user_id', '=', $this->userId)->get();
-
-
     }
 
     public function reload(){
-        return Redirect::route('admin.tracking', $this->bookingId);
+        return Redirect::route($this->role.".tracking", $this->bookingId);
     }
 
 }

@@ -6,7 +6,7 @@ use App\Http\Livewire\Shared\Tracking;
 
 class ClientTracking extends Tracking
 {
-    public $role = 'tracking';
+    public $role = 'client';
 
     public function render()
     {
