@@ -49,6 +49,9 @@ input[type="file"]:focus,
     /*border: 1px solid #f76440 !important;*/
 }
 
+#logout:hover {
+    color: #f76440!important;
+}
 
 
      /*!
@@ -600,11 +603,4 @@ input[type="file"]:focus,
         -o-transform: scaleY(1);
         transform: scaleY(1);
     }
-}
-
- a:hover{
-    color: #f76440!important;
-}
-.active:hover{
-    color: white!important;
 }

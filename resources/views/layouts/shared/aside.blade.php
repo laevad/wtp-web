@@ -45,7 +45,8 @@
                <li class="nav-item">
                    <form action="{{ route('logout') }}" method="POST">
                        @csrf
-                       <a href="{{ route('logout') }}" class="nav-link"  onclick="event.preventDefault(); this.closest('form').submit();">
+                       <a href="{{ route('logout') }}" class="nav-link" id="logout"
+                          onclick="event.preventDefault(); this.closest('form').submit();">
                            <i class="nav-icon fas fa-sign-out-alt"></i>
                            <p>Logout</p>
                        </a>
