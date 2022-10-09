@@ -1,4 +1,4 @@
-{{--@dump($bookStatus)--}}
+<x-animation.ball-spin></x-animation.ball-spin>
 <div id="m-container">
    <div class="form-group">
         <span class="description-header mr-2">Trip Status: <span class="badge badge-{{ $booking->status_type_badge }}">{{ $booking->status->name }}</span>
