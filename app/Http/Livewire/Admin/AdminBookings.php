@@ -32,6 +32,10 @@ class AdminBookings extends BookingList
         $vehicles = Vehicle::all();
         $this->cPageChanges($bookings->currentPage());
         $role ='admin';
+        $bookingCount = Booking::count();
+        $bookingPending = Booking::where('trip_status_id', TripStatus::PENDING)->count();
+        $bookingOnGoing =  Booking::where('trip_status_id', TripStatus::ON_GOING)->count();
+        $bookingComplete =  Booking::where('trip_status_id', TripStatus::COMPLETE)->count();
         return view('livewire.admin.admin-bookings',[
             'bookings'=> $bookings,
             'trip_status' => $trip_status,
@@ -40,6 +44,10 @@ class AdminBookings extends BookingList
             'vehicles'=>$vehicles,
             'drivers'=>$drivers,
             'role'=>$role,
+            'bookingCount' => $bookingCount,
+            'bookingPending' => $bookingPending,
+            'bookingOnGoing' => $bookingOnGoing,
+            'bookingComplete' => $bookingComplete,
         ]);
     }
 

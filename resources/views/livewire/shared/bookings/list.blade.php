@@ -25,19 +25,19 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-default">
                     <span class="mr-1">All</span>
-                    <span class="badge badge-pill badge-danger">12</span>
+                    <span class="badge badge-pill badge-danger">{{ $bookingCount }}</span>
                 </button>
                 <button type="button" class="btn btn-default">
                     <span class="mr-1">Pending</span>
-                    <span class="badge badge-pill badge-info">5</span>
+                    <span class="badge badge-pill badge-info">{{ $bookingPending }}</span>
                 </button>
                 <button type="button" class="btn btn-default">
                     <span class="mr-1">Ongoing</span>
-                    <span class="badge badge-pill badge-primary">5</span>
+                    <span class="badge badge-pill badge-primary">{{ $bookingOnGoing }}</span>
                 </button>
                 <button type="button" class="btn btn-default">
                     <span class="mr-1">Completed</span>
-                    <span class="badge badge-pill badge-success">4</span>
+                    <span class="badge badge-pill badge-success">{{ $bookingComplete }}</span>
                 </button>
             </div>
         </div>
