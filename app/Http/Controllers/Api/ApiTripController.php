@@ -9,10 +9,14 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ApiTripController extends Controller
 {
     public string $guard = 'api';
+
+    public $status = null;
+
     public function __construct()
     {
         $this->middleware('api.auth');
@@ -20,13 +24,17 @@ class ApiTripController extends Controller
 
     public function trip(Request $request): JsonResponse
     {
+
         $validators = Validator::make($request->all(), [
             'driver_id' => 'required|exists:users,id',
+            'trip_status_id'=>['nullable', Rule::in(TripStatus::YET_TO_START, TripStatus::COMPLETE, TripStatus::ON_GOING, TripStatus::CANCELLED)],
 
         ]);
+        $this->status  = $request->input('trip_status_id');
         $errors = $validators->errors();
         $err = [
             'driver_id' => $errors->first('driver_id'),
+            'trip_status_id' => $errors->first('trip_status_id'),
         ];
 
         $check_id = Booking::where('driver_id', '=', $request->input('driver_id'))->first();
@@ -35,8 +43,14 @@ class ApiTripController extends Controller
                 'errors' => $err
             ], 422);
         }
+        if ($this->status == null)
+        {
+            $booking = $this->getBookingApiQuery($request);
+        }else{
+            $booking = $this->getBookingApiQueryComplete($request);
+        }
 
-        $booking = $this->getBookingApiQuery($request);
+
         return response()->json($booking);
     }
     public function tripComplete(Request $request): JsonResponse
@@ -80,7 +94,8 @@ class ApiTripController extends Controller
         return response()->json(['message'=>'success update!', 'errors'=>$err], 201);
     }
 
-    public function getBookingApiQuery($request){
+    public function getBookingApiQuery(Request $request){
+
         return Booking::join('users','users.id','=', 'bookings.user_id')
             ->join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
             ->join('users as driver','driver.id','=', 'bookings.driver_id')
@@ -109,7 +124,7 @@ class ApiTripController extends Controller
                 'bookings.from_latitude', 'bookings.from_longitude','bookings.to_latitude', 'bookings.to_longitude')
             ->where('bookings.driver_id', '=', $request->input('driver_id'))
             ->where('driver.role_id', '=', User::ROLE_DRIVER)
-            ->where('bookings.trip_status_id', '==', TripStatus::COMPLETE)
+            ->where('bookings.trip_status_id', '=', $this->status)
             ->orderBy('bookings.created_at', 'DESC')->paginate(12);
     }
 }
