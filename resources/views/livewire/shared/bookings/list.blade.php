@@ -105,14 +105,22 @@
                             <td>{{ $booking->driver->name?? 'pending' }}</td>
                             <td>
                                @if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN)
-                                    <select class="badge badge-{{$booking->statusTypeBadge}}"
-                                            wire:change="changeStatus({{ $booking  }},$event.target.value)"
-                                    >
-                                        @foreach($trip_status as $data)
-                                            <option value="{{ $data->id }}" @if($data->id == $booking->trip_status_id) selected @endif>{{ $data->name }}</option>
-                                        @endforeach
+                                    @if($booking->trip_status_id != \App\Models\TripStatus::PENDING)
+                                        <select class="badge badge-{{$booking->statusTypeBadge}}"
+                                                wire:change="changeStatus({{ $booking  }},$event.target.value)"
+                                        >
+                                            @foreach($trip_status as $data)
+                                                @if($data->id !=  \App\Models\TripStatus::PENDING)
+                                                    <option value="{{ $data->id }}" @if($data->id == $booking->trip_status_id) selected @endif>{{ $data->name }}</option>
+                                                @endif
+                                            @endforeach
 
-                                    </select>
+                                        </select>
+                                    @else
+                                        <span class="badge badge-{{$booking->statusTypeBadge}}">
+                                    {{ $booking->status->name }}
+                                    </span>
+                                    @endif
                                 @else
                                     <span class="badge badge-{{$booking->statusTypeBadge}}">
                                     {{ $booking->status->name }}
