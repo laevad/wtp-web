@@ -20,14 +20,26 @@
                     <span>Selected {{ count($selectedRows) }} {{ Str::plural('booking', count($selectedRows)) }}</span>
                 @endif
             </div>
-            {{--                            <div class="">--}}
-            {{--                                <input type="text" class="form-control border-0" placeholder="Search" wire:model.defer="searchTerm">--}}
-            {{--                                <div class="" wire:loading.delay wire:target="searchTerm">--}}
-            {{--                                    <div class="la-ball-clip-rotate la-dark la-sm" >--}}
-            {{--                                        <div></div>--}}
-            {{--                                    </div>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
+        </div>
+        <div class="d-flex justify-content-end mb-2 mx-auto">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default">
+                    <span class="mr-1">All</span>
+                    <span class="badge badge-pill badge-danger">12</span>
+                </button>
+                <button type="button" class="btn btn-default">
+                    <span class="mr-1">Pending</span>
+                    <span class="badge badge-pill badge-info">5</span>
+                </button>
+                <button type="button" class="btn btn-default">
+                    <span class="mr-1">Ongoing</span>
+                    <span class="badge badge-pill badge-primary">5</span>
+                </button>
+                <button type="button" class="btn btn-default">
+                    <span class="mr-1">Completed</span>
+                    <span class="badge badge-pill badge-success">4</span>
+                </button>
+            </div>
         </div>
         <div class="card">
             <div class="card-body table-responsive">
