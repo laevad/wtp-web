@@ -153,7 +153,7 @@
                             </td>
                         </tr>
                     @empty
-                        <x-custom.empty colSpan="10"></x-custom.empty>
+                        <x-custom.empty colSpan="11"></x-custom.empty>
                     @endforelse
                     </tbody>
                 </table>
