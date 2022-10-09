@@ -90,7 +90,7 @@ class AddBooking extends  Component{
             'from_longitude'=>'',
             'to_latitude'=>'',
             'to_longitude'=>'',
-            'cargo_type' => 'min:2|max:200'
+            'cargo_type' => 'required|min:2|max:200'
 
         ],[
             't_trip_start.required'=>'The trip start location field is required.',
