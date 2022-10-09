@@ -1,5 +1,6 @@
 <x-animation.ball-spin></x-animation.ball-spin>
-@if(url()->previous() == route($role.'.booking-list'))
+
+@if( request()->segment(1) == $role)
     <a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
 @endif
 <div class="row">
