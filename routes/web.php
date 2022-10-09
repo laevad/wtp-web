@@ -70,7 +70,7 @@ Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function (){
 Route::group(['prefix'=>'client', 'middleware'=>['isClient','auth']], function (){
     Route::get('dashboard', ClientDashboard::class)->name('client.dashboard');
     Route::get('booking-list', ClientBookingList::class)->name('client.booking-list');
-    Route::get('add-booking', ClientAddBooking::class)->name('client.add-booking');
+    Route::get('request-booking', ClientAddBooking::class)->name('client.request-booking');
     Route::get('settings', ClientSettings::class)->name('client.settings');
     Route::get('booking-details/{booking}', ClientViewBooking::class)->name('client.booking-details');
     Route::get('update-booking/{booking}', ClientUpdateBooking::class)->name('client.update.bookings');

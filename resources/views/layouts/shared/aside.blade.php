@@ -30,7 +30,11 @@
                     <x-nav.item icon="fa-truck" currentPage="vehicles"></x-nav.item>
 
                 @endif
-                <x-nav.item icon="fa-road" currentPage="bookings" :treeNav="['booking-list'=>'fa-clipboard-list','add-booking'=>'fa-plus']" isTree="true"></x-nav.item>
+                @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+                    <x-nav.item icon="fa-road" currentPage="bookings" :treeNav="['booking-list'=>'fa-clipboard-list','add-booking'=>'fa-plus']" isTree="true"></x-nav.item>
+                @else
+                    <x-nav.item icon="fa-road" currentPage="bookings" :treeNav="['booking-list'=>'fa-clipboard-list','request-booking'=>'fa-plus']" isTree="true"></x-nav.item>
+                @endif
                 @if(auth()->user()->role_id==\App\Models\User::ROLE_ADMIN)
                     <x-nav.item icon="fa-truck" currentPage="incentives-&-expenses"></x-nav.item>
                     <x-nav.item icon="fa-calculator" currentPage="Reports" :treeNav="['booking-report'=>'fa-file-download','expenses-&-incentives'=>'fa-file-download']" isTree="true"></x-nav.item>
