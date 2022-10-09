@@ -44,7 +44,7 @@
                         <x-animation.ball-clip></x-animation.ball-clip>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=""><i class="fa fa-times mr-2"></i>{{ $isEdit ? 'Close' : 'Cancel' }}</button>
-                    @if(!$isView) <button type="submit" wire:loading.attr="disabled" class="btn customBg text-white" @if(!$isDisable) disabled @endif><i class="fa fa-save mr-2"></i>{{ $isEdit ? 'Save Changes' : 'Save' }}</button> @endif
+                    @if(!$isView) <button type="submit" wire:loading.attr="disabled" class="btn customBg text-white"><i class="fa fa-save mr-2"></i>{{ $isEdit ? 'Save Changes' : 'Save' }}</button> @endif
                 </div>
             </form>
         </div>

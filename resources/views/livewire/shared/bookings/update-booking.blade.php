@@ -86,7 +86,7 @@
     </div>
     <div class="card-footer justify-content-end d-flex">
         @if(!$viewMode)
-            <button type="submit" class="btn customBg text-white" @if(!$disable) disabled @endif><i
+            <button type="submit" class="btn customBg text-white" ><i
                     class="fa fa-save mr-2"></i>{{ $isUpdate ? 'Save Changes' : 'Save' }}</button>
         @endif
     </div>

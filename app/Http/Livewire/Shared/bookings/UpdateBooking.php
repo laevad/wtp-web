@@ -86,12 +86,7 @@ class UpdateBooking extends Component{
         ])->validate();
     }
 
-    public function updated(){
-        $validatedData = $this->validateUpdateBooking();
-        if(isset($validatedData)){
-            $this->disable = true;
-        }
-    }
+
 
 
 

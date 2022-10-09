@@ -12,13 +12,7 @@ class Clients extends  GlobalVar {
 
 
 
-    public function updated(){
-        $validatedData = $this->validateClient();
 
-      if(isset($validatedData)){
-          $this->disable = true;
-      }
-    }
 
     public function updateUser(): RedirectResponse
     {

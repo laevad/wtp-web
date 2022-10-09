@@ -136,10 +136,5 @@ class Drivers extends GlobalVar{
         ])->validate();
     }
 
-    public function updated(){
-        $validatedData = $this->validateDriver();
-        if(isset($validatedData)){
-            $this->disable = true;
-        }
-    }
+
 }

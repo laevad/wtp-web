@@ -100,16 +100,6 @@ class AddBooking extends  Component{
         ])->validate();
     }
 
-    public function updated(){
-        if (auth()->user()->role_id == User::ROLE_ADMIN){
-            $validatedData = $this->validateAddBooking();
-        }
-        if (auth()->user()->role_id == User::ROLE_CLIENT){
-            $validatedData = $this->validateAddBookingClient();
-        }
-        if(isset($validatedData)){
-            $this->disable = true;
-        }
-    }
+
 
 }

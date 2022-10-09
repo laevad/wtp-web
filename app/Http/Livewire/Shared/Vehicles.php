@@ -163,11 +163,6 @@ class Vehicles extends GlobalVar{
         ])->validate();
     }
 
-    public function updated(){
-        $validatedData = $this->validateVehicle();
-        if(isset($validatedData)){
-            $this->disable = true;
-        }
-    }
+
 
 }

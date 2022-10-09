@@ -11,12 +11,6 @@ use App\Models\Vehicle;
 class ClientUpdateBooking extends UpdateBooking
 {
 
-    public function updated(){
-        $validatedData = $this->validateUpdateBookingClient();
-        if(isset($validatedData)){
-            $this->disable = true;
-        }
-    }
 
     public function updateBooking()
     {
