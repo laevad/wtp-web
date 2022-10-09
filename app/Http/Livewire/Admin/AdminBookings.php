@@ -37,6 +37,7 @@ class AdminBookings extends BookingList
         $bookingPending = Booking::where('trip_status_id', TripStatus::PENDING)->count();
         $bookingOnGoing =  Booking::where('trip_status_id', TripStatus::ON_GOING)->count();
         $bookingComplete =  Booking::where('trip_status_id', TripStatus::COMPLETE)->count();
+        $bookingYetToStart =  Booking::where('trip_status_id', TripStatus::YET_TO_START)->count();
         return view('livewire.admin.admin-bookings',[
             'bookings'=> $bookings,
             'trip_status' => $trip_status,
@@ -49,6 +50,7 @@ class AdminBookings extends BookingList
             'bookingPending' => $bookingPending,
             'bookingOnGoing' => $bookingOnGoing,
             'bookingComplete' => $bookingComplete,
+            'bookingYetToStart' => $bookingYetToStart,
         ]);
     }
 

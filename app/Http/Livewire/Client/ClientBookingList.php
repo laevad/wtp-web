@@ -50,6 +50,7 @@ class ClientBookingList extends BookingList
         $bookingCount = Booking::where('user_id', auth()->user()->id)->count();
         $bookingOnGoing =  Booking::where('user_id', auth()->user()->id)->where('trip_status_id', TripStatus::ON_GOING)->count();
         $bookingComplete =  Booking::where('user_id', auth()->user()->id)->where('trip_status_id', TripStatus::COMPLETE)->count();
+        $bookingYetToStart =  Booking::where('user_id', auth()->user()->id)->where('trip_status_id', TripStatus::YET_TO_START)->count();
         return view('livewire.client.client-booking-list',[
             'bookings'=> $bookings,
             'trip_status' => $trip_status,
@@ -62,6 +63,7 @@ class ClientBookingList extends BookingList
             'bookingPending' => $bookingPending,
             'bookingOnGoing' => $bookingOnGoing,
             'bookingComplete' => $bookingComplete,
+            'bookingYetToStart' => $bookingYetToStart,
         ]);
     }
 }

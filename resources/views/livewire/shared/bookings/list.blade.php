@@ -33,7 +33,7 @@
                 </button>
                 <button type="button" class="btn {{ ($status==\App\Models\TripStatus::YET_TO_START) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::YET_TO_START }})" >
                     <span class="mr-1">YTS</span>
-                    <span class="badge badge-pill badge-info">{{ $bookingPending }}</span>
+                    <span class="badge badge-pill badge-info">{{ $bookingYetToStart }}</span>
                 </button>
                 <button type="button" class="btn {{ ($status==\App\Models\TripStatus::ON_GOING) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::ON_GOING }})">
                     <span class="mr-1">Ongoing</span>
