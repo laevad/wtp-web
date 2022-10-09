@@ -31,14 +31,16 @@
                     <span class="mr-1">Pending</span>
                     <span class="badge badge-pill badge-info">{{ $bookingPending }}</span>
                 </button>
-                <button type="button" class="btn {{ ($status==\App\Models\TripStatus::ON_GOING) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::ON_GOING }})">
-                    <span class="mr-1">Ongoing</span>
-                    <span class="badge badge-pill badge-primary" >{{ $bookingOnGoing }}</span>
-                </button>
-                <button type="button" class="btn {{ ($status==\App\Models\TripStatus::COMPLETE) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::COMPLETE }})">
-                    <span class="mr-1">Completed</span>
-                    <span class="badge badge-pill badge-success">{{ $bookingComplete }}</span>
-                </button>
+               @if(auth()->user()->role_id== \App\Models\User::ROLE_ADMIN)
+                    <button type="button" class="btn {{ ($status==\App\Models\TripStatus::ON_GOING) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::ON_GOING }})">
+                        <span class="mr-1">Ongoing</span>
+                        <span class="badge badge-pill badge-primary" >{{ $bookingOnGoing }}</span>
+                    </button>
+                    <button type="button" class="btn {{ ($status==\App\Models\TripStatus::COMPLETE) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::COMPLETE }})">
+                        <span class="mr-1">Completed</span>
+                        <span class="badge badge-pill badge-success">{{ $bookingComplete }}</span>
+                    </button>
+                @endif
             </div>
         </div>
         <div class="card">

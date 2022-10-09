@@ -19,7 +19,9 @@ class ClientBookingList extends BookingList
             ->select('bookings.id', 'bookings.user_id','bookings.vehicle_id', 'bookings.t_trip_start',
                 'bookings.t_trip_end','bookings.driver_id', 'bookings.trip_start_date','bookings.trip_end_date',
                 'bookings.trip_status_id','bookings.t_total_distance','bookings.created_at')
-
+            ->when($this->status, function ($query , $status){
+                return $query->where('trip_status_id', $status);
+            })
             ->where('bookings.user_id', '=', auth()->user()->id)
             ->orderBy('bookings.created_at', 'DESC')->paginate(5);
     }
@@ -44,6 +46,8 @@ class ClientBookingList extends BookingList
         $vehicles = Vehicle::all();
         $this->cPageChanges($bookings->currentPage());
         $role ='client';
+        $bookingPending = Booking::where('user_id', auth()->user()->id)->where('trip_status_id', TripStatus::PENDING)->count();
+        $bookingCount = Booking::where('user_id', auth()->user()->id)->count();
         return view('livewire.client.client-booking-list',[
             'bookings'=> $bookings,
             'trip_status' => $trip_status,
@@ -52,6 +56,8 @@ class ClientBookingList extends BookingList
             'vehicles'=>$vehicles,
             'drivers'=>$drivers,
             'role'=>$role,
+            'bookingPending' => $bookingPending,
+            'bookingCount' => $bookingCount,
         ]);
     }
 }
