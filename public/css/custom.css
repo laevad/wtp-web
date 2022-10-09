@@ -601,3 +601,10 @@ input[type="file"]:focus,
         transform: scaleY(1);
     }
 }
+
+ a:hover{
+    color: #f76440!important;
+}
+.active:hover{
+    color: white!important;
+}
