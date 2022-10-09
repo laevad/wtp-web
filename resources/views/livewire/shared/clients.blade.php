@@ -4,7 +4,7 @@
     <div class="col-lg-12">
         <div class="d-flex justify-content-between mb-2">
             <div class="">
-                <button wire:click.prevent="addNew" class="btn-sm customBg text-white"><i class="fa fa-plus-circle mr-1"></i>Add client</button>
+                <button wire:click.prevent="addNew" class="btn customBg text-white"><i class="fa fa-plus-circle mr-1"></i>Add client</button>
 
                 @if($selectedRows)
                     <div class="btn-group p-1">
