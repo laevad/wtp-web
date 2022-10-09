@@ -17,11 +17,11 @@ class BookingList extends  GlobalVar{
 
     public $status  ;
 
+    protected $queryString = ['status'];
 
 
     public function getBookingQuery(){
         return  Booking::when($this->status, function ($query , $status){
-
             return $query->where('trip_status_id', $status);
         })
         ->latest()->paginate(5);
@@ -29,6 +29,8 @@ class BookingList extends  GlobalVar{
 
 
     public function  filterBookingByStatus($status = null){
+        $this->reset(['selectedRows', 'selectedPageRows']);
+        $this->reset();
         $this->status = $status;
     }
 

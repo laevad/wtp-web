@@ -23,19 +23,19 @@
         </div>
         <div class="d-flex justify-content-end mb-2 mx-auto">
             <div class="btn-group">
-                <button type="button" class="btn btn-default" >
+                <button type="button" class="btn {{ is_null($status) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus">
                     <span class="mr-1">All</span>
-                    <span class="badge badge-pill badge-danger" wire:click="filterBookingByStatus">{{ $bookingCount }}</span>
+                    <span class="badge badge-pill badge-danger">{{ $bookingCount }}</span>
                 </button>
-                <button type="button" class="btn btn-default" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::PENDING }})">
+                <button type="button" class="btn {{ ($status==\App\Models\TripStatus::PENDING) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::PENDING }})" >
                     <span class="mr-1">Pending</span>
                     <span class="badge badge-pill badge-info">{{ $bookingPending }}</span>
                 </button>
-                <button type="button" class="btn btn-default" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::ON_GOING }})">
+                <button type="button" class="btn {{ ($status==\App\Models\TripStatus::ON_GOING) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::ON_GOING }})">
                     <span class="mr-1">Ongoing</span>
                     <span class="badge badge-pill badge-primary" >{{ $bookingOnGoing }}</span>
                 </button>
-                <button type="button" class="btn btn-default" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::COMPLETE }})">
+                <button type="button" class="btn {{ ($status==\App\Models\TripStatus::COMPLETE) ? 'btn-secondary' : 'btn-default' }}" wire:click="filterBookingByStatus({{ \App\Models\TripStatus::COMPLETE }})">
                     <span class="mr-1">Completed</span>
                     <span class="badge badge-pill badge-success">{{ $bookingComplete }}</span>
                 </button>
