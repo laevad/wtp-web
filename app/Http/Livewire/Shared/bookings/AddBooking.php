@@ -12,7 +12,7 @@ class AddBooking extends  Component{
 
     public $isUpdate = false;
     public $viewMode = false;
-    public $state= ['trip_status_id'=>1, 't_total_distance'=>0];
+    public $state= ['trip_status_id'=>TripStatus::PENDING, 't_total_distance'=>0];
     public $total_distance;
     public  bool $disable = false;
     /*unselect selected row if click next / previous*/
@@ -67,7 +67,7 @@ class AddBooking extends  Component{
             'from_longitude'=>'',
             'to_latitude'=>'',
             'to_longitude'=>'',
-
+            'cargo_type' => 'required|min:2|max:200'
         ],[
             'user_id.required'=>'The client field is required.',
             'vehicle_id.required'=>'The vehicle field is required.',

@@ -52,6 +52,7 @@ class UpdateBooking extends Component{
             'from_longitude'=>'',
             'to_latitude'=>'',
             'to_longitude'=>'',
+            'cargo_type' => 'required|min:2|max:200'
 
         ],[
             'user_id.required'=>'The client field is required.',
