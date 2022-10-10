@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="note" class="col-sm-4 col-form-label">Notes</label>
+                        <label for="note" class="col-sm-4 col-form-label">Notes/Description</label>
                         <div class="form-group col-sm-8">
                             <textarea class="form-control "  wire:model.defer="state.note" placeholder="Enter Notes"></textarea>
                             @error('note')
