@@ -1,4 +1,4 @@
-@props(['booking' =>[], 'isIncentive'=>false])
+@props(['booking' =>[], 'isIncentive'=>false, 'expenseType'])
 <div class="modal fade " id="form" tabindex="-1" role="dialog" data-backdrop="static"  aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog " role="document">
         <div class="modal-content" >
@@ -10,6 +10,22 @@
             </div>
             <form autocomplete="off" wire:submit.prevent="{{ $isIncentive? 'addIncentives' :'addExpense' }}('{{ $booking->trip_start_date }}')" >
                 <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="expense_type_id" class="col-sm-4 col-form-label">Type</label>
+                        <div class="col-sm-8 @error('expense_type_id') is-invalid border  border-danger round  @enderror">
+                            <x-custom.select id="expense_type_id" :view="false">
+                                <option value="">Select Expense Status</option>
+                                @foreach($expenseType as $type)
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                @endforeach
+                            </x-custom.select>
+                        </div>
+                        @error('status_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
                     <div class="form-group row">
                         <label for="amount" class="col-sm-4 col-form-label">Amount</label>
                         <div class="col-sm-8">

@@ -32,8 +32,10 @@ class AdminViewBooking extends ViewBooking
                 ->paginate(5);
         }
         $role ='admin';
+
+        $expenseType = $this->getExpensesType();
         return view('livewire.admin.admin-view-booking',[
-            'expenses' => $expenses,'incentives'=>$incentives, 'role'=>$role
+            'expenses' => $expenses,'incentives'=>$incentives, 'role'=>$role, 'expenseType' =>$expenseType
         ]);
     }
 }

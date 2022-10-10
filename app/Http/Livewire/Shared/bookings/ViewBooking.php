@@ -3,6 +3,7 @@ namespace App\Http\Livewire\Shared\bookings;
 
 use App\Models\Booking;
 use App\Models\Cash;
+use App\Models\ExpenseType;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -84,5 +85,9 @@ class ViewBooking extends Component{
         $incentive =  Cash::findOrFail($this->incentiveBeingRemoved);
         $incentive->delete();
         $this->dispatchBrowserEvent('deleted', ['message'=>'Incentive deleted successfully']);
+    }
+
+    public function getExpensesType(){
+        return ExpenseType::all();
     }
 }
