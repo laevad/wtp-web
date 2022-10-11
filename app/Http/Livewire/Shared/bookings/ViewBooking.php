@@ -35,7 +35,10 @@ class ViewBooking extends Component{
     public function addExpense($date){
         $validateData = Validator::make($this->state,[
             'amount' =>'required|numeric',
-            'note' =>'nullable'
+            'note' =>'nullable',
+            'expense_type_id' => 'required'
+        ],[
+            'expense_type_id.required' =>'The expense type field is required.'
         ])->validate();
         $validateData['date'] = $date;
         $validateData['booking_id'] = $this->bookingId;
