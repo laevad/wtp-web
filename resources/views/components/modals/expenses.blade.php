@@ -1,4 +1,4 @@
-
+@props(['expenseType'])
 <div class="modal fade " id="form" tabindex="-1" role="dialog" data-backdrop="static"  aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog" role="document">
         <div class="modal-content" >
@@ -11,6 +11,22 @@
             <form autocomplete="off"  wire:submit.prevent="updateExpense"  >
                 <div class="modal-body">
                     <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="expense_type_id" class=" form-label">Type</label>
+                            <div class=" @error('expense_type_id') is-invalid border  border-danger round  @enderror">
+                                <x-custom.select id="expense_type_id" :view="false">
+                                    <option value="">Select Expense Status</option>
+                                    @foreach($expenseType as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </x-custom.select>
+                            </div>
+                            @error('expense_type_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
                         <x-custom.input model="vehicle" :isView="true" isAddBooking="true"></x-custom.input>
                         <x-custom.input model="date" isAddBooking="true" isDate="true"></x-custom.input>
                         <x-custom.input model="amount" isAddBooking="true" ></x-custom.input>

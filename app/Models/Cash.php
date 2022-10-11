@@ -14,14 +14,16 @@ class Cash extends Model
     const CASH_EXPENSE = 1;
     const CASH_INCENTIVE = 2;
 
+
     protected $fillable = [
+
+        'expense_type_id',
         'vehicle_id',
         'amount',
         'date',
         'note',
         'cash_type_id',
         'booking_id',
-        'expense_type_id',
     ];
     protected $casts = [
         'date' => 'datetime',
@@ -36,6 +38,17 @@ class Cash extends Model
         return $badges[$this->cash_type_id];
     }
 
+//    public function getExpenseTypeIdAttribute(){
+//        $expense = [
+//            ExpenseType::MEAL =>'meal',
+//            ExpenseType::BARGE_FARE => 'barge fare',
+//            ExpenseType::LABOR_COST => 'labor cost',
+//            ExpenseType::OTHER_EXPENSE => 'other expense',
+//        ];
+//
+//        return $expense[$this->expense_type_id];
+//    }
+
     public function getDateAttribute($value){
         return Carbon::parse($value)->toFormattedDate();
     }
@@ -44,5 +57,8 @@ class Cash extends Model
     }
     public function ctype(){
         return $this->hasOne(CashType::class, 'id', 'cash_type_id');
+    }
+    public function expenseType(){
+        return $this->hasOne(ExpenseType::class, 'id', 'expense_type_id');
     }
 }

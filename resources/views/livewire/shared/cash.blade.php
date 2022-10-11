@@ -124,7 +124,7 @@
     </div>
 </div>
 @if($isExpense)
-    <x-modals.expenses></x-modals.expenses>
+    <x-modals.expenses :expenseType="$expenseType"></x-modals.expenses>
 @else
     <x-modals.incentives></x-modals.incentives>
 @endif

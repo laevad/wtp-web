@@ -63,8 +63,10 @@ class CashController extends GlobalVar{
             'date'=>'required',
             'amount'=>'required|numeric',
             'note'=>'nullable',
+            'expense_type_id' => 'required'
         ],[
-            'vehicle_id.required'=>'The vehicle field is required.'
+            'vehicle_id.required'=>'The vehicle field is required.',
+            'expense_type_id.required'=>'The expense type field is required.',
         ])->validate();
 
         $this->expense->update($validateData);

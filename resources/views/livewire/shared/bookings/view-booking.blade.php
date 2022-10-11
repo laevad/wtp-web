@@ -92,6 +92,7 @@
                                     <th>Amount</th>
                                     <th>Notes</th>
                                     <th>Date</th>
+                                    <th>Type</th>
                                     <th>Added On</th>
                                     <th>Actions</th>
                                 </tr>
@@ -103,6 +104,12 @@
                                         <td class="">{{ $data->amount  }}</td>
                                         <td class="">{{ $data->note == null ? 'N/A' : $data->note  }}</td>
                                         <td>{{  $data->date }}</td>
+
+                                        @foreach($expenseType as $expType)
+                                            @if($expType->id == $data->expense_type_id)
+                                                <td>{{ $expType->name }}</td>
+                                            @endif
+                                        @endforeach
                                         <td class="">{{ $data->created_at->toFormattedDateTime()  }}</td>
                                         <th>
                                             <a href="" wire:click.prevent="confirmExpenseRemoval('{{ $data->id }}')">
