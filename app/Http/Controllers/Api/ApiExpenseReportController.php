@@ -28,7 +28,7 @@ class ApiExpenseReportController extends Controller
         $expenses = Cash::join('bookings', 'cashes.booking_id', '=' ,'bookings.id')
             ->join('users', 'bookings.driver_id', '=', 'users.id')
             ->join('expense_types', 'cashes.expense_type_id', '=', 'expense_types.id')
-            ->select('cashes.created_at', 'cashes.amount', 'expense_types.name as expense_type', 'cashes.note')
+            ->select('cashes.created_at', 'cashes.amount', 'expense_types.name as expense_type', 'cashes.note', 'cashes.date')
             ->where('cash_type_id', '=', Cash::CASH_EXPENSE)
             ->where('users.id',$request->input('user_id'))
             ->orderBy('cashes.created_at', 'DESC')->paginate(12);
