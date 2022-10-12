@@ -38,17 +38,6 @@ class Cash extends Model
         return $badges[$this->cash_type_id];
     }
 
-//    public function getExpenseTypeIdAttribute(){
-//        $expense = [
-//            ExpenseType::MEAL =>'meal',
-//            ExpenseType::BARGE_FARE => 'barge fare',
-//            ExpenseType::LABOR_COST => 'labor cost',
-//            ExpenseType::OTHER_EXPENSE => 'other expense',
-//        ];
-//
-//        return $expense[$this->expense_type_id];
-//    }
-
     public function getDateAttribute($value){
         return Carbon::parse($value)->toFormattedDate();
     }

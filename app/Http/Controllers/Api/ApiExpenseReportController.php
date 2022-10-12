@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cash;
+use App\Models\ExpenseType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,5 +34,10 @@ class ApiExpenseReportController extends Controller
             ->where('users.id',$request->input('user_id'))
             ->orderBy('cashes.created_at', 'DESC')->paginate(12);
         return response()->json($expenses);
+    }
+
+    public function getExpenseType(){
+        $expType = ExpenseType::all();
+        return response()->json(['data'=>$expType]);
     }
 }
