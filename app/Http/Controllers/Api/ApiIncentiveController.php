@@ -30,7 +30,7 @@ class ApiIncentiveController extends Controller
         }
         $incentives = Cash::join('bookings', 'cashes.booking_id', '=' ,'bookings.id')
             ->join('users', 'bookings.driver_id', '=', 'users.id')
-            ->select('cashes.created_at', 'cashes.amount', 'cashes.note')
+            ->select('cashes.created_at', 'cashes.amount', 'cashes.note', 'cashes.date')
             ->where('cash_type_id', '=', Cash::CASH_INCENTIVE)
             ->where('users.id',$request->input('user_id'))
             ->orderBy('cashes.created_at', 'DESC')->paginate(12);
