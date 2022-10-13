@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Cash;
 use App\Models\ExpenseType;
 use Illuminate\Http\Request;
@@ -29,7 +30,9 @@ class ApiExpenseReportController extends Controller
         $expenses = Cash::join('bookings', 'cashes.booking_id', '=' ,'bookings.id')
             ->join('users', 'bookings.driver_id', '=', 'users.id')
             ->join('expense_types', 'cashes.expense_type_id', '=', 'expense_types.id')
-            ->select('cashes.created_at', 'cashes.amount', 'expense_types.name as expense_type', 'cashes.note', 'cashes.date')
+            ->select(
+                'cashes.created_at', 'cashes.amount',
+                'expense_types.name as expense_type', 'cashes.note', 'cashes.date')
             ->where('cash_type_id', '=', Cash::CASH_EXPENSE)
             ->where('users.id',$request->input('user_id'))
             ->orderBy('cashes.created_at', 'DESC')->paginate(12);
@@ -40,8 +43,32 @@ class ApiExpenseReportController extends Controller
         $expType = ExpenseType::all();
         return response()->json(['data'=>$expType]);
     }
+    public function getBookingStartEnd(){
+        $bookingSE = Booking::select('id','t_trip_start', 't_trip_end')->get();
+        return response()->json(['data'=>$bookingSE]);
+    }
 
     public function addExpense(Request $request){
-        return response()->json(['msg'=>'ok']);
+        $validators = Validator::make($request->all(), [
+            'expense_type_id' => 'required|exists:expense_types,id',
+            'amount' => 'required|numeric',
+            'description'=>'nullable'
+        ]);
+        $errors = $validators->errors();
+        $err = [
+            'expense_type_id' => $errors->first('expense_type_id'),
+            'amount' => $errors->first('amount'),
+            'description' => $errors->first('description'),
+        ];
+        if ($validators->fails()){
+            return response()->json(['errors' => $err], 422);
+        }
+        $expense = new Cash;
+        $expense->date = now()->toFormattedDate();
+        $expense->expense_type_id = $request->input('expense_type_id');
+        $expense->amount = $request->input('amount');
+        $expense->note = $request->input('description');
+        $expense->save();
+        return response()->json(['errors' => $err, 'data'=> $expense]);
     }
 }
