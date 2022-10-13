@@ -43,8 +43,20 @@ class ApiExpenseReportController extends Controller
         $expType = ExpenseType::all();
         return response()->json(['data'=>$expType]);
     }
-    public function getBookingStartEnd(){
-        $bookingSE = Booking::select('id','t_trip_start', 't_trip_end')->get();
+    public function getBookingStartEnd(Request $request){
+        $validators = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+        ]);
+        $errors = $validators->errors();
+        $err = [
+            'user_id' => $errors->first('user_id'),
+        ];
+        if ($validators->fails()){
+            return response()->json(['errors' => $err], 422);
+        }
+        $bookingSE = Booking::select('id','t_trip_start as trip_start', 't_trip_end as trip_end')
+            ->where('user_id',$request->input('user_id'))
+            ->get();
         return response()->json(['data'=>$bookingSE]);
     }
 
