@@ -31,7 +31,7 @@ class ApiExpenseReportController extends Controller
             ->join('users', 'bookings.driver_id', '=', 'users.id')
             ->join('expense_types', 'cashes.expense_type_id', '=', 'expense_types.id')
             ->select(
-                'cashes.created_at', 'cashes.amount',
+                'cashes.created_at', 'cashes.amount', 'bookings.t_trip_start as trip_start','bookings.t_trip_end as trip_end',
                 'expense_types.name as expense_type', 'cashes.note', 'cashes.date')
             ->where('cash_type_id', '=', Cash::CASH_EXPENSE)
             ->where('users.id',$request->input('user_id'))
