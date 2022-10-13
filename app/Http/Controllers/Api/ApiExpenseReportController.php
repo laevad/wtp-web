@@ -74,6 +74,7 @@ class ApiExpenseReportController extends Controller
     public function addExpense(Request $request){
         $validators = Validator::make($request->all(), [
             'expense_type_id' => 'required|exists:expense_types,id',
+            'booking_id' => 'required|exists:bookings,id',
             'amount' => 'required|numeric',
             'description'=>'nullable'
         ]);
@@ -82,15 +83,18 @@ class ApiExpenseReportController extends Controller
             'expense_type_id' => $errors->first('expense_type_id'),
             'amount' => $errors->first('amount'),
             'description' => $errors->first('description'),
+            'booking_id' => $errors->first('booking_id'),
         ];
         if ($validators->fails()){
             return response()->json(['errors' => $err], 422);
         }
         $expense = new Cash;
         $expense->date = now()->toFormattedDate();
+        $expense->cash_type_id = 1;
         $expense->expense_type_id = $request->input('expense_type_id');
         $expense->amount = $request->input('amount');
         $expense->note = $request->input('description');
+        $expense->booking_id = $request->input('booking_id');
         $expense->save();
         return response()->json(['errors' => $err, 'data'=> $expense]);
     }
