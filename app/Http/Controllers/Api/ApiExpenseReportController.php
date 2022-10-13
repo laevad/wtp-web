@@ -77,6 +77,9 @@ class ApiExpenseReportController extends Controller
             'booking_id' => 'required|exists:bookings,id',
             'amount' => 'required|numeric',
             'description'=>'nullable'
+        ],[
+            'expense_type_id.required' =>'The expense type is required.',
+            'booking_id.required'=>'The trip is required.',
         ]);
         $errors = $validators->errors();
         $err = [
