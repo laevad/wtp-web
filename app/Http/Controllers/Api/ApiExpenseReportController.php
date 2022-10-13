@@ -55,8 +55,19 @@ class ApiExpenseReportController extends Controller
             return response()->json(['errors' => $err], 422);
         }
         $bookingSE = Booking::select('id','t_trip_start as trip_start', 't_trip_end as trip_end')
-            ->where('user_id',$request->input('user_id'))
+            ->where('driver_id', '=',$request->input('user_id'))
             ->get();
+        if ($bookingSE->isEmpty()){
+            return response()->json(
+                ['data'=>[
+                    [
+                        'id'=>'',
+                        'trip_start'=>'',
+                        'trip_end'=>'',
+                    ]
+                ]
+            ]);
+        }
         return response()->json(['data'=>$bookingSE]);
     }
 
