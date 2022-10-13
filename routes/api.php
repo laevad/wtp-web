@@ -43,6 +43,7 @@ Route::group(['middleware' => 'api.auth', 'prefix' => 'incentive'],function () {
 Route::group(['middleware' => 'api.auth', 'prefix' => 'expense'],function () {
     Route::post('expense',[ApiExpenseReportController::class, 'getExpense']);
     Route::get('expense',[ApiExpenseReportController::class, 'getExpenseType']);
+    Route::post('add-expense',[ApiExpenseReportController::class, 'addExpense']);
 });
 
 Route::group(['middleware' => 'api.auth', 'prefix' => 'marker'],function () {

@@ -40,4 +40,8 @@ class ApiExpenseReportController extends Controller
         $expType = ExpenseType::all();
         return response()->json(['data'=>$expType]);
     }
+
+    public function addExpense(Request $request){
+        return response()->json(['msg'=>'ok']);
+    }
 }
