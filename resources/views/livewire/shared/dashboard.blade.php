@@ -79,7 +79,7 @@
                 mapTypeControl: false,
                 @if(count($location)==0)
                 center: pune,
-                zoom: 7,
+                zoom: 5,
                 @endif
                 zoomControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_TOP
