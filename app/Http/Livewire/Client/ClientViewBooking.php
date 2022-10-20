@@ -30,8 +30,9 @@ class ClientViewBooking extends ViewBooking
                 ->paginate(5);
         }
         $role ='client';
+        $expenseType = $this->getExpensesType();
         return view('livewire.client.client-view-booking', [
-            'expenses' => $expenses,'incentives'=>$incentives, 'role'=>$role
+            'expenses' => $expenses,'incentives'=>$incentives, 'role'=>$role,  'expenseType' =>$expenseType
         ]);
     }
 }
