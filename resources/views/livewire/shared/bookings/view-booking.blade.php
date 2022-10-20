@@ -170,4 +170,4 @@
     </div>
     <!-- /.col -->
 </div>
-<x-modals.view-booking :booking="$booking" :isIncentive="$isIncentive"  ></x-modals.view-booking>
+<x-modals.view-booking :booking="$booking" :isIncentive="$isIncentive" :expenseType="$expenseType" ></x-modals.view-booking>
