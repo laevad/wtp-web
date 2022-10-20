@@ -56,7 +56,7 @@
         <div class="row">
             <div class="form-group col-md-4" wire:ignore.self>
                 <label for="t_trip_start">Trip start <span class="text-red">*</span></label>
-                <input type="text" wire:model="state.t_trip_start" class="form-control
+                <input type="text" wire:model.defer="state.t_trip_start" class="form-control
                 @error('t_trip_start') is-invalid @enderror  " id="t_trip_start" placeholder="Trip start"
                        onchange="this.dispatchEvent(new InputEvent('input'))">
                 @error('t_trip_start')
