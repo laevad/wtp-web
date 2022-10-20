@@ -52,8 +52,6 @@ class Clients extends  GlobalVar {
     }
 
 
-
-
     public function getUsersProperty()
     {
 //        dd();
