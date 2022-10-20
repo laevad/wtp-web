@@ -1,8 +1,9 @@
-@props(['isPass'=>false, 'model', 'placeholder'=>'', 'isView'=>false, 'isDate'=>false, 'isClient'=>false, 'isAddBooking'=>false, 'customLabel'=>null])
+@props(['isPass'=>false, 'model', 'placeholder'=>'', 'isView'=>false, 'isDate'=>false, 'isClient'=>false,
+'isAddBooking'=>false, 'customLabel'=>null, 'isRequired' => true])
 
 <div class="{{ $isClient? 'col-md-12' : ($isAddBooking? 'col-md-4': 'col-md-3') }}">
     <div class="form-group">
-        <label for="{{ $model }}">{{ $customLabel == null?  ucfirst(str_replace("_", ' ', $model)) : $customLabel }} <span class="text-red">*</span></label>
+        <label for="{{ $model }}">{{ $customLabel == null?  ucfirst(str_replace("_", ' ', $model)) : $customLabel }} @if($isRequired) <span class="text-red">*</span> @endif</label>
         <input
             type="{{$isPass? 'password' : 'text' }}"
             wire:model.defer="state.{{ $model }}"

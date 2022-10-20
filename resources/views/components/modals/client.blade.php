@@ -13,7 +13,7 @@
                     {{--custom input--}}
                     <div class="row">
                         <x-custom.input model="name" isClient="true"></x-custom.input>
-                        <x-custom.input model="email" isClient="true"></x-custom.input>
+                        <x-custom.input model="email" isClient="true" :isRequired="false"></x-custom.input>
                         <x-custom.input model="mobile" isClient="true"></x-custom.input>
                         <div class="col-md-12">
                             <div class="form-group">

@@ -15,7 +15,7 @@
                     <div class="row">
                         <input type="hidden" name="d_id" id="d_id" value="" autocomplete="off">
                         <x-custom.input model="name" :isView="$isView"></x-custom.input>
-                        <x-custom.input model="email" :isView="$isView"></x-custom.input>
+                        <x-custom.input model="email" :isView="$isView" :isRequired="false"></x-custom.input>
                         <x-custom.input model="mobile" :isView="$isView"></x-custom.input>
                         <x-custom.input model="date_of_birth" isDate="true" :isView="$isView"></x-custom.input>
                         @if($isView)

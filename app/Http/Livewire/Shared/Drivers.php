@@ -109,7 +109,7 @@ class Drivers extends GlobalVar{
         if ($this->showEditModal){
             return  Validator::make($this->state,[
                 'name'=>'required|min:4|max:60',
-                'email'=>'required|email|unique:users,email,'.$this->user->id.'|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
+                'email'=>'nullable|email|unique:users,email,'.$this->user->id.'|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
                 'mobile'=>'required|numeric|phone|unique:users,mobile,'.$this->user->id,
                 'date_of_birth'=>'required|min:4|max:150',
                 'license_number'=>'required|min:4|max:150',
@@ -123,7 +123,7 @@ class Drivers extends GlobalVar{
         }
         return Validator::make($this->state,[
             'name'=>'required|min:4|max:200',
-            'email'=>'required|email|unique:users,email|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
+            'email'=>'nullable|email|unique:users,email|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
             'mobile'=>'required|numeric|phone|unique:users,mobile',
             'date_of_birth'=>'required|min:4|max:150',
             'license_number'=>'required|min:4|max:150',
