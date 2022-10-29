@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     {{--custom display picture--}}
-                    <x-custom.profile-photo :photo="$photo"></x-custom.profile-photo>
+{{--                    <x-custom.profile-photo :photo="$photo"></x-custom.profile-photo>--}}
 
                 </div>
                 <div class="modal-footer">

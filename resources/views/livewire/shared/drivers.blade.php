@@ -80,7 +80,7 @@
                             </th>
                             <th scope="row">{{ $users->firstItem() + $index }}</th>
                             <td>
-                                <img src="{{ $user->avatar_url }}" class="img img-circle img-thumbnail elevation-1 shadow mr-2" alt="" STYLE="width: 50px">
+{{--                                <img src="{{ $user->avatar_url }}" class="img img-circle img-thumbnail elevation-1 shadow mr-2" alt="" STYLE="width: 50px">--}}
                                 {{ $user->name }}</td>
                             <td class="">{{ $user->email }}</td>
                             <td class="">{{ $user->license_number }}</td>
