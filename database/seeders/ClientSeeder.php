@@ -32,7 +32,6 @@ class ClientSeeder extends GlobalSeeder
                     'role_id'=> User::ROLE_CLIENT,
                     'mobile' =>fake()->numerify('###########'),
                     'status_id'=> 1,
-                    'avatar' => $this->setInitialPhoto($fName[0]),
                 ]
             ]);
         }

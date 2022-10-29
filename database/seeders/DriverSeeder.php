@@ -36,7 +36,7 @@ class DriverSeeder extends GlobalSeeder
                     'date_of_joining'=> now()->toFormattedDate(),
                     'status_id'=> 1,
                     'address'=>'CDO',
-                    'avatar' => $this->setInitialPhoto($fName[0]),
+//                    'avatar' => $this->setInitialPhoto($fName[0]),
                 ]
             ]);
         }

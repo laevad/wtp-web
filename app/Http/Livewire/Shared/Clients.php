@@ -19,10 +19,9 @@ class Clients extends  GlobalVar {
         $validatedData = $this->validateClient();
         $previousPath = $this->user->avatar;
         if ($this->photo){
-            Storage::disk('avatars')->delete($previousPath);
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
         }else{
-            $newPath = $this->setInitialPhoto($validatedData['name']);
+            $newPath = $validatedData['name'];
             Storage::disk('avatars')->delete($previousPath);
             $validatedData['avatar'] = $newPath;
         }
@@ -40,9 +39,10 @@ class Clients extends  GlobalVar {
         $validatedData['role_id'] = User::ROLE_CLIENT;
         if ($this->photo){
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
-        }else{
-            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
         }
+//        else{
+//            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
+//        }
 
         User::create($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Client added successfully']);

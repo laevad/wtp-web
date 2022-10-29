@@ -39,9 +39,10 @@ class Drivers extends GlobalVar{
         $validatedData['age'] = Carbon::parse($validatedData['date_of_birth'])->age;
         if ($this->photo){
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
-        }else{
-            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
         }
+//        else{
+//            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
+//        }
 
 
         User::create($validatedData);
@@ -80,10 +81,9 @@ class Drivers extends GlobalVar{
 
         $previousPath = $this->user->avatar;
         if ($this->photo){
-            Storage::disk('avatars')->delete($previousPath);
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
         }else{
-            $newPath = $this->setInitialPhoto($validatedData['name']);
+            $newPath = $validatedData['name'];
             Storage::disk('avatars')->delete($previousPath);
             $validatedData['avatar'] = $newPath;
         }
