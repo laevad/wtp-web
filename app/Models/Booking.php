@@ -37,6 +37,8 @@ class Booking extends Model
 
     ];
 
+
+
     protected $casts = [
         'trip_start_date' => 'datetime',
         'trip_end_date' => 'datetime',

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('cashes', function (Blueprint $table) {
-            $table->uuid('booking_id');
+            $table->uuid('booking_id')->nullable();
             $table->foreign('booking_id')->references('id')->on('bookings');
         });
     }

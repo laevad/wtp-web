@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $timezone = 'Asia/Manila';
+
+        date_default_timezone_set($timezone);
         Carbon::macro('toFormattedDate', function (){
             return $this->format('m/d/Y');
         });

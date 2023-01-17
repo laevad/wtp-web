@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             DriverSeeder::class,
             VehicleStatusSeeder::class,
             VehicleSeeder::class,
+            IncentiseSeeder::class,
         ]);
     }
 }

@@ -40,9 +40,9 @@ class Clients extends  GlobalVar {
         if ($this->photo){
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
         }
-//        else{
-//            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
-//        }
+        else{
+            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
+        }
 
         User::create($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message'=>'Client added successfully']);

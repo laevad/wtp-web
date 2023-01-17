@@ -13,6 +13,8 @@ class CashController extends GlobalVar{
     public $incentive;
     public $isExpense = false;
 
+    public $incentise = [];
+
     public function addNew(){
         $this->showEditModal= false;
         $this->state = [];
@@ -132,5 +134,10 @@ class CashController extends GlobalVar{
         Cash::create($this->incentiveGonnaAdd);
         $this->dispatchBrowserEvent('hide-form-incentive', ['message'=>'Incentive added successfully']);
         return redirect()->back();
+    }
+
+    /*show incentise*/
+    public function showIncentise(){
+        $this->dispatchBrowserEvent('show-incentise');
     }
 }

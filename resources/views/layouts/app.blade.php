@@ -139,6 +139,9 @@
     window.addEventListener('show-form', event => {
         $("#form").modal('show');
     });
+    window.addEventListener('show-form-incentise-add', event => {
+        $("#incentiseAdd").modal('show');
+    });
     window.addEventListener('show-form-incentive', event => {
         $("#form-incentive").modal('show');
     });
@@ -163,10 +166,30 @@
     $("#disposeBtn").click(function() {
         $("#myModal").modal('dispose');
     });
+    /*show-incentise*/
+    window.addEventListener('show-incentise', event => {
+        $("#show-incentise").modal('show');
+    });
 </script>
+
 
 <script>
     window.addEventListener('show-delete-confirmation', event=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if(result.isConfirmed){
+                Livewire.emit('deleteConfirmed');
+            }
+        })
+    });
+    window.addEventListener('show-delete-confirmation-incentive', event=>{
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -255,6 +278,21 @@
             'success'
         );
     });
+    window.addEventListener('added', event=>{
+        Swal.fire(
+            'Added!',
+            event.detail.message,
+            'success'
+        );
+    });
+    window.addEventListener('hide-form-incentise-add', event=>{
+        $("#incentiseAdd").modal('hide');
+        Swal.fire(
+            'Update!',
+            event.detail.message,
+            'success'
+        );
+    });
 
     window.addEventListener('error-booking', event=>{
         Swal.fire({
@@ -314,6 +352,7 @@
             }
         })
     });
+
 </script>
 
 <script>

@@ -20,7 +20,7 @@ class DriverSeeder extends GlobalSeeder
             $fName = fake()->name();
             DB::table('users')->insert([
                 [
-                    'id'=>Uuid::uuid3(Uuid::NAMESPACE_DNS, "driver.$i")->toString(),
+                    'id'=>Uuid::uuid4()->toString(),
                    'name' => $fName,
                     'email' => fake()->safeEmail(),
                     'email_verified_at' => now(),
@@ -36,7 +36,7 @@ class DriverSeeder extends GlobalSeeder
                     'date_of_joining'=> now()->toFormattedDate(),
                     'status_id'=> 1,
                     'address'=>'CDO',
-//                    'avatar' => $this->setInitialPhoto($fName[0]),
+                    'avatar' => $this->setInitialPhoto($fName[0]),
                 ]
             ]);
         }

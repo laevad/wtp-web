@@ -40,9 +40,9 @@ class Drivers extends GlobalVar{
         if ($this->photo){
             $validatedData['avatar'] = $this->photo->store('/', 'avatars');
         }
-//        else{
-//            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
-//        }
+        else{
+            $validatedData['avatar'] = $this->setInitialPhoto($validatedData['name']);
+        }
 
 
         User::create($validatedData);
@@ -95,12 +95,12 @@ class Drivers extends GlobalVar{
 
 
     public function markAsActive(){
-        User::whereIn('id', $this->selectedRows)->update(['status'=>'ACTIVE']);
+        User::whereIn('id', $this->selectedRows)->update(['status_id'=>Status::ACTIVE]);
         $this->dispatchBrowserEvent('updated',['message'=>'Driver/s marked as active']);
         $this->reset(['selectedRows', 'selectedPageRows']);
     }
     public function markAsInactive(){
-        User::whereIn('id', $this->selectedRows)->update(['status'=>'INACTIVE']);
+        User::whereIn('id', $this->selectedRows)->update(['status_id'=>Status::INACTIVE]);
         $this->dispatchBrowserEvent('updated',['message'=>'Driver/s marked as inactive']);
         $this->reset(['selectedRows', 'selectedPageRows']);
     }

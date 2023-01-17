@@ -77,12 +77,14 @@ class ApiUserController extends Controller
             'user_id' => 'required|exists:users,id',
             'latitude' => 'numeric|required',
             'longitude' => 'numeric|required',
+            'status_id' => 'required|exists:statuses,id',
         ]);
         $errors = $validators->errors();
         $err = [
             'user_id' => $errors->first('user_id'),
             'latitude' => $errors->first('latitude'),
             'longitude' => $errors->first('longitude'),
+            'status_id' => $errors->first('status_id'),
         ];
         if ($validators->fails()){
             return response()->json([
@@ -97,6 +99,7 @@ class ApiUserController extends Controller
             $loc->user_id = $request->input('user_id');
             $loc->latitude = $request->input('latitude');
             $loc->longitude = $request->input('longitude');
+            $loc->status_id = $request->input('status_id');
             $loc->save();
             return response()->json(['message'=>'success added!', 'errors'=>$err, 'location'=>$loc], 201);
         }

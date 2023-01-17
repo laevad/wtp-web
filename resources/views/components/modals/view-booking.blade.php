@@ -10,25 +10,26 @@
             </div>
             <form autocomplete="off" wire:submit.prevent="{{ $isIncentive? 'addIncentives' :'addExpense' }}('{{ $booking->trip_start_date }}')" >
                 <div class="modal-body">
-                    <div class="form-group row">
-                        <label for="expense_type_id" class="col-sm-4 form-label">Type</label>
-                        <div class="col-sm-8">
-                            <div class=" @error('expense_type_id') is-invalid border  border-danger round  @enderror">
-                                <x-custom.select id="expense_type_id" :view="false">
-                                    <option value="">Select Expense Status</option>
-                                    @foreach($expenseType as $type)
-                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                    @endforeach
-                                </x-custom.select>
+                   @if(!$isIncentive)
+                        <div class="form-group row">
+                            <label for="expense_type_id" class="col-sm-4 form-label">Type</label>
+                            <div class="col-sm-8">
+                                <div class=" @error('expense_type_id') is-invalid border  border-danger round  @enderror">
+                                    <x-custom.select id="expense_type_id" :view="false">
+                                        <option value="">Select Expense Status</option>
+                                        @foreach($expenseType as $type)
+                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        @endforeach
+                                    </x-custom.select>
+                                </div>
+                                @error('expense_type_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
-                            @error('expense_type_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
                         </div>
-
-                    </div>
+                   @endif
                     <div class="form-group row">
                         <label for="amount" class="col-sm-4 col-form-label">Amount</label>
                         <div class="col-sm-8">

@@ -118,7 +118,7 @@
                                         </th>
                                     </tr>
                                 @empty
-                                    <x-custom.empty colSpan="6"></x-custom.empty>
+                                    <x-custom.empty colSpan="7"></x-custom.empty>
                                 @endforelse
                                 </tbody>
                             </table>

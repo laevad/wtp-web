@@ -26,6 +26,7 @@
                         <th scope="col">#</th>
                         <th>Vehicle</th>
                         <th>Date</th>
+                        <th>Type</th>
                         <th>Note</th>
                         <th>Amount</th>
                         <th scope="col">Actions</th>
@@ -38,6 +39,7 @@
                             <th scope="row">{{ $expenses->firstItem() + $index }}</th>
                             <td>{{ $data->booking->vehicle->name }}</td>
                             <td>{{ $data->date }}</td>
+                            <td>{{ $data->ctype->name }}</td>
                             <td>{{ $data->note==null? 'N/A' : $data->note }}</td>
                             <td>{{ $data->amount }}</td>
 
@@ -50,7 +52,7 @@
                             </td>
                         </tr>
                     @empty
-                        <x-custom.empty colSpan="6"></x-custom.empty>
+                        <x-custom.empty colSpan="7"></x-custom.empty>
                     @endforelse
                     </tbody>
                 </table>
@@ -77,8 +79,19 @@
             {{--                        </div>--}}
         </div>
         <div class="card">
+
             <div class="card-header">
-                <h5>Incentive</h5>
+
+                <div class="row">
+                   <div class="col-md-4">
+                       <h5 class="">Incentive</h5>
+                   </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <a href="{{ route($role.'.incentive') }}" class="btn btn-sm btn-success w-100"><i class="fa fa-list-alt"></i>&nbsp; Incentive ₱</a>
+                    </div>
+
+                </div>
             </div>
             <div class="card-body">
                 <table class="table table-hover table-responsive-sm table-responsive-md table-bordered">
@@ -123,6 +136,7 @@
         </div>
     </div>
 </div>
+
 @if($isExpense)
     <x-modals.expenses :expenseType="$expenseType"></x-modals.expenses>
 @else

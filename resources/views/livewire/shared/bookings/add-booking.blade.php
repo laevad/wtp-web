@@ -1,6 +1,8 @@
 {{--<x-animation.ball-spin></x-animation.ball-spin>--}}
 
-<a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
+<a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1">
+
+    </i>Booking list</a>
 <form autocomplete="off" wire:submit.prevent="{{ $isUpdate ? 'updateBooking' : 'createBooking' }}">
     <div class="card-body" >
         <div class="row">
