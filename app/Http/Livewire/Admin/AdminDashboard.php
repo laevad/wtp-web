@@ -20,8 +20,13 @@ class AdminDashboard extends Dashboard
     public function render(): Factory|View|Application
     {
         $location = Location::all();
+        /*count status = 2 in location*/
+        $offStatus= $location->where('status_id', '=', 1)->count();
+
+
         return view('livewire.admin.admin-dashboard',[
-            'location'=>$location
+            'location'=>$location,
+            'offStatus'=>$offStatus,
         ]);
     }
 

@@ -15,7 +15,8 @@ class Location extends Model
     protected $fillable = [
         'user_id',
         'latitude',
-        'longitude'
+        'longitude',
+        'status_id'
     ];
     protected $hidden = [
         'id'

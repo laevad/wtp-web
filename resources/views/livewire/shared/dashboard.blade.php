@@ -53,11 +53,13 @@
         #m-container {
             height: 450px;
         }
+
         #map {
             width: 100%;
             height: 100%;
             border: 2px solid #f76440;
         }
+
         #data, #allData {
             display: none;
         }
@@ -65,7 +67,8 @@
 @endpush
 
 @push('js')
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIv9nK_pTbE3bZi_nXJBCEg2dmSiEyq4E&callback=loadMap"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIv9nK_pTbE3bZi_nXJBCEg2dmSiEyq4E&callback=loadMap"></script>
     <script>
 
         function loadMap() {
@@ -87,12 +90,17 @@
             };
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
             map.setTilt(100);
+
+
             let infoWindowContent = [
                     @foreach($location as $loc)
-                [
-                    '<div class="info_content">' +
-                    '<h5>{{ $loc->user->name }}</h5></div>'
-                ],
+                    @if($loc->status_id == 1)
+                    [
+                        '<div class="info_content">' +
+                        '<h5>{{ $loc->user->name }}</h5></div>'
+                    ],
+                    @endif
+
                 @endforeach
 
             ];
@@ -102,7 +110,10 @@
 
             let markers = [
                     @foreach($location as $loc)
-                ['{{ $loc->user->name }}',  {{ $loc->latitude }},  {{ $loc->longitude }}, '{{ asset('images/2.png') }}'],
+                    @if($loc->status_id == 1)
+                ['{{ $loc->user->name }}', {{ $loc->latitude }}, {{ $loc->longitude }}, '{{ asset('images/2.png') }}'],
+                @endif
+
                 @endforeach
             ];
 
@@ -111,7 +122,7 @@
 
 
             // Place each marker on the map
-            for( let i = 0; i < markers.length; i++ ) {
+            for (let i = 0; i < markers.length; i++) {
                 let position = new google.maps.LatLng(markers[i][1], markers[i][2]);
                 bounds.extend(position);
                 marker = new google.maps.Marker({
@@ -122,25 +133,29 @@
                     animation: google.maps.Animation.DROP,
                 });
                 // Add info window to marker
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
                         infoWindow.setContent(infoWindowContent[i][0]);
                         infoWindow.open(map, marker);
                     }
                 })(marker, i));
 
 
-
             }
 
-            @if(count($location)!=0)
+
+            @if($offStatus == 0)
+            bounds.extend(pune);
+
+
+            @endif
+
             map.fitBounds(bounds);
             // Set zoom level
-            let boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+            let boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
                 this.setZoom(14);
                 google.maps.event.removeListener(boundsListener);
             });
-            @endif
         }
 
     </script>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Cash;
 use App\Models\Incentise;
+use App\Models\Location;
 use App\Models\TripStatus;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -68,6 +69,10 @@ class ApiTripController extends Controller
             'booking_id' => $errors->first('booking_id'),
         ];
 
+
+        /*UPDATE the location status to 2*/
+        Location::where('user_id', '=', $request->input('driver_id'))->update(['status_id' => 2]);
+
         /*check booking*/
         $check_id = Booking::where('id', '=', $request->input('booking_id'))->first();
 
@@ -125,7 +130,17 @@ class ApiTripController extends Controller
                 'errors' => $err
             ], 422);
         }
-        Booking::where('id', '=', $request->input('booking_id'))->update(['trip_status_id' => $request->input('status_id')]);
+        $book = Booking::where('id', '=', $request->input('booking_id'));
+        $book->update(['trip_status_id' => $request->input('status_id')]);
+
+        /*get the book user_id only*/
+        $user_id = $book->first()->driver_id;
+        /*get user location in location*/
+        $location = Location::where('user_id', '=', $user_id)->first();
+        /*set the status_id = 3 if the request status_id input = 3 */
+        if ($request->input('status_id') == 3) {
+            $location->update(['status_id' => 1]);
+        }
         return response()->json(['message' => 'success update!', 'errors' => $err], 201);
     }
 
