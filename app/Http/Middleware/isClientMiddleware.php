@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Status;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
@@ -17,9 +18,11 @@ class isClientMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth('web')->check() && auth('web')->user()->role_id == User::ROLE_CLIENT){
+        if (auth('web')->check() && auth('web')->user()->role_id == User::ROLE_CLIENT && auth('web')->user()->status_id == Status::ACTIVE){
             return $next($request);
         }
-        abort(401);
+        /*Logout*/
+        auth('web')->logout();
+        return redirect()->route('login');
     }
 }
