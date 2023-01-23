@@ -24,7 +24,7 @@
                         <x-custom.input model="license_number" :isView="$isView"></x-custom.input>
                         <x-custom.input model="license_expiry_date" isDate="true" :isView="$isView"></x-custom.input>
                         <x-custom.input model="date_of_joining" isDate="true" :isView="$isView"></x-custom.input>
-                        <x-custom.input model="total_experience" :isView="$isView"></x-custom.input>
+                        <x-custom.input model="total_experience" :isView="$isView" customLabel="Work of Experience"></x-custom.input>
                         <div class="">
                             <div class="form-group">
                                 <label for="d_is_active" class="form-label">Driver Status @if(!$isView)<span class="text-red">*</span> @endif</label>

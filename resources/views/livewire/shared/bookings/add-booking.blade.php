@@ -57,9 +57,9 @@
         </div>
         <div class="row">
             <div class="form-group col-md-4" wire:ignore.self>
-                <label for="t_trip_start">Trip start <span class="text-red">*</span></label>
+                <label for="t_trip_start">Origin <span class="text-red">*</span></label>
                 <input type="text" wire:model.defer="state.t_trip_start" class="form-control
-                @error('t_trip_start') is-invalid @enderror  " id="t_trip_start" placeholder="Trip start"
+                @error('t_trip_start') is-invalid @enderror  " id="t_trip_start" placeholder="Origin"
                        onchange="this.dispatchEvent(new InputEvent('input'))">
                 @error('t_trip_start')
                 <div class="invalid-feedback">
@@ -68,8 +68,8 @@
                 @enderror
             </div>
             <div class="form-group col-md-4" wire:ignore.self>
-                <label for="t_trip_end">Trip end <span class="text-red">*</span></label>
-                <input type="text" wire:model.defer="state.t_trip_end" class="form-control  @error('t_trip_end') is-invalid @enderror  " id="t_trip_end" placeholder="Trip end" onchange="this.dispatchEvent(new InputEvent('input'))">
+                <label for="t_trip_end">Destination <span class="text-red">*</span></label>
+                <input type="text" wire:model.defer="state.t_trip_end" class="form-control  @error('t_trip_end') is-invalid @enderror  " id="t_trip_end" placeholder="Destination" onchange="this.dispatchEvent(new InputEvent('input'))">
                 @error('t_trip_end')
                 <div class="invalid-feedback">
                     {{ $message }}

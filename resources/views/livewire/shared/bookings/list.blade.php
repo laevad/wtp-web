@@ -80,8 +80,8 @@
                             <th>Customer</th>
                         @endif
                         <th>Vehicle</th>
-                        <th>Trip from</th>
-                        <th>Trip to</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
                         <th>Distance</th>
                         <th>Driver</th>
                         <th>Trip status</th>
