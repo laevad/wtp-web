@@ -34,7 +34,6 @@ class AddBooking extends  Component{
 
 
     public function createBooking(){
-
         if (auth()->user()->role_id == User::ROLE_ADMIN){
             $validatedData = $this->validateAddBooking();
         }
@@ -43,7 +42,9 @@ class AddBooking extends  Component{
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['trip_status_id'] = Booking::PENDING;
         }
+
         $validatedData['t_total_distance'] = $this->state['t_total_distance'];
+        /*gen merches*/
         Booking::create($validatedData);
         $this->state=[];
         if (auth()->user()->role_id == User::ROLE_ADMIN){
@@ -67,7 +68,7 @@ class AddBooking extends  Component{
             'from_longitude'=>'',
             'to_latitude'=>'',
             'to_longitude'=>'',
-            'cargo_type' => 'required|min:2|max:200'
+            'gen_merch_id' => 'required|exists:gen_merches,id'
         ],[
             'user_id.required'=>'The client field is required.',
             'vehicle_id.required'=>'The vehicle field is required.',
@@ -77,6 +78,7 @@ class AddBooking extends  Component{
             'trip_status_id.required'=>'The trip status field is required.',
             't_total_distance.numeric'=>'The total distance must be a number.',
             't_total_distance.required'=>'The total distance field is required.',
+            'gen_merch_id.required'=>'The general merchandise field is required.',
         ])->validate();
     }
     public function validateAddBookingClient(){
@@ -90,13 +92,14 @@ class AddBooking extends  Component{
             'from_longitude'=>'',
             'to_latitude'=>'',
             'to_longitude'=>'',
-            'cargo_type' => 'required|min:2|max:200'
+            'gen_merch_id' => 'required|exists:gen_merches,id'
 
         ],[
             't_trip_start.required'=>'The trip start location field is required.',
             't_trip_end.required'=>'The trip end location field is required.',
             't_total_distance.numeric'=>'The total distance must be a number.',
             't_total_distance.required'=>'The total distance field is required.',
+            'gen_merch_id.required'=>'The general merchandise field is required.',
         ])->validate();
     }
 

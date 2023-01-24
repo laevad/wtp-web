@@ -33,7 +33,8 @@ class Booking extends Model
         'from_longitude',
         'to_latitude',
         'to_longitude',
-        'cargo_type'
+//        'cargo_type',
+        'gen_merch_id'
 
     ];
 
@@ -82,6 +83,10 @@ class Booking extends Model
     }
     public function getCreateAtAttribute($value){
         return Carbon::parse($value)->toFormattedDate();
+    }
+
+    public function gen_merch(){
+        return $this->belongsTo(GenMerch::class);
     }
 
 }

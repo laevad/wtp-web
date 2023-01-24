@@ -52,7 +52,7 @@ class UpdateBooking extends Component{
             'from_longitude'=>'',
             'to_latitude'=>'',
             'to_longitude'=>'',
-            'cargo_type' => 'required|min:2|max:200'
+            'gen_merch_id' => 'required|exists:gen_merches,id'
 
         ],[
             'user_id.required'=>'The client field is required.',
@@ -63,6 +63,7 @@ class UpdateBooking extends Component{
             'trip_status_id.required'=>'The trip status field is required.',
             't_total_distance.numeric'=>'The total distance must be a number.',
             't_total_distance.required'=>'The total distance field is required.',
+            'gen_merch_id.required'=>'The general merchandise field is required.',
         ])->validate();
     }
 

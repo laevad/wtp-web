@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,8 +12,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->string('cargo_type');
+        Schema::create('gen_merches', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->dropColumn('cargo_type');
-        });
+        Schema::dropIfExists('gen_merches');
     }
 };

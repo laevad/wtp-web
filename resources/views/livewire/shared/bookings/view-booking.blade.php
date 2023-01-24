@@ -76,7 +76,7 @@
                                              <span class="description-header mr-2">Trip Status: <span class="badge badge-{{ $booking->status_type_badge }}">{{ $booking->status->name }}</span>
                                              </span>
                                 <span class="description-header d-block">Distance: <strong>{{ $booking->t_total_distance }}</strong></span>
-                                <span class="description-header d-block">Cargo Type: <strong>{{ $booking->cargo_type }}</strong></span>
+                                <span class="description-header d-block">General Merchandise: <strong>{{ ucwords($booking->gen_merch->name) }}</strong></span>
                             </div>
                         </div>
                     </div>

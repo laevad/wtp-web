@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             VehicleStatusSeeder::class,
             VehicleSeeder::class,
             IncentiseSeeder::class,
+            GenMerchSeeder::class,
         ]);
     }
 }

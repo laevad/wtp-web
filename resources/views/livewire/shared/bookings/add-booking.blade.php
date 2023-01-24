@@ -33,7 +33,25 @@
         <div class="row">
             <x-custom.input model="trip_start_date" :view="$viewMode" isAddBooking="true" isDate="true">Trip Start Date</x-custom.input>
             <x-custom.input model="trip_end_date" :view="$viewMode" isAddBooking="true" isDate="true">Trip End Date</x-custom.input>
-            <x-custom.input model="cargo_type" :view="$viewMode" isAddBooking="true" >Cargo Type</x-custom.input>
+{{--            <x-custom.input model="cargo_type" :view="$viewMode" isAddBooking="true" >Cargo Type</x-custom.input>--}}
+            <div class="col-md-4" >
+                <div class="form-group">
+                    <label for="gen_merch_id" class="form-label">General Merchandise @if(!$viewMode)<span class="text-red">*</span> @endif</label>
+                    <div class="@error('gen_merch_id') is-invalid border  border-danger round custom-error @enderror">
+                        <x-custom.select id="gen_merch_id" :view="$viewMode">
+                            <option value="" readonly>Select Merchandise</option>
+                            @foreach($gen_merch as $data)
+                                <option value="{{ $data->id }}">{{ ucwords($data->name) }}</option>
+                            @endforeach
+                        </x-custom.select>
+                    </div>
+                    @error('gen_merch_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            </div>
             @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
                 <div class="col-md-4" >
                     <div class="form-group">
