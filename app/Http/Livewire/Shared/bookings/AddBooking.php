@@ -61,9 +61,10 @@ class AddBooking extends  Component{
             't_trip_start'=>'required|min:2|max:200',
             't_trip_end'=>'required|min:2|max:200',
             'trip_status_id'=>['required', Rule::in(TripStatus::YET_TO_START, TripStatus::COMPLETE, TripStatus::ON_GOING, TripStatus::CANCELLED, TripStatus::PENDING)],
-            'trip_start_date'=>'required|date',
-            'trip_end_date'=>'required|date',
+            'trip_start_date'=>['required', 'date','after_or_equal:today'],
+            'trip_end_date'=>['required', 'date','after_or_equal:today'],
             't_total_distance'=>'required|numeric',
+            /*from latitude required t_trip_start*/
             'from_latitude'=>'',
             'from_longitude'=>'',
             'to_latitude'=>'',

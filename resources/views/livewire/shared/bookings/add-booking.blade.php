@@ -95,7 +95,7 @@
                 @enderror
             </div>
             <div class="form-group col-md-4">
-                <label for="t_total_distance">Total Distance <span class="text-red">*</span></label>
+                <label for="t_total_distance">Total Distance (km) <span class="text-red">*</span></label>
                 <input type="text" wire:model.defer="state.t_total_distance" class="form-control @error('t_total_distance') is-invalid @enderror " id="t_total_distance" placeholder="Total Distance" onchange="this.dispatchEvent(new InputEvent('input'))" >
                 @error('t_total_distance')
                 <div class="invalid-feedback">
@@ -122,25 +122,47 @@
         (function($){
             'use strict';
             window.addEventListener('load', (event) => {
+                /*disable id t_trip_end */
+                $('#t_trip_end').attr('disabled', true);
+
                 var googleplaces = new google.maps.places.Autocomplete(document.getElementById('t_trip_start'));
+                /*on change t_trip_start*/
+                $("#t_trip_start").on('change', function(){
+                    /*clear the trip end*/
+                    $('#t_trip_end').val('');
+                });
+
+
+
+
                 google.maps.event.addListener(googleplaces, 'place_changed', function () {
                     var place = googleplaces.getPlace();
                     var latitudes = place.geometry.location.lat();
                     var longitudes = place.geometry.location.lng();
                     document.getElementById("t_trip_fromlat").value = latitudes;
                     document.getElementById("t_trip_fromlog").value = longitudes;
+                    /*enable trip_end*/
+                    $('#t_trip_end').attr('disabled', false);
 
                 });
+
                 var places = new google.maps.places.Autocomplete(document.getElementById('t_trip_end'));
+
+                var  latitude;
+                var  longitude;
                 google.maps.event.addListener(places, 'place_changed', function () {
                     var toplace = places.getPlace();
-                    var latitude = toplace.geometry.location.lat();
-                    var longitude = toplace.geometry.location.lng();
+                    latitude = toplace.geometry.location.lat();
+                    longitude = toplace.geometry.location.lng();
                     document.getElementById("t_trip_tolat").value = latitude;
                     document.getElementById("t_trip_tolog").value = longitude;
-                    Livewire.emit('t_lat_long', latitude, longitude);
+
                     distance(document.getElementById("t_trip_fromlat").value, document.getElementById("t_trip_fromlog").value, latitude, longitude, 'K');
+
+
                 });
+
+                Livewire.emit('t_lat_long', latitude, longitude);
             });
             function distance(lat1, lon1, lat2, lon2, unit) {
                 if ((lat1 === lat2) && (lon1 === lon2)) {
@@ -164,11 +186,12 @@
                     console.log(lat1, lon1, lat2, lon2);
                     console.log(dist);
                     console.log( Math.round(dist),lat1, lon1, lat2, lon2);
+                    $('#t_trip_end').attr('disabled', true);
                     Livewire.emit('total_distance',  Math.round(dist),lat1, lon1, lat2, lon2);
                     // document.getElementById("t_total_distance").value =  Math.round(dist);
-
                 }
             }
+            $('#t_trip_end').attr('disabled', true);
         })(jQuery);
     </script>
 @endpush

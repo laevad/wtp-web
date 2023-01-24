@@ -15,7 +15,8 @@ class AdminAddBooking extends AddBooking
     public function render()
     {
         $role ='admin';
-        $trip_status = TripStatus::all();
+        /*trip status select pending or yet-to-start*/
+        $trip_status = TripStatus::whereIn('id', [TripStatus::PENDING, TripStatus::YET_TO_START])->get();
         /*gen merch*/
         $gen_merch = GenMerch::all();
         $clients =User::where('role_id', '=', User::ROLE_CLIENT)->get();
