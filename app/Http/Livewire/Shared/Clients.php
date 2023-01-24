@@ -64,7 +64,7 @@ class Clients extends  GlobalVar {
     {
         if ($this->showEditModal){
             return Validator::make($this->state,[
-                'name'=>'required|min:4|max:60',
+                'name'=>'required|min:4|max:200|regex:/^[a-zA-Z ]+$/u|unique:users,name,'.$this->user->id,
                 'email'=>'nullable|email|unique:users,email,'.$this->user->id.'|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
                 'mobile'=>'required|numeric|phone|unique:users,mobile,'.$this->user->id,
                 'status_id'=>[
@@ -74,7 +74,7 @@ class Clients extends  GlobalVar {
             ], ['status_id.required'=>'The status field is required.'])->validate();
         }
         return Validator::make($this->state,[
-            'name'=>'required|min:4|max:200',
+            'name'=>'required|min:4|max:200|regex:/^[a-zA-Z ]+$/u',
             'email'=>'nullable|email|unique:users,email|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
             'mobile'=>'required|numeric|phone|unique:users,mobile',
             'status_id'=>[

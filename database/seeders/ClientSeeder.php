@@ -18,20 +18,21 @@ class ClientSeeder extends GlobalSeeder
      */
     public function run()
     {
-        for ($i=0; $i<10; $i++){
+        for ($i = 0; $i < 10; $i++) {
             $fName = fake()->name();
             DB::table('users')->insert([
                 [
-                    'id'=>Uuid::uuid3(Uuid::NAMESPACE_DNS, $i)->toString(),
+                    'id' => Uuid::uuid3(Uuid::NAMESPACE_DNS, $i)->toString(),
                     'name' => $fName,
+                    'username' => fake()->userName(),
                     'email' => fake()->safeEmail(),
                     'email_verified_at' => null,
                     'password' => bcrypt('1234'), // password
                     'remember_token' => Str::random(10),
-                    'created_at'=>now(),
-                    'role_id'=> User::ROLE_CLIENT,
-                    'mobile' =>fake()->numerify('###########'),
-                    'status_id'=> 1,
+                    'created_at' => now(),
+                    'role_id' => User::ROLE_CLIENT,
+                    'mobile' => fake()->numerify('###########'),
+                    'status_id' => 1,
                     'avatar' => $this->setInitialPhoto($fName[0]),
                 ]
             ]);

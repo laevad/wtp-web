@@ -3,6 +3,7 @@ namespace App\Http\Livewire\Shared;
 
 use App\Models\Status;
 use App\Models\User;
+use App\Rules\LicenseNumberRule;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +32,6 @@ class Drivers extends GlobalVar{
     }
     public function createUser(): RedirectResponse
     {
-
         $validatedData =  $this->validateDriver();
 
         $validatedData['password'] = bcrypt('1234');
@@ -108,12 +108,19 @@ class Drivers extends GlobalVar{
     public function validateDriver(){
         if ($this->showEditModal){
             return  Validator::make($this->state,[
-                'name'=>'required|min:4|max:60',
+                'name'=>'required|min:4|max:200|regex:/^[\pL\s-]+$/u',
                 'email'=>'nullable|email|unique:users,email,'.$this->user->id.'|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
                 'mobile'=>'required|numeric|phone|unique:users,mobile,'.$this->user->id,
-                'date_of_birth'=>'required|min:4|max:150',
-                'license_number'=>'required|min:4|max:150',
-                'total_experience'=>'required|numeric',
+               /*date of birth = date format and before 2010*/
+                'date_of_birth'=>'required|min:4|max:150|date|before:2010-01-01',
+                'license_number'=>[
+                    'required',
+                    'min:4',
+                    'max:150',
+                    'unique:users,license_number,'.$this->user->id, new LicenseNumberRule(),
+                ],
+                /*total_experience limit to 50 yrs*/
+                'total_experience'=>'required|numeric|min:0|max:50',
                 'license_expiry_date'=>'required|date',
                 'date_of_joining'=>'required|date',
                 'status_id'=>'required',
@@ -122,13 +129,20 @@ class Drivers extends GlobalVar{
             ])->validate();
         }
         return Validator::make($this->state,[
-            'name'=>'required|min:4|max:200',
+            'name'=>'required|min:4|max:200|regex:/^[\pL\s-]+$/u',
             'email'=>'nullable|email|unique:users,email|min:6|max:60|regex:/(.+)@(.+)\.(.+)/i',
             'mobile'=>'required|numeric|phone|unique:users,mobile',
-            'date_of_birth'=>'required|min:4|max:150',
-            'license_number'=>'required|min:4|max:150',
-            'total_experience'=>'required|numeric',
-            'license_expiry_date'=>'required|date',
+            /*date of birth = date format and before 2010*/
+            'date_of_birth'=>'required|min:4|max:150|date|before:2010-01-01',
+            'license_number'=>[
+                'required',
+                'min:4',
+                'max:150',
+                'unique:users,license_number', new LicenseNumberRule(),
+            ],
+            /*total_experience limit to 50 yrs*/
+            'total_experience'=>'required|numeric|min:0|max:50',
+            'license_expiry_date'=>'required|date|after:today',
             'date_of_joining'=>'required|date',
             'status_id'=>'required',
             'address'=>'',

@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             [
                 'id'=>Uuid::uuid3(Uuid::NAMESPACE_DNS, 'example.com')->toString(),
                 'name'=>'Admin',
+                'username'=>'admin',
                 'email'=>'a@a.a',
                 'password'=> bcrypt('1234'),
                 'created_at'=>now(),
