@@ -147,8 +147,9 @@
                                         <td>{{  $data->date }}</td>
                                         <td class="">{{ $data->created_at->toFormattedDateTime()  }}</td>
                                         <th>
-                                            <button wire:click="acceptExpense({{ $data->id }})" class="btn btn-sm btn-success">Accept</button>
-                                            <button wire:click="declineExpense({{ $data->id }})" class="btn btn-sm btn-danger">Decline</button>
+                                            {{--accept and decline--}}
+                                            <button wire:click="acceptIncentive({{ $data->id }})" class="btn btn-sm btn-success">Accept</button>
+                                            <button wire:click="declineIncentive({{ $data->id }})" class="btn btn-sm btn-danger">Decline</button>
                                         </th>
                                     </tr>
                                 @empty
