@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('t_trip_end')->nullable();
             $table->uuid('driver_id')->nullable();
             $table->foreign('driver_id')->references('id')->on('users');
-            $table->string('trip_start_date')->nullable();
-            $table->string('trip_end_date')->nullable();
+            $table->date('trip_start_date')->nullable();
+            $table->date('trip_end_date')->nullable();
             $table->integer('t_total_distance')->default(0);
             $table->timestamps();
         });

@@ -31,7 +31,7 @@ class AdminAddBooking extends AddBooking
             'apiKey'=> $apiKey,
             'trip_status'=>$trip_status,
             'role'=>$role,
-            'gen_merch'=>$gen_merch
+            'gen_merch'=>$gen_merch,
         ]);
     }
 }
