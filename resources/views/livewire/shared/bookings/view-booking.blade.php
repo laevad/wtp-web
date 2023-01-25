@@ -1,7 +1,9 @@
 <x-animation.ball-spin></x-animation.ball-spin>
 
-@if( request()->segment(1) == $role)
-    <a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
+@if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+    <a href="{{ route("admin.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
+@else
+    <a href="{{ route("user.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
 @endif
 <div class="row">
     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
@@ -112,9 +114,16 @@
                                         @endforeach
                                         <td class="">{{ $data->created_at->toFormattedDateTime()  }}</td>
                                         <th>
-                                            {{--accept and decline--}}
-                                            <button wire:click="acceptExpense({{ $data->id }})" class="btn btn-sm btn-success">Accept</button>
-                                            <button wire:click="declineExpense({{ $data->id }})" class="btn btn-sm btn-danger">Decline</button>
+                                            {{--show badge if the is_accept status = 1--}}
+                                            @if($data->is_accept == 1)
+                                                <span class="badge badge-success">Accepted</span>
+                                            @elseif($data->is_accept == 2)
+                                                <span class="badge badge-danger">Declined</span>
+                                            @else
+                                                {{--accept and decline--}}
+                                                <button wire:click="showAcceptExpense('{{ $data->id }}')" class="btn btn-sm btn-success">Accept</button>
+                                                <button wire:click="showDeclineExpense('{{ $data->id }}')" class="btn btn-sm btn-danger">Decline</button>
+                                            @endif
                                         </th>
                                     </tr>
                                 @empty
@@ -147,9 +156,16 @@
                                         <td>{{  $data->date }}</td>
                                         <td class="">{{ $data->created_at->toFormattedDateTime()  }}</td>
                                         <th>
-                                            {{--accept and decline--}}
-                                            <button wire:click="acceptIncentive({{ $data->id }})" class="btn btn-sm btn-success">Accept</button>
-                                            <button wire:click="declineIncentive({{ $data->id }})" class="btn btn-sm btn-danger">Decline</button>
+                                            {{--show badge if the is_accept status = 1--}}
+                                            @if($data->is_accept == 1)
+                                                <span class="badge badge-success">Accepted</span>
+                                            @elseif($data->is_accept == 2)
+                                                <span class="badge badge-danger">Declined</span>
+                                            @else
+                                                {{--accept and decline--}}
+                                                <button wire:click="showAcceptIncentive('{{ $data->id }}')" class="btn btn-sm btn-success">Accept</button>
+                                                <button wire:click="showDeclineIncentive('{{ $data->id }}')" class="btn btn-sm btn-danger">Decline</button>
+                                            @endif
                                         </th>
                                     </tr>
                                 @empty
@@ -171,3 +187,123 @@
     <!-- /.col -->
 </div>
 <x-modals.view-booking :booking="$booking" :isIncentive="$isIncentive" :expenseType="$expenseType" ></x-modals.view-booking>
+
+{{--push js--}}
+@push('js')
+    <script>
+       /*show-error using swal*/
+        window.addEventListener('show-error', event => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: event.detail.message,
+            })
+        })
+        /*show-success using swal*/
+        window.addEventListener('show-success', event => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: event.detail.message,
+            })
+        })
+
+       /*show-accept-incentive-modal*/
+        window.addEventListener('show-accept-incentive-modal', event => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to accept this incentive!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, accept it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('acceptIncentive', event.detail.id)
+                }
+            })
+        })
+        /*show-decline-incentive-modal*/
+        window.addEventListener('show-decline-incentive-modal', event => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to decline this incentive!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, decline it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('declineIncentive', event.detail.id)
+                }
+            })
+        })
+        /*show-accept-expense-modal*/
+        window.addEventListener('show-accept-expense-modal', event => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to accept this expense!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, accept it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('acceptExpense', event.detail.id)
+                }
+            })
+        })
+        /*show-decline-expense-modal*/
+        window.addEventListener('show-decline-expense-modal', event => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to decline this expense!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, decline it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('declineExpense', event.detail.id)
+                }
+            })
+        })
+
+       /*declineIncentive*/
+        window.addEventListener('declineIncentive', event => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: event.detail.message,
+            })
+        })
+        /*acceptIncentive*/
+        window.addEventListener('acceptedIncentive', event => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: event.detail.message,
+            })
+        })
+        /*declineExpense*/
+        window.addEventListener('declineExpense', event => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: event.detail.message,
+            })
+        })
+        /*acceptExpense*/
+        window.addEventListener('acceptedExpense', event => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: event.detail.message,
+            })
+        })
+    </script>
+@endpush

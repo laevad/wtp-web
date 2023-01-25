@@ -39,7 +39,14 @@ class Booking extends Model
 
     ];
 
-
+    /*get date_completed toFormatted Date*/
+    public function getDateCompletedAttribute($value){
+        /*date format: Y/m/d*/
+       if ($value !=null){
+           return Carbon::parse($value)->toFormattedDate();
+       }
+       return  null;
+    }
 
     protected $casts = [
         'trip_start_date' => 'datetime',

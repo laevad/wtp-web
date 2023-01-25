@@ -14,6 +14,10 @@ class Cash extends Model
     const CASH_EXPENSE = 1;
     const CASH_INCENTIVE = 2;
 
+    const STATUS_ACCEPTED = 1;
+    /*decline*/
+    const STATUS_DECLINED = 2;
+
 
     protected $fillable = [
 
@@ -24,7 +28,7 @@ class Cash extends Model
         'note',
         'cash_type_id',
         'booking_id',
-        'is_accepted',
+        'is_accept',
     ];
     protected $casts = [
         'date' => 'datetime',
