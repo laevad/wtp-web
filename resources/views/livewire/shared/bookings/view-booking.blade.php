@@ -112,9 +112,9 @@
                                         @endforeach
                                         <td class="">{{ $data->created_at->toFormattedDateTime()  }}</td>
                                         <th>
-                                            <a href="" wire:click.prevent="confirmExpenseRemoval('{{ $data->id }}')">
-                                                <i class="fa fa-trash text-danger ml-2"></i>
-                                            </a>
+                                            {{--accept and decline--}}
+                                            <button wire:click="acceptExpense({{ $data->id }})" class="btn btn-sm btn-success">Accept</button>
+                                            <button wire:click="declineExpense({{ $data->id }})" class="btn btn-sm btn-danger">Decline</button>
                                         </th>
                                     </tr>
                                 @empty
@@ -147,9 +147,8 @@
                                         <td>{{  $data->date }}</td>
                                         <td class="">{{ $data->created_at->toFormattedDateTime()  }}</td>
                                         <th>
-                                            <a href="" wire:click.prevent="confirmIncentiveRemoval('{{ $data->id }}')">
-                                                <i class="fa fa-trash text-danger ml-2"></i>
-                                            </a>
+                                            <button wire:click="acceptExpense({{ $data->id }})" class="btn btn-sm btn-success">Accept</button>
+                                            <button wire:click="declineExpense({{ $data->id }})" class="btn btn-sm btn-danger">Decline</button>
                                         </th>
                                     </tr>
                                 @empty
