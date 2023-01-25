@@ -34,7 +34,8 @@ class Booking extends Model
         'to_latitude',
         'to_longitude',
 //        'cargo_type',
-        'gen_merch_id'
+        'gen_merch_id',
+        'date_completed',
 
     ];
 

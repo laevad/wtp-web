@@ -24,6 +24,7 @@ class Cash extends Model
         'note',
         'cash_type_id',
         'booking_id',
+        'is_accepted',
     ];
     protected $casts = [
         'date' => 'datetime',
