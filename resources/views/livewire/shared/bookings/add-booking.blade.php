@@ -1,4 +1,4 @@
-{{--<x-animation.ball-spin></x-animation.ball-spin>--}}
+<x-animation.ball-spin></x-animation.ball-spin>
 
 <a href="{{ route("$role.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1">
 
@@ -92,6 +92,7 @@
                 <input type="text" wire:model.defer="state.t_trip_end"
                        class="form-control  @error('t_trip_end') is-invalid @enderror  "
                        id="t_trip_end" placeholder="Destination"
+                       wire:ignore.self
                        onchange="this.dispatchEvent(new InputEvent('input'))"
 
                 >
@@ -119,7 +120,7 @@
     </div>
     <div class="card-footer justify-content-end d-flex">
         @if(!$viewMode)
-            <button type="submit" class="btn customBg text-white" ><i
+            <button type="submit" class="btn customBg text-white" wire:loading.attr="disabled" ><i
                     class="fa fa-save mr-2"></i>{{ $isUpdate ? 'Save Changes' : 'Save' }}</button>
         @endif
     </div>

@@ -20,6 +20,8 @@
                 $("#t_trip_start").on('change', function(){
                     /*clear the trip end*/
                     $('#t_trip_end').val('');
+                    /*clear the total distance*/
+                    $('#t_total_distance').val(0);
                     /*if empty disable trip_end*/
                     if($('#t_trip_start').val() == ''){
                         $('#t_trip_end').attr('disabled', true);
@@ -42,6 +44,10 @@
                 var  latitude;
                 var  longitude;
                 google.maps.event.addListener(places, 'place_changed', function () {
+
+
+
+
                     var toplace = places.getPlace();
                     latitude = toplace.geometry.location.lat();
                     longitude = toplace.geometry.location.lng();

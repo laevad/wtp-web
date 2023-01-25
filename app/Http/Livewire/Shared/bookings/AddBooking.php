@@ -14,7 +14,7 @@ class AddBooking extends Component
 
     public $isUpdate = false;
     public $viewMode = false;
-    public $state = ['trip_status_id' => TripStatus::PENDING, 't_total_distance' => 0];
+    public $state = ['trip_status_id' => TripStatus::YET_TO_START, 't_total_distance' => 0];
     public $total_distance;
     public bool $disable = false;
     /*unselect selected row if click next / previous*/
@@ -62,8 +62,8 @@ class AddBooking extends Component
             'user_id' => 'required|exists:users,id',
             'vehicle_id' => 'required|exists:vehicles,id',
             'driver_id' => ['required', Rule::exists('users', 'id')],
-            't_trip_start' => 'required|min:2|max:200',
-            't_trip_end' => '|max:200|required_with:t_trip_start',
+            't_trip_start' => 'min:2|max:200|required_with:t_trip_end',
+            't_trip_end' => 'required|max:200',
             'trip_status_id' => ['required', Rule::in(TripStatus::YET_TO_START, TripStatus::COMPLETE, TripStatus::ON_GOING, TripStatus::CANCELLED, TripStatus::PENDING)],
             'trip_start_date' => ['required', 'date', 'after_or_equal:today', 'required_with:driver_id,vehicle_id',
                 /*custom function query trip_start_date with no conflict driver_id*/

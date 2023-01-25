@@ -95,7 +95,12 @@ class BookingList extends  GlobalVar{
         }else{
             $trip_stats = 'cancelled';
         }
-        $booking->update(['trip_status_id'=> $status]);
+        /*if status is complete update also the date_complete*/
+        if ($status == 2){
+            $booking->update(['trip_status_id'=>$status, 'date_complete'=>now()]);
+        }else{
+            $booking->update(['trip_status_id'=>$status]);
+        }
         $this->dispatchBrowserEvent('updated', ['message'=>"Role changed to {$trip_stats} successfully!"]);
     }
 

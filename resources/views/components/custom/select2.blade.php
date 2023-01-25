@@ -4,7 +4,7 @@
 <div class="@error($id) is-invalid border  border-danger rounded custom-error @enderror">
     <div class="" wire:ignore>
         <div class="" wire:ignore>
-            <select class="form-control select2bs4 select2-hidden-accessible select2" id="{{ $id }}"  name="{{ $id }}" style="width: 100%;" wire:model.defer="state.{{ $id }}"  >
+            <select class="form-control select2bs4 select2-hidden-accessible select2" id="{{ $id }}"  name="{{ $id }}" style="width: 100%;" wire:loading.attr="disabled" wire:model.defer="state.{{ $id }}"  >
                 @if($isAll)
                     <option value="all" readonly>All</option>
                 @else
