@@ -29,14 +29,15 @@ class LoginController extends Controller
      */
 //    protected string $redirectTo = RouteServiceProvider::HOME;
 
-    protected function redirectTo(){
-        if(auth('web')->user()->role_id==User::ROLE_ADMIN){
+    protected function redirectTo()
+    {
+        if (auth('web')->user()->role_id == User::ROLE_ADMIN) {
             return route('admin.dashboard');
         }
-        if(auth('web')->user()->role_id==User::ROLE_USER){
+        if (auth('web')->user()->role_id == User::ROLE_USER) {
             return route('user.dashboard');
         }
-        if(auth('web')->user()->role_id==User::ROLE_CLIENT){
+        if (auth('web')->user()->role_id == User::ROLE_CLIENT) {
             return route('client.dashboard');
         }
         return redirect()->route('login');
@@ -55,22 +56,49 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $input = $request->all();
-        $this->validate($request,[
-            'email' => 'required|email',
-            'password'=>'required',
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required',
         ]);
-
-        if (auth('web')->attempt(array('email'=>$input['email'], 'password'=>$input['password'] ))){
-            if (auth('web')->user()->role_id == User::ROLE_ADMIN){
-                return redirect()->route('admin.dashboard');
+        if (filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
+            if (auth('web')->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+                if (auth('web')->user()->role_id == User::ROLE_ADMIN) {
+                    return redirect()->route('admin.dashboard');
+                }
+                if (auth('web')->user()->role_id == User::ROLE_USER) {
+                    return redirect()->route('user.dashboard');
+                }
+                if (auth('web')->user()->role_id == User::ROLE_CLIENT) {
+                    return redirect()->route('client.dashboard');
+                }
             }
-            if (auth('web')->user()->role_id == User::ROLE_USER){
-                return redirect()->route('user.dashboard');
+            return redirect()->back()->withInput($request->input())->withErrors(['email' => 'These credentials do not match our records.']);
+        }else{
+            if (auth('web')->attempt(array('username' => $input['email'], 'password' => $input['password']))) {
+                if (auth('web')->user()->role_id == User::ROLE_ADMIN) {
+                    return redirect()->route('admin.dashboard');
+                }
+                if (auth('web')->user()->role_id == User::ROLE_USER) {
+                    return redirect()->route('user.dashboard');
+                }
+                if (auth('web')->user()->role_id == User::ROLE_CLIENT) {
+                    return redirect()->route('client.dashboard');
+                }
             }
-            if (auth('web')->user()->role_id == User::ROLE_CLIENT){
-                return redirect()->route('client.dashboard');
-            }
+            return redirect()->back()->withInput($request->input())->withErrors(['email' => 'These credentials do not match our records.']);
         }
-        return redirect()->back()->withInput($request->input())->withErrors(['email'=>'These credentials do not match our records.']);
+
     }
+
+    protected function credentials(Request $request)
+    {
+        if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            $credentials = $request->only('email', 'password');
+        } else {
+            $credentials = ['username' => $request->email, 'password' => $request->password];
+        }
+
+        return $credentials;
+    }
+
 }

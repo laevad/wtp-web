@@ -11,7 +11,7 @@
                             @csrf
                             <div>
                                 <label for="email" class="col-md-5 col-form-label text-md-end ">{{ __('Email Address') }}</label>
-                                <input id="email" style="width: 100%" type="email" class="form-control  border @error('email') is-invalid @enderror" placeholder="Enter your Email" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus>
+                                <input id="email" style="width: 100%" type="text" class="form-control  border @error('email') is-invalid @enderror" placeholder="Enter your Email" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus>
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">

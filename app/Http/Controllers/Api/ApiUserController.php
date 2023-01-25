@@ -52,14 +52,14 @@ class ApiUserController extends Controller
         $user = Auth::user();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        if($request->has('image')){
-            $previousPath = auth()->user()->avatar;
-            $path = $request->file('image');
-            auth()->user()->update(['avatar'=>$path]);
-            if ($previousPath !=null){
-                Storage::disk('avatars')->delete($previousPath);
-            }
-        }
+//        if($request->has('image')){
+//            $previousPath = auth()->user()->avatar;
+//            $path = $request->file('image');
+//            auth()->user()->update(['avatar'=>$path]);
+//            if ($previousPath !=null){
+//                Storage::disk('avatars')->delete($previousPath);
+//            }
+//        }
         if($request->has('new_password') && $request->filled('new_password')){
             $user->password = Hash::make($request->input('new_password'));
         }

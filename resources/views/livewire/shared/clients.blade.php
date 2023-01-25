@@ -52,6 +52,9 @@
                                         <i class="fa fa-arrow-down {{ $sortColumnName == 'name' && $sortDirection == 'desc' ? '' : 'text-muted' }}"></i>
                                         </span>
                         </th>
+                        <th scope="col">
+                            Username
+                        </th>
                         <th scope="col">Email
                             <span class="float-right" style="cursor: pointer" wire:click="sortedBy('email')">
                                             <i class="fa fa-arrow-up {{ $sortColumnName == 'email' && $sortDirection == 'asc' ? '' : 'text-muted' }}"></i>
@@ -76,6 +79,7 @@
                             <td>
                                 <img src="{{ $user->avatar_url }}" class="img img-circle img-thumbnail elevation-1 shadow mr-2" alt="" STYLE="width: 50px">
                                 {{ $user->name }}</td>
+                            <td class="">{{ $user->username }}</td>
                             <td class="">{{ $user->email }}</td>
                             <td class="">{{ $user->mobile }}</td>
 {{--                            <td><span class="badge @if($user->status=='active') badge-success @else badge-danger @endif">{{ $user->status }}</span></td>--}}
