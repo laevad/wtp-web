@@ -3,7 +3,7 @@
 @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
     <a href="{{ route("admin.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
 @else
-    <a href="{{ route("user.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
+    <a href="{{ route("client.booking-list") }}" class="btn customBg text-white mb-2"><i class="fa fa-arrow-left mr-1"></i>Booking list</a>
 @endif
 <div class="row">
     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
