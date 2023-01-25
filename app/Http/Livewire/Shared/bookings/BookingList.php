@@ -102,7 +102,7 @@ class BookingList extends  GlobalVar{
             /*update the status then clear*/
             $booking->update(['trip_status_id'=>$status, 'date_completed'=>null]);
         }
-        $this->dispatchBrowserEvent('updated', ['message'=>"Role changed to {$trip_stats} successfully!"]);
+        $this->dispatchBrowserEvent('updated', ['message'=>"Status changed to {$trip_stats} successfully!"]);
     }
 
     public function confirmUserRemoval($bookingId){
