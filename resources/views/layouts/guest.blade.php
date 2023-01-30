@@ -41,8 +41,10 @@
     </style>
 </head>
 
-<body class="">
-
+<body class="hold-transition sidebar-mini">
+@auth
+    @include('layouts.shared.nav')
+@endauth
 <div class="py-5">
     {{ $slot }}
 </div>

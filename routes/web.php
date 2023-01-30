@@ -24,6 +24,7 @@ use App\Http\Livewire\Client\ClientUpdateBooking;
 use App\Http\Livewire\Client\ClientViewBooking;
 use App\Http\Livewire\User\UserDashboard;
 use App\Http\Livewire\User\UserSettings;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,13 +40,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index'])->name('home');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
-Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth']], function (){
+Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['isAdmin','auth','verified']], function (){
     $routeArr = [
         'dashboard'=>AdminDashboard::class,'settings'=>AdminSettings::class, 'clients'=>AdminClients::class,
         'drivers'=>AdminDrivers::class,'vehicles'=>AdminVehicles::class, 'booking-list'=> AdminBookings::class,
@@ -69,7 +70,7 @@ Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function (){
     Route::get('settings', UserSettings::class)->name('user.settings');
 });
 
-Route::group(['prefix'=>'client', 'middleware'=>['isClient','auth']], function (){
+Route::group(['prefix'=>'client', 'middleware'=>['isClient','auth', 'verified']], function (){
     Route::get('dashboard', ClientDashboard::class)->name('client.dashboard');
     Route::get('booking-list', ClientBookingList::class)->name('client.booking-list');
     Route::get('request-booking', ClientAddBooking::class)->name('client.request-booking');

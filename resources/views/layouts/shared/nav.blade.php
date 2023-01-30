@@ -10,16 +10,20 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ auth()->user()->avatar_url }}" id="profileImage1" class="img-circle elevation-1" alt="User Image" style="height: 30px; width: 30px;">
-                <span class="ml-1" x-ref="username">{{ auth()->user()->name }}</span>
+               @auth
+                    <img src="{{ auth()->user()->avatar_url }}" id="profileImage1" class="img-circle elevation-1" alt="User Image" style="height: 30px; width: 30px;">
+                    <span class="ml-1" x-ref="username">{{ auth()->user()->name }}</span>
+                @endauth
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="profileLink">Profile</a>
-                <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="changePasswordLink">Change Password</a>
                 @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
-                    <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="apiKeyLink">API Key</a>
+                    <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="profileLink">Profile</a>
+                    <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="changePasswordLink">Change Password</a>
+                    @if(auth()->user()->role_id == \App\Models\User::ROLE_ADMIN)
+                        <a class="dropdown-item" href="{{ route(request()->segment(1).".settings") }}" x-ref="apiKeyLink">API Key</a>
+                    @endif
+                    <div class="dropdown-divider"></div>
                 @endif
-                <div class="dropdown-divider"></div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); this.closest('form').submit();">

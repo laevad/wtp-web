@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
@@ -14,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable,Uuid;
 
@@ -43,6 +43,8 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $guarded = [];
+
+
 
 
     /**
@@ -90,6 +92,7 @@ class User extends Authenticatable implements JWTSubject
         'date_of_joining' => 'datetime',
         'date_of_birth' => 'datetime',
     ];
+
 
     public function getJWTIdentifier()
     {

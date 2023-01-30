@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CashType extends Model
 {
     use HasFactory;
+    
+    
 }
