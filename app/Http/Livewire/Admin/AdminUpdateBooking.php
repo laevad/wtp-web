@@ -23,7 +23,8 @@ class AdminUpdateBooking extends UpdateBooking
     public function updateBooking()
     {
         $this->validateUpdateBooking();
-
+        /*change date_completed format to 2023-01-31*/
+        $this->state['date_completed'] = date('Y-m-d', strtotime($this->state['date_completed']));
         $this->booking->update($this->state);
         $this->state = [];
         $this->disable = false;

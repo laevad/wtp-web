@@ -39,6 +39,8 @@ class AddBooking extends Component
     {
         if (auth()->user()->role_id == User::ROLE_ADMIN) {
             $validatedData = $this->validateAddBooking();
+            /*change date_completed format to 2023-01-31*/
+
         }
         if (auth()->user()->role_id == User::ROLE_CLIENT) {
             $validatedData = $this->validateAddBookingClient();
