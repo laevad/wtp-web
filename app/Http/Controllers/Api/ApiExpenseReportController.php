@@ -34,6 +34,7 @@ class ApiExpenseReportController extends Controller
             ->select( 'bookings.id',
                 'cashes.created_at', 'cashes.amount', 'bookings.t_trip_start as trip_start','bookings.t_trip_end as trip_end',
                 'expense_types.name as expense_type', 'cashes.note', 'cashes.date')
+            ->where('cashes.is_accept', '=', 1)
             ->where('cash_type_id', '=', Cash::CASH_EXPENSE)
             ->where('users.id',$request->input('user_id'))
             ->orderBy('cashes.created_at', 'DESC')->paginate(12);
