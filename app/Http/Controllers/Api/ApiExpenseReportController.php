@@ -27,10 +27,11 @@ class ApiExpenseReportController extends Controller
         if ($validators->fails()){
             return response()->json(['errors' => $err], 422);
         }
+        /*elect all data within 6 days from end_trip*/
         $expenses = Cash::join('bookings', 'cashes.booking_id', '=' ,'bookings.id')
             ->join('users', 'bookings.driver_id', '=', 'users.id')
             ->join('expense_types', 'cashes.expense_type_id', '=', 'expense_types.id')
-            ->select(
+            ->select( 'bookings.id',
                 'cashes.created_at', 'cashes.amount', 'bookings.t_trip_start as trip_start','bookings.t_trip_end as trip_end',
                 'expense_types.name as expense_type', 'cashes.note', 'cashes.date')
             ->where('cash_type_id', '=', Cash::CASH_EXPENSE)
