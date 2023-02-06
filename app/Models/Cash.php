@@ -29,6 +29,7 @@ class Cash extends Model
         'cash_type_id',
         'booking_id',
         'is_accept',
+        'image_path'
     ];
     protected $casts = [
         'date' => 'datetime',
@@ -55,4 +56,6 @@ class Cash extends Model
     public function expenseType(){
         return $this->hasOne(ExpenseType::class, 'id', 'expense_type_id');
     }
+
+    
 }

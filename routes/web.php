@@ -25,6 +25,7 @@ use App\Http\Livewire\Client\ClientViewBooking;
 use App\Http\Livewire\User\UserDashboard;
 use App\Http\Livewire\User\UserSettings;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 /*
