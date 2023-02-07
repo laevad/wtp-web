@@ -35,18 +35,35 @@ return [
             'root' => storage_path('app'),
             'throw' => false,
         ],
+//
+//        'public' => [
+//            'driver' => 'local',
+//            'root' => storage_path('app/public'),
+//            'url' => env('APP_URL').'/storage',
+//            'visibility' => 'public',
+//            'throw' => false,
+//        ],
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path(),
+            'url' => env('APP_URL').'/',
+            'visibility' => 'public',
+        ],
+
+        /*
+         *  'avatars' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/avatars'),
+            'url' => env('APP_URL').'/storage/avatars',
             'visibility' => 'public',
             'throw' => false,
         ],
+        */
 
         'avatars' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/avatars'),
+            'root' => public_path('/storage/avatars'),
             'url' => env('APP_URL').'/storage/avatars',
             'visibility' => 'public',
             'throw' => false,

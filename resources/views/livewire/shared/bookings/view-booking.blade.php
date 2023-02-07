@@ -116,8 +116,8 @@
                                         {{--image path attachment--}}
                                         <td>
                                             @if($data->image_path != null)
-                                                <a href="{{ asset('storage/'.$data->image_path) }}" target="_blank">
-                                                    <img src="{{ asset('storage/'.$data->image_path) }}" alt="receipt" width="50" height="50">
+                                                <a href="{{ asset($data->image_path) }}" target="_blank">
+                                                    <img src="{{ asset($data->image_path) }}" alt="receipt" width="50" height="50">
                                                 </a>
                                             @else
                                                 N/A
