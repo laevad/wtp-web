@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Http\Livewire\Shared\Dashboard;
+use App\Models\ApiKey;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -22,11 +23,12 @@ class AdminDashboard extends Dashboard
         $location = Location::all();
         /*count status = 2 in location*/
         $offStatus= $location->where('status_id', '=', 1)->count();
-
+        $apiKey = ApiKey::where('id', ApiKey::API_ID)->pluck('name')->first();
 
         return view('livewire.admin.admin-dashboard',[
             'location'=>$location,
             'offStatus'=>$offStatus,
+            'apiKey'=>$apiKey,
         ]);
     }
 

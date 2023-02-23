@@ -68,7 +68,7 @@
 
 @push('js')
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIv9nK_pTbE3bZi_nXJBCEg2dmSiEyq4E&callback=loadMap"></script>
+            src="https://maps.googleapis.com/maps/api/js?key={{ $apiKey }}&callback=loadMap"></script>
     <script>
 
         function loadMap() {
