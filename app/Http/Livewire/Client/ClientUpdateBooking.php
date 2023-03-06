@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Client;
 
 use App\Http\Livewire\Shared\bookings\UpdateBooking;
+use App\Models\GenMerch;
 use App\Models\TripStatus;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -27,6 +28,7 @@ class ClientUpdateBooking extends UpdateBooking
         $drivers =User::where('role_id', '=', User::ROLE_DRIVER)->get();
         $vehicles = Vehicle::all();
         $apiKey = $this->getApiKey();
+        $gen_merch = GenMerch::all();
         $role ='client';
         return view('livewire.client.client-update-booking', [
             'clients' =>$clients,
@@ -34,7 +36,8 @@ class ClientUpdateBooking extends UpdateBooking
             'drivers'=>$drivers,
             'apiKey'=> $apiKey,
             'trip_status'=>$trip_status,
-            'role'=>$role
+            'role'=>$role,
+            'gen_merch'=>$gen_merch,
         ]);
     }
 }
