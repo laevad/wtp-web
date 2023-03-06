@@ -31,9 +31,12 @@
                 google.maps.event.addListener(googleplaces, 'place_changed', function () {
                     var place = googleplaces.getPlace();
                     var latitudes = place.geometry.location.lat();
+
                     var longitudes = place.geometry.location.lng();
                     document.getElementById("t_trip_fromlat").value = latitudes;
                     document.getElementById("t_trip_fromlog").value = longitudes;
+                    /*log test*/
+                    console.log(latitudes, longitudes);
                     /*enable trip_end*/
                     $('#t_trip_end').attr('disabled', false);
 
@@ -54,6 +57,9 @@
                     document.getElementById("t_trip_tolat").value = latitude;
                     document.getElementById("t_trip_tolog").value = longitude;
 
+                    /*log test*/
+                    console.log(latitude, longitude);
+
                     distance(document.getElementById("t_trip_fromlat").value, document.getElementById("t_trip_fromlog").value, latitude, longitude, 'K');
 
 
@@ -66,29 +72,43 @@
                     return 0;
                 }
                 else {
-                    var radlat1 = Math.PI * lat1/180;
-                    var radlat2 = Math.PI * lat2/180;
-                    var theta = lon1-lon2;
-                    var radtheta = Math.PI * theta/180;
-                    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-                    if (dist > 1) {
-                        dist = 1;
-                    }
-                    dist = Math.acos(dist);
-                    dist = dist * 180/Math.PI;
-                    dist = dist * 60 * 1.1515;
-                    if (unit==="K") { dist = dist * 1.609344 }
-                    if (unit==="N") { dist = dist * 0.8684 }
-                    document.getElementById("t_total_distance").value =  Math.round(dist);
                     console.log(lat1, lon1, lat2, lon2);
-                    console.log(dist);
-                    console.log( Math.round(dist),lat1, lon1, lat2, lon2);
-                    $('#t_trip_end').attr('disabled', true);
-                    Livewire.emit('total_distance',  Math.round(dist),lat1, lon1, lat2, lon2);
-                    // document.getElementById("t_total_distance").value =  Math.round(dist);
+                    /* 2 decimal places*/
+                    let start = new google.maps.LatLng(lat1,lon1);
+                    let end = new google.maps.LatLng(lat2,lon2);
+
+                    calculateDistance(start, end, function(distance) {
+                        if (distance !== null) {
+                            document.getElementById("t_total_distance").value = distance.toFixed(2);
+                            console.log('Distance: ' + distance + ' km');
+                            $('#t_trip_end').attr('disabled', true);
+                            // Livewire.emit('total_distance',  Math.round(dist),lat1, lon1, lat2, lon2);
+                            Livewire.emit('total_distance',  distance.toFixed(2), lat1, lon1, lat2, lon2);
+                        }
+                    });
                 }
             }
             $('#t_trip_end').attr('disabled', true);
+
+            function calculateDistance(start, end, callback) {
+                let directionsService = new google.maps.DirectionsService();
+
+                directionsService.route({
+                    origin: start,
+                    destination: end,
+                    travelMode: 'DRIVING'
+                }, function(response, status) {
+                    if (status === 'OK') {
+                        let distance = response.routes[0].legs[0].distance.value / 1000; // in km
+                        callback(distance);
+                    } else {
+                        console.error('Directions request failed due to ' + status);
+                        callback(null);
+                    }
+                });
+            }
+
+
         })(jQuery);
     </script>
 @endpush

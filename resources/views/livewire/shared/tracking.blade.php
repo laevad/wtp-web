@@ -32,6 +32,8 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ $apiKey }}&callback=loadMap"></script>
     <script>
         let map;
+        let totalDistance;
+
         function loadMap() {
 
 
@@ -43,8 +45,8 @@
 
             let mapOptions = {
                 mapTypeId: 'roadmap',
-                streetViewControl: false,
-                fullscreenControl: false,
+                streetViewControl: true,
+                fullscreenControl: true,
                 mapTypeControl: false,
                 zoomControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_TOP
@@ -57,16 +59,33 @@
 
 
             directionsService.route({
-                origin:startPoint,
+                origin: startPoint,
                 destination: endPoint,
                 travelMode: 'DRIVING'
             }, function(response, status) {
                 if (status === 'OK') {
                     directionsDisplay.setDirections(response);
+                    var distance = response.routes[0].legs[0].distance.value / 1000; // distance in km
+                    var distanceOverlay = new google.maps.OverlayView();
+                    distanceOverlay.onAdd = function() {
+                        var div = document.createElement('div');
+                        div.style.border = 'none';
+                        div.style.borderWidth = '0px';
+                        div.style.position = 'absolute';
+                        div.style.top = '10px';
+                        div.style.left = '10px';
+                        div.style.padding = '10px';
+                        div.style.backgroundColor = 'white';
+                        div.innerHTML = 'Total distance: ' + distance + ' km';
+                        this.getPanes().floatPane.appendChild(div);
+                    };
+                    distanceOverlay.draw = function() {};
+                    distanceOverlay.setMap(directionsDisplay.getMap());
                 } else {
                     window.alert('Directions request failed due to ' + status);
                 }
             });
+
 
 
             let markers = [
