@@ -45,8 +45,118 @@ class UpdateBooking extends Component{
             't_trip_start'=>'required|min:2|max:200',
             't_trip_end'=>'required|min:2|max:200',
             'trip_status_id'=>['required', Rule::in(TripStatus::YET_TO_START, TripStatus::COMPLETE, TripStatus::ON_GOING, TripStatus::CANCELLED, TripStatus::PENDING)],
-            'trip_start_date'=>'required|date',
-            'trip_end_date'=>'required|date',
+            'trip_start_date' => ['required', 'date', 'after_or_equal:today', 'required_with:driver_id,vehicle_id',
+                /*custom function query trip_start_date with no conflict driver_id*/
+                function ($attribute, $value, $fail) {
+                    /*check driver*/
+                    try {
+                        $driver_id = $this->state['driver_id'];
+                        /*catch end date*/
+                        try {
+                            /*check state isset*/
+                            $trip_start_date = date('Y-m-d', strtotime($value));
+                            $trip_end_date = date('Y-m-d', strtotime($this->state['trip_end_date']));
+                            $trip = Booking::where('trip_start_date', '<=', $trip_end_date)
+                                ->where('trip_end_date', '>=', $trip_start_date)
+                                ->where('driver_id', $driver_id)
+                                /*ongoing or yet to start*/
+                                ->whereIn('trip_status_id', [TripStatus::YET_TO_START, TripStatus::ON_GOING])
+                                ->first();
+                            if ($trip) {
+                                $fail('The driver is already booked on this date.');
+                            }
+                        }catch (\Exception $e){
+                            /*end date*/
+                            $fail('End date field id required .');
+                        }
+                    } catch (\Exception $e) {
+                        $fail('Please select driver and vehicle.');
+                    }
+                },
+                /*check vehicle*/
+                function ($attribute, $value, $fail) {
+                    /*try catch*/
+                    try {
+                        $vehicle_id = $this->state['vehicle_id'];
+                        try {
+                            $trip_start_date = date('Y-m-d', strtotime($value));
+                            /*end date*/
+                            $trip_end_date = date('Y-m-d', strtotime($this->state['trip_end_date']));
+
+                            $trip = Booking::where('trip_start_date', '<=', $trip_end_date)
+                                ->where('trip_end_date', '>=', $trip_start_date)
+                                ->where('vehicle_id', $vehicle_id)
+                                /*ongoing or yet to start*/
+                                ->whereIn('trip_status_id', [TripStatus::YET_TO_START, TripStatus::ON_GOING])
+                                ->first();
+                            if ($trip) {
+                                $fail('The vehicle is already booked on this date.');
+                            }
+                        }catch (\Exception $e){
+                            /*start date*/
+                            $fail('Start date field id required .');
+                        }
+                    } catch (\Exception $e) {
+                        $fail('Please select driver and vehicle.');
+                    }
+                }
+            ],
+            'trip_end_date' => ['required', 'date', 'after_or_equal:today',
+                /*custom function query trip_start_date with no conflict driver_id*/
+                function ($attribute, $value, $fail) {
+                    /*check driver*/
+                    try {
+                        $driver_id = $this->state['driver_id'];
+                        /*catch end date*/
+                        try {
+                            /*check state isset*/
+                            $trip_start_date = date('Y-m-d', strtotime($this->state['trip_start_date']));
+                            $trip_end_date = date('Y-m-d', strtotime($value));
+                            $trip = Booking::where('trip_start_date', '<=', $trip_end_date)
+                                ->where('trip_end_date', '>=', $trip_start_date)
+                                ->where('driver_id', $driver_id)
+                                /*ongoing or yet to start*/
+                                ->whereIn('trip_status_id', [TripStatus::YET_TO_START, TripStatus::ON_GOING])
+                                ->first();
+                            if ($trip) {
+                                $fail('The driver is already booked on this date.');
+                            }
+                        }catch (\Exception $e){
+                            /*end date*/
+                            $fail('End date field id required .');
+                        }
+                    } catch (\Exception $e) {
+                        $fail('Please select driver and vehicle.');
+                    }
+                },
+                /*check vehicle*/
+                function ($attribute, $value, $fail) {
+                    /*try catch*/
+                    try {
+                        $vehicle_id = $this->state['vehicle_id'];
+                        try {
+                            $trip_start_date = date('Y-m-d', strtotime($this->state['trip_start_date']));
+                            /*end date*/
+                            $trip_end_date = date('Y-m-d', strtotime($value));
+                            $trip = Booking::where('trip_start_date', '<=', $trip_end_date)
+                                ->where('trip_end_date', '>=', $trip_start_date)
+                                ->where('vehicle_id', $vehicle_id)
+                                /*ongoing or yet to start*/
+                                ->whereIn('trip_status_id', [TripStatus::YET_TO_START, TripStatus::ON_GOING])
+                                ->first();
+                            if ($trip) {
+                                $fail('The vehicle is already booked on this date.');
+                            }
+                        }catch (\Exception $e){
+                            /*start date*/
+                            $fail('Start date field id required .');
+                        }
+                    } catch (\Exception $e) {
+                        $fail('Please select driver and vehicle.');
+                    }
+                },
+                'after_or_equal:trip_start_date',
+            ],
             't_total_distance'=>'required|numeric',
             'from_latitude'=>'',
             'from_longitude'=>'',
@@ -71,8 +181,118 @@ class UpdateBooking extends Component{
         return Validator::make($this->state,[
             't_trip_start'=>'required|min:2|max:200',
             't_trip_end'=>'required|min:2|max:200',
-            'trip_start_date'=>'required|date',
-            'trip_end_date'=>'required|date',
+            'trip_start_date' => ['required', 'date', 'after_or_equal:today', 'required_with:driver_id,vehicle_id',
+                /*custom function query trip_start_date with no conflict driver_id*/
+                function ($attribute, $value, $fail) {
+                    /*check driver*/
+                    try {
+                        $driver_id = $this->state['driver_id'];
+                        /*catch end date*/
+                        try {
+                            /*check state isset*/
+                            $trip_start_date = date('Y-m-d', strtotime($value));
+                            $trip_end_date = date('Y-m-d', strtotime($this->state['trip_end_date']));
+                            $trip = Booking::where('trip_start_date', '<=', $trip_end_date)
+                                ->where('trip_end_date', '>=', $trip_start_date)
+                                ->where('driver_id', $driver_id)
+                                /*ongoing or yet to start*/
+                                ->whereIn('trip_status_id', [TripStatus::YET_TO_START, TripStatus::ON_GOING])
+                                ->first();
+                            if ($trip) {
+                                $fail('The driver is already booked on this date.');
+                            }
+                        }catch (\Exception $e){
+                            /*end date*/
+                            $fail('End date field id required .');
+                        }
+                    } catch (\Exception $e) {
+                        $fail('Please select driver and vehicle.');
+                    }
+                },
+                /*check vehicle*/
+                function ($attribute, $value, $fail) {
+                    /*try catch*/
+                    try {
+                        $vehicle_id = $this->state['vehicle_id'];
+                        try {
+                            $trip_start_date = date('Y-m-d', strtotime($value));
+                            /*end date*/
+                            $trip_end_date = date('Y-m-d', strtotime($this->state['trip_end_date']));
+
+                            $trip = Booking::where('trip_start_date', '<=', $trip_end_date)
+                                ->where('trip_end_date', '>=', $trip_start_date)
+                                ->where('vehicle_id', $vehicle_id)
+                                /*ongoing or yet to start*/
+                                ->whereIn('trip_status_id', [TripStatus::YET_TO_START, TripStatus::ON_GOING])
+                                ->first();
+                            if ($trip) {
+                                $fail('The vehicle is already booked on this date.');
+                            }
+                        }catch (\Exception $e){
+                            /*start date*/
+                            $fail('Start date field id required .');
+                        }
+                    } catch (\Exception $e) {
+                        $fail('Please select driver and vehicle.');
+                    }
+                }
+            ],
+            'trip_end_date' => ['required', 'date', 'after_or_equal:today',
+                /*custom function query trip_start_date with no conflict driver_id*/
+                function ($attribute, $value, $fail) {
+                    /*check driver*/
+                    try {
+                        $driver_id = $this->state['driver_id'];
+                        /*catch end date*/
+                        try {
+                            /*check state isset*/
+                            $trip_start_date = date('Y-m-d', strtotime($this->state['trip_start_date']));
+                            $trip_end_date = date('Y-m-d', strtotime($value));
+                            $trip = Booking::where('trip_start_date', '<=', $trip_end_date)
+                                ->where('trip_end_date', '>=', $trip_start_date)
+                                ->where('driver_id', $driver_id)
+                                /*ongoing or yet to start*/
+                                ->whereIn('trip_status_id', [TripStatus::YET_TO_START, TripStatus::ON_GOING])
+                                ->first();
+                            if ($trip) {
+                                $fail('The driver is already booked on this date.');
+                            }
+                        }catch (\Exception $e){
+                            /*end date*/
+                            $fail('End date field id required .');
+                        }
+                    } catch (\Exception $e) {
+                        $fail('Please select driver and vehicle.');
+                    }
+                },
+                /*check vehicle*/
+                function ($attribute, $value, $fail) {
+                    /*try catch*/
+                    try {
+                        $vehicle_id = $this->state['vehicle_id'];
+                        try {
+                            $trip_start_date = date('Y-m-d', strtotime($this->state['trip_start_date']));
+                            /*end date*/
+                            $trip_end_date = date('Y-m-d', strtotime($value));
+                            $trip = Booking::where('trip_start_date', '<=', $trip_end_date)
+                                ->where('trip_end_date', '>=', $trip_start_date)
+                                ->where('vehicle_id', $vehicle_id)
+                                /*ongoing or yet to start*/
+                                ->whereIn('trip_status_id', [TripStatus::YET_TO_START, TripStatus::ON_GOING])
+                                ->first();
+                            if ($trip) {
+                                $fail('The vehicle is already booked on this date.');
+                            }
+                        }catch (\Exception $e){
+                            /*start date*/
+                            $fail('Start date field id required .');
+                        }
+                    } catch (\Exception $e) {
+                        $fail('Please select driver and vehicle.');
+                    }
+                },
+                'after_or_equal:trip_start_date',
+            ],
             't_total_distance'=>'required|numeric',
             'from_latitude'=>'',
             'from_longitude'=>'',
