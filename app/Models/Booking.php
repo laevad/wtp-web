@@ -43,7 +43,7 @@ class Booking extends Model
     public function getDateCompletedAttribute($value){
         /*date format: Y/m/d*/
        if ($value !=null){
-           return Carbon::parse($value)->toFormattedDate();
+           return Carbon::parse($value)->toFormattedDateTime();
        }
        return  null;
     }
@@ -92,6 +92,7 @@ class Booking extends Model
     public function getCreateAtAttribute($value){
         return Carbon::parse($value)->toFormattedDate();
     }
+
 
     public function gen_merch(){
         return $this->belongsTo(GenMerch::class);

@@ -62,8 +62,15 @@ class ApiExpenseReportController extends Controller
         if ($validators->fails()){
             return response()->json(['errors' => $err], 422);
         }
-        $bookingSE = Booking::select('id','t_trip_start as trip_start', 't_trip_end as trip_end')
+        $bookingSE = Booking::select('id',
+            't_trip_start as trip_start',
+            't_trip_end as trip_end',
+            /*date completed*/
+            'date_completed',
+        )
             ->where('driver_id', '=',$request->input('user_id'))
+            /*order by date completed*/
+            ->orderBy('date_completed', 'DESC')
             ->get();
         if ($bookingSE->isEmpty()){
             return response()->json(

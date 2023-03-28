@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreign('driver_id')->references('id')->on('users');
             $table->date('trip_start_date')->nullable();
             $table->date('trip_end_date')->nullable();
-            $table->double('t_total_distance')->default(0.0);
+            $table->integer('t_total_distance');
             $table->timestamps();
         });
     }

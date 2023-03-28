@@ -75,7 +75,6 @@ class ApiTripController extends Controller
 
         /*check booking*/
         $check_id = Booking::where('id', '=', $request->input('booking_id'))->first();
-
         $trip_end = strtolower($check_id['t_trip_end']);
 
         /*list of incentise only name and id to array*/
@@ -116,6 +115,8 @@ class ApiTripController extends Controller
 
     public function updateTripStatus(Request $request): JsonResponse
     {
+        /*set default time zone manila*/
+        date_default_timezone_set('Asia/Manila');
         $validators = Validator::make($request->all(), [
             'booking_id' => 'required|exists:bookings,id',
             'status_id' => 'required|exists:trip_statuses,id',
@@ -131,7 +132,11 @@ class ApiTripController extends Controller
             ], 422);
         }
         $book = Booking::where('id', '=', $request->input('booking_id'));
-        $book->update(['trip_status_id' => $request->input('status_id')]);
+        $book->update([
+            'trip_status_id' => $request->input('status_id'),
+            /*date completed now*/
+            'date_completed' => now(),
+        ]);
 
         /*get the book user_id only*/
         $user_id = $book->first()->driver_id;
@@ -174,7 +179,7 @@ class ApiTripController extends Controller
                 'bookings.t_trip_start', 'bookings.t_trip_end', 'driver.name as driver',
                 'bookings.trip_start_date', 'bookings.trip_end_date',
                 'trip_statuses.name as trip_status', 'bookings.t_total_distance', 'bookings.created_at', 'bookings.trip_status_id as status_id',
-                'bookings.from_latitude', 'bookings.from_longitude', 'bookings.to_latitude', 'bookings.to_longitude')
+                'bookings.from_latitude', 'bookings.from_longitude', 'bookings.to_latitude', 'bookings.to_longitude', 'bookings.date_completed')
             ->where('bookings.driver_id', '=', $request->input('driver_id'))
             ->where('driver.role_id', '=', User::ROLE_DRIVER)
             ->where('bookings.trip_status_id', '=', $this->status)
