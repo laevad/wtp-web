@@ -36,20 +36,20 @@
 
 
                         </form>
+                        {{--center div--}}
+                        <div style="background-color: #f5f5f5; border-radius: 5px; padding: 10px; margin-top: 10px">
+
+                            <p class="text-center">Email:
+                            <span>a@a.a</span>
+                            </p>
+                            <p class="text-center">Password: 1234 </p>
+                        </div>
                     </div>
-{{--                    <div class="mx-3 my-2 py-2 bordert">--}}
-{{--                        <div class="text-center py-3">--}}
-{{--                            <a href="" target="_blank" class="px-2">--}}
-{{--                                <img src="https://www.dpreview.com/files/p/articles/4698742202/facebook.jpeg" alt="">--}}
-{{--                            </a>--}}
-{{--                            <a href="" target="_blank" class="px-2">--}}
-{{--                                <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"--}}
-{{--                                     alt="">--}}
-{{--                            </a>--}}
 
 
-{{--                        </div>--}}
-{{--                    </div>--}}
+
+
+
                 </div>
             </div>
         </div>
